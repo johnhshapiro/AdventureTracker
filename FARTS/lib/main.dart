@@ -10,16 +10,17 @@ class BoardsEdge extends StatelessWidget {
   @override
   Widget build(BuildContext context) { // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
     return MaterialApp(
-      title: 'Boards Edge',
+      title: 'Boards Edge',  // <-- Calling the app Boards Edge for now we can change later.
       /*theme: ThemeData(
-        primarySwatch: Colors.black,      <--  We will likely add theme data here later. 
+        primarySwatch: Colors.black,     <--  We will likely add theme data here later. 
       ),*/
-      home: HomePage(title: 'HomePage'),
+      home: HomePage(title: 'Boards Edge'),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatefulWidget { /* Note every stateful Widget requires two classes to implement, this one, the 'createState()' 
+method call at the bottom, and then the class below which extends a state. */
   HomePage({Key key, this.title}) : super(key: key);
 
   final String title;
