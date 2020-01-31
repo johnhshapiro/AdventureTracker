@@ -1,0 +1,39 @@
+This will be continually updated, please feel free to add/edit.
+
+
+***************************************************************Dart Language Notes************************************************************
+
+A Tour of the Dart Language- https://dart.dev/guides/language/language-tour
+A good amount of the following info is covered in the above link if you want to read for yourself from the source material. 
+
+
+Enforcing privacy with underscore prefix-      
+_identifierName (with the underscore prefix) enforces privacy as dart does not have the keywords
+ ‘public’ ‘private’ or ‘protected’ like Java. For details, see https://dart.dev/guides/language/language-tour#libraries-and-visibility
+
+
+State vs Stateless Widgets-
+Stateless widgets are immutable, meaning their properties can’t change – All values are final.
+Stateful widgets maintain a certain state but this state may change during the lifecycle of a widget. Implementing a stateful widget requires
+at least two classes; 1) a StatefulWidget class that creates an instance of 2) a State class. The StatefulWidget class is, itself, immutable,
+but the State class persists over the lifetime of a widget. 
+
+
+
+**********************************************************Flutter SDK and Environment Notes*******************************************************
+
+Importing and loading packages-
+Add package imports to the pubspec.yaml file and then underneath the ‘dependancies:’ list
+You then need to get (load) these packages. You can either just save the yaml file in VScode which will automatically get the package, or run 
+the following in your terminal
+	flutter pub get
+Then add an import statement for your package at the top of the main dart file.
+
+Navigate to a new screen (programmatically)-
+An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous route. 
+
+************************************************************ Helpful Git Commands **************************************************************
+git checkout branchName
+
+git stash   <-- stashes current changes so u can checkout a different branch
+git stash pop   <-- unstash changes once youre back on the branch that has been stashed
