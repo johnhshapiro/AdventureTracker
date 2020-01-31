@@ -18,6 +18,12 @@ Stateful widgets maintain a certain state but this state may change during the l
 at least two classes; 1) a StatefulWidget class that creates an instance of 2) a State class. The StatefulWidget class is, itself, immutable,
 but the State class persists over the lifetime of a widget. 
 
+Widget Catalog and Implementation Notes-
+Here is the whole widget catalog  https://flutter.dev/docs/development/ui/widgets
+
+Here are just the Material Components Widgets (buttons and stuff which will likely be used the most)
+https://flutter.dev/docs/development/ui/widgets/material#Buttons
+
 
 
 **********************************************************Flutter SDK and Environment Notes*******************************************************
