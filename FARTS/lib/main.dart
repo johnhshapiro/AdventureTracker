@@ -28,10 +28,10 @@ method call at the bottom, and then the protected class below which extends a st
   final String title;
 
   @override
-  _HomePageState createState() => _HomePageState(); // The underscore prefix indicates this is a private or protected class, see notes for more.
+  _HomePageState createState() => _HomePageState(); // The underscore prefix indicates this is a private class, see notes for more.
 }
 
-class _HomePageState extends State<HomePage> { // Protected/private class here gives state to the HomePage class
+class _HomePageState extends State<HomePage> { // Private class here gives state to the HomePage class
   @override
   Widget build(BuildContext context) {
     return Scaffold(
