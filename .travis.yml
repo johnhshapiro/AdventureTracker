@@ -5,5 +5,3 @@ script:
   - echo 'Build starts!!'
   - echo 'Installing Deps!'
   - echo 'Testing!'
-
-# connect Travis CI to the codebase via this link https://travis-ci.com/
