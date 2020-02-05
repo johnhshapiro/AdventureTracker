@@ -43,3 +43,9 @@ git checkout branchName
 
 git stash   <-- stashes current changes so u can checkout a different branch
 git stash pop   <-- unstash changes once youre back on the branch that has been stashed
+
+************************************************************ Links to Prototype, Travis, UX, Jira **************************************************************
+Jira https://cs4360flutteradventure.atlassian.net/jira/software/projects/FACS4360/boards/1
+UX https://www.lucidchart.com/documents/edit/0349f137-e774-495f-bbe8-a7cbe2d6bb06/0_0?shared=true
+Travis https://travis-ci.com/johnhshapiro/AdventureTracker
+Prototype 
