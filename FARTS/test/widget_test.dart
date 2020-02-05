@@ -7,4 +7,3 @@ void main() {
     await tester.pumpWidget(BoardsEdge());
   });
 }
-
