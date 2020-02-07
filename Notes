@@ -40,9 +40,9 @@ An app bringing up a new page, called a route in Flutter, is handled by the Navi
 
 ************************************************************ Helpful Git Commands **************************************************************
 git checkout branchName
-
 git stash   <-- stashes current changes so u can checkout a different branch
 git stash pop   <-- unstash changes once youre back on the branch that has been stashed
+git merge nameOfBranchToMergeIntoCurrentBranch
 
 ************************************************************ Links to Prototype, Travis, UX, Jira **************************************************************
 Jira https://cs4360flutteradventure.atlassian.net/jira/software/projects/FACS4360/boards/1
