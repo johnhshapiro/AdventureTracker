@@ -53,8 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                       brightness: Brightness.dark,
                       primarySwatch: Colors.red,
                       inputDecorationTheme: InputDecorationTheme(
-                          labelStyle:
-                              TextStyle(color: Colors.grey, fontSize: 20.0))),
+                          labelStyle: TextStyle(
+                              color: Colors.grey[200], fontSize: 20.0))),
                   child: Container(
                     // This container is also wrapping the next column widget to enable padding (and whatver else we want for layout)
                     padding: const EdgeInsets.all(40.00),
@@ -79,17 +79,25 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.only(
                               top:
-                                  20.0), // Creates padding between login button and forms
+                                  40.0), // Creates padding between login button and forms
                         ),
                         MaterialButton(
-
-                          color: Colors.grey,
+                          color: Colors.grey[200],
                           textColor: Colors.black,
                           child: Text("Login"),
                           onPressed: () => {},
                           // Doesn't do anything right now but will link to the main menu page next!
                           splashColor: Colors
-                              .blueAccent, //Creates the color spalsh when u press the button.
+                              .blueAccent, //Creates the color splash when u press the button.
+                        ),
+                        MaterialButton(
+                          color: Colors.grey[200],
+                          textColor: Colors.black,
+                          child: Text("New User"),
+                          onPressed: () => {},
+                          // Doesn't do anything right now but will link to the create user page!
+                          splashColor: Colors
+                              .blueAccent, //Creates the color splash when u press the button.
                         ),
                       ],
                     ),
