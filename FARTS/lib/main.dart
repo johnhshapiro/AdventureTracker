@@ -30,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
     return new Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
+        // This is a 'Stack' type because it has multiple children elements (Image, and Column which in turn has many children itself)
         fit: StackFit
             .expand, // Note 'fit' here is a property of the body Stack making the image expand to fill the display.
         children: <Widget>[
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
           Column(
             mainAxisAlignment: MainAxisAlignment
-                .center, // Note for column, main axis alignment will be vertically aligned.
+                .center, // For column, main axis alignment will always be vertically aligned (row = horizontal for main axis)
             children: <Widget>[
               Form(
                 child: Theme(
@@ -81,14 +82,15 @@ class _LoginPageState extends State<LoginPage> {
                                   20.0), // Creates padding between login button and forms
                         ),
                         MaterialButton(
+
                           color: Colors.grey,
                           textColor: Colors.black,
                           child: Text("Login"),
                           onPressed: () => {},
+                          // Doesn't do anything right now but will link to the main menu page next!
                           splashColor: Colors
                               .blueAccent, //Creates the color spalsh when u press the button.
                         ),
-                        // Currently doesnt do anything onpressed but will check loging and link to selection screen.
                       ],
                     ),
                   ),
@@ -102,19 +104,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class HomePage extends StatefulWidget {
+class MainMenuPage extends StatefulWidget {
   /* Note every stateful Widget requires two classes to implement, this one, with the 'createState()' 
 method call at the bottom, and then the protected class below which extends a state. */
-  HomePage({Key key, this.title}) : super(key: key);
+  MainMenuPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _HomePageState createState() =>
-      _HomePageState(); // The underscore prefix indicates this is a private class, see notes for more.
+  _MainMenuPageState createState() =>
+      _MainMenuPageState(); // The underscore prefix indicates this is a private class, see notes for more.
 }
 
-class _HomePageState extends State<HomePage> {
+class _MainMenuPageState extends State<MainMenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
