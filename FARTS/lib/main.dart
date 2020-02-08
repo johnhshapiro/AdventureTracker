@@ -81,12 +81,17 @@ class _LoginPageState extends State<LoginPage> {
                               top:
                                   40.0), // Creates padding between login button and forms
                         ),
+                        // TODO: make the button check user credentials. Right now it just logs in no matter what
                         MaterialButton(
                           color: Colors.grey[200],
                           textColor: Colors.black,
                           child: Text("Login"),
-                          onPressed: () => {},
-                          // Doesn't do anything right now but will link to the main menu page next!
+                          onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => MainMenuPage()),
+                              );
+                          },
                           splashColor: Colors
                               .blueAccent, //Creates the color splash when u press the button.
                         ),
