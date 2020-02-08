@@ -14,7 +14,7 @@ class BoardsEdge extends StatelessWidget {
     return MaterialApp(
         home: LoginPage(), // Sets the login page as the home page.
         theme: ThemeData(
-            //primarySwatch: Colors.black **FIXME this is making the build break right now.
+            // TODO: primarySwatch: Colors.black **FIXME this is making the build break right now.
             ));
   }
 }
@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                             labelText: "Enter Username",
                           ),
                           keyboardType: TextInputType
-                              .emailAddress, //This is just telling it to pull up the right keyboard type for an email address
+                              .emailAddress, // This is just telling it to pull up the right keyboard type for an email address
                         ),
                         TextFormField(
                           decoration: InputDecoration(
@@ -87,10 +87,11 @@ class _LoginPageState extends State<LoginPage> {
                           textColor: Colors.black,
                           child: Text("Login"),
                           onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => MainMenuPage()),
-                              );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainMenuPage()),
+                            );
                           },
                           splashColor: Colors
                               .blueAccent, //Creates the color splash when u press the button.
@@ -99,7 +100,13 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey[200],
                           textColor: Colors.black,
                           child: Text("New User"),
-                          onPressed: () => {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateNewUser()),
+                            );
+                          },
                           // Doesn't do anything right now but will link to the create user page!
                           splashColor: Colors
                               .blueAccent, //Creates the color splash when u press the button.
@@ -155,6 +162,85 @@ class _MainMenuPageState extends State<MainMenuPage> {
                 )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CreateNewUser extends StatefulWidget {
+  @override
+  _CreateNewUserState createState() => _CreateNewUserState();
+}
+
+class _CreateNewUserState extends State<CreateNewUser> {
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      backgroundColor: Colors.black,
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Form(
+            child: Theme(
+              data: ThemeData(
+                  brightness: Brightness.dark,
+                  primarySwatch: Colors.red,
+                  backgroundColor: Colors.black,
+                  inputDecorationTheme: InputDecorationTheme(
+                      labelStyle:
+                          TextStyle(color: Colors.grey[200], fontSize: 20.0))),
+              child: Container(
+                padding: const EdgeInsets.all(40.00),
+                child: Column(
+                  // Entering column as a child here allows for multiple forms.
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "New Username",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "Email Address",
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "New Password",
+                      ),
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "Confirm Password",
+                      ),
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                    ),
+                    MaterialButton(
+                      color: Colors.grey[200],
+                      textColor: Colors.black,
+                      child: Text("Create"),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainMenuPage()),
+                        );
+                      },
+                      splashColor: Colors
+                          .blueAccent, //Creates the color splash when u press the button.
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
