@@ -7,14 +7,13 @@ is the single line lambda function syntax for the language. Pretty cool.  */
 
 class BoardsEdge extends StatelessWidget {
   // This is the root Widget (Class).
-  // Global variable declaration goes here I think.
   @override
   Widget build(BuildContext context) {
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
     return MaterialApp(
         home: LoginPage(), // Sets the login page as the home page.
         theme: ThemeData(
-            // TODO: primarySwatch: Colors.black **FIXME this is making the build break right now.
+            // TODO: primarySwatch: Colors.black **FIXME this is making the build break right now with a black inheritance issue from Colors.
             ));
   }
 }
@@ -137,6 +136,21 @@ method call at the bottom, and then the protected class below which extends a st
 }
 
 class _MainMenuPageState extends State<MainMenuPage> {
+  int _selectedIndex = 0;
+  // This index keeps track of the current item selected on the bottom NavBar.
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Index 0: Home', style: optionStyle),
+    Text('Index 1: Sheets', style: optionStyle),
+    Text('Index 3: Profile', style: optionStyle)
+  ];
+
+  void _onItemTapped(int index) {
+    setState( () {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,6 +176,25 @@ class _MainMenuPageState extends State<MainMenuPage> {
                 )
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem> [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            title: Text('Sheets'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.star),
+            title: Text('Profile'),
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
