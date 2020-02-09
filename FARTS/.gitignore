@@ -20,6 +20,13 @@
 # is commented out by default.
 #.vscode/
 
+# Generated code not needed for build
+/android/.project
+/android/.settings
+/android/app/.classpath
+/android/app/.settings
+/android/app/.project
+
 # Flutter/Dart/Pub related
 **/doc/api/
 .dart_tool/
@@ -29,6 +36,9 @@
 .pub-cache/
 .pub/
 /build/
+
+# Coverage Related
+/coverage
 
 # Web related
 lib/generated_plugin_registrant.dart
