@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                   // This theme is wrapping the entire Column child which displays all the text fields, allowing the forms to have their own speerate theme (brighter than the background)
                   data: ThemeData(
                       brightness: Brightness.dark,
-                      primarySwatch: Colors.red,
+                      primarySwatch: Colors.black,
                       inputDecorationTheme: InputDecorationTheme(
                           labelStyle: TextStyle(
                               color: Colors.grey[200], fontSize: 20.0))),

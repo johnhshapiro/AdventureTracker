@@ -20,10 +20,9 @@ but the State class persists over the lifetime of a widget.
 
 Widget Catalog and Implementation Notes-
 Here is the whole widget catalog  https://flutter.dev/docs/development/ui/widgets
-
-Here are just the Material Components Widgets (buttons and stuff which will likely be used the most)
-https://flutter.dev/docs/development/ui/widgets/material#Buttons
-
+Here are just the Material Components Widgets (buttons and stuff which will likely be used the most) https://flutter.dev/docs/development/ui/widgets/material#Buttons
+Some widget properties take a single widget(child) whereas other properties like 'action' can take a array of widgets (children) denoted by the 
+square brakcets[].
 
 
 **********************************************************Flutter SDK and Environment Notes*******************************************************
@@ -36,7 +35,9 @@ the following in your terminal
 Then add an import statement for your package at the top of the main dart file.
 
 Navigate to a new screen (programmatically)-
-An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous route. 
+An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing 
+a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous 
+route.
 
 ************************************************************ Helpful Git Commands **************************************************************
 git checkout branchName
