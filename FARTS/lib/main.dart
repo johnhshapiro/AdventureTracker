@@ -147,10 +147,24 @@ class _MainMenuPageState extends State<MainMenuPage> {
   ];
 
   void _onItemTapped(int index) {
-    setState( () {
+    setState(() {
       _selectedIndex = index;
+      if (index == 0) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MainMenuPage()),
+        );
+      }
+
+      if (index == 1) {
+        // TODO add a route for the sheets page here.
+      }
+      if (index == 2) {
+        // TODO add a route for the profile page here.
+      }
     });
   }
+
   // All the code from the beginning of the class to here is for the NavBar
   @override
   Widget build(BuildContext context) {
@@ -168,18 +182,20 @@ class _MainMenuPageState extends State<MainMenuPage> {
               ),
             ),
             const RaisedButton(
-              onPressed: null,
-              child: Text(
-                'Adventurer',
-                style: TextStyle(fontSize: 20,color: Colors.black)) // Change the style of the button here. Might be abe to link this to a custom theme we create later.
-            )
+                onPressed: null,
+                child: Text('Adventurer',
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors
+                            .black)) // Change the style of the button here. Might be abe to link this to a custom theme we create later.
+                )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         unselectedItemColor: Colors.white,
-        items: const <BottomNavigationBarItem> [
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
