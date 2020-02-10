@@ -21,6 +21,7 @@ but the State class persists over the lifetime of a widget.
 Widget Catalog and Implementation Notes-
 Here is the whole widget catalog  https://flutter.dev/docs/development/ui/widgets
 Here are just the Material Components Widgets (buttons and stuff which will likely be used the most) https://flutter.dev/docs/development/ui/widgets/material#Buttons
+
 Some widget properties take a single widget(child) whereas other properties like 'action' can take a array of widgets (children) denoted by the 
 square brakcets[].
 
@@ -48,5 +49,6 @@ git merge nameOfBranchToMergeIntoCurrentBranch
 ************************************************************ Links to Prototype, Travis, UX, Jira **************************************************************
 Jira https://cs4360flutteradventure.atlassian.net/jira/software/projects/FACS4360/boards/1
 UX https://www.lucidchart.com/documents/edit/0349f137-e774-495f-bbe8-a7cbe2d6bb06/0_0?shared=true
-Travis https://travis-ci.com/johnhshapiro/AdventureTracker
-Prototype 
+Prototype https://ijos5w.axshare.com/#id=o0wske&p=home
+Travis https://travis-ci.com/johnhshapiro/AdventureTracker 
+Coveralls Code Covergae: https://coveralls.io/github/johnhshapiro/AdventureTracker

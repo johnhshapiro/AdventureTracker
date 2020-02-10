@@ -63,14 +63,14 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: "Enter Username",
+                            labelText: "Username",
                           ),
                           keyboardType: TextInputType
                               .emailAddress, // This is just telling it to pull up the right keyboard type for an email address
                         ),
                         TextFormField(
                           decoration: InputDecoration(
-                            labelText: "Enter Password",
+                            labelText: "Password",
                           ),
                           keyboardType: TextInputType.text,
                           obscureText: true,
@@ -124,8 +124,8 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class MainMenuPage extends StatefulWidget {
-  /* Note every stateful Widget requires two classes to implement, this one, with the 'createState()' 
-method call at the bottom, and then the protected class below which extends a state. */
+  /* Note every stateful Widget requires two classes to implement. This stateless immuatable one with the 'createState()' 
+method creates a stateful insatnce of _MainMenuPageState which is implemented under MainMenuPage. */
   MainMenuPage({Key key, this.title}) : super(key: key);
 
   final String title;
@@ -151,6 +151,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       _selectedIndex = index;
     });
   }
+  // All the code from the beginning of the class to here is for the NavBar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,38 +163,38 @@ class _MainMenuPageState extends State<MainMenuPage> {
               onPressed:
                   null, // Null will be changed to link to the next screen. This is a good next thing to work on.
               child: Text(
-                'Dungeon Master',
+                'Game Master',
                 style: TextStyle(fontSize: 20, color: Colors.black),
               ),
             ),
             const RaisedButton(
-                onPressed: null,
-                child: Text('Adventurer',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors
-                            .black)) // Change the style of the button here. Might be abe to link this to a custom theme we create later.
-                )
+              onPressed: null,
+              child: Text(
+                'Adventurer',
+                style: TextStyle(fontSize: 20,color: Colors.black)) // Change the style of the button here. Might be abe to link this to a custom theme we create later.
+            )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        unselectedItemColor: Colors.white,
         items: const <BottomNavigationBarItem> [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.chrome_reader_mode),
             title: Text('Sheets'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.person),
             title: Text('Profile'),
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Colors.yellow[600],
         onTap: _onItemTapped,
       ),
     );
@@ -209,7 +210,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      backgroundColor: Colors.black,
+      //backgroundColor: Colors.black12,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
