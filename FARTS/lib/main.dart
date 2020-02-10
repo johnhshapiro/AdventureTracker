@@ -13,8 +13,22 @@ class BoardsEdge extends StatelessWidget {
     return MaterialApp(
         home: LoginPage(), // Sets the login page as the home page.
         theme: ThemeData(
-            // TODO: primarySwatch: Colors.black **FIXME this is making the build break right now with a black inheritance issue from Colors.
-            ));
+            // Define the default brightness and colors.
+            brightness: Brightness.dark,
+            primaryColor: Colors.black,
+            accentColor: Colors.amber,
+
+            // Define default font family
+            fontFamily: 'Georgia',
+
+            // Define the default TextTheme. Use this to specify the default
+            // text styling for headlines, titles, bodies of text, and more.
+            textTheme: TextTheme(
+              headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+              title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+              body1: TextStyle(fontSize: 14.0, fontFamily: 'Georgia')
+            ),
+        ));
   }
 }
 
@@ -143,24 +157,31 @@ class _MainMenuPageState extends State<MainMenuPage> {
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text('Index 1: Sheets', style: optionStyle),
-    Text('Index 3: Profile', style: optionStyle)
+    Text('Index 2: Rules', style: optionStyle),
+    Text('Index 3: Spells', style: optionStyle),
+    Text('Index 4: Profile', style: optionStyle)
   ];
 
   // This function is for the NavBar.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if (index == 0) {
+      if (_selectedIndex == 0) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MainMenuPage()),
         );
       }
-
-      if (index == 1) {
+      if (_selectedIndex == 1) {
         // TODO add a route for the sheets page here.
       }
-      if (index == 2) {
+      if (_selectedIndex == 2) {
+        // TODO add a route for the rules page here.
+      }
+      if (_selectedIndex == 3) {
+        // TODO add a route for the spells page here.
+      }
+      if (_selectedIndex == 4) {
         // TODO add a route for the profile page here.
       }
     });
@@ -179,23 +200,22 @@ class _MainMenuPageState extends State<MainMenuPage> {
                   null, // Null will be changed to link to the next screen. This is a good next thing to work on.
               child: Text(
                 'Game Master',
-                style: TextStyle(fontSize: 20, color: Colors.black),
-              ),
+                //style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
             ),
             const RaisedButton(
-                onPressed: null,
-                child: Text('Adventurer',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Colors
-                            .black)) // Change the style of the button here. Might be abe to link this to a custom theme we create later.
-                )
+              onPressed: 
+                null,
+              child: Text(
+                'Adventurer',
+                //style: TextStyle(fontSize: 20, color: Colors.black),
+                ), 
+            )
           ],
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        unselectedItemColor: Colors.white,
+        //unselectedItemColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -204,6 +224,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chrome_reader_mode),
             title: Text('Sheets'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chrome_reader_mode),
+            title: Text('Rules'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chrome_reader_mode),
+            title: Text('Spells'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
