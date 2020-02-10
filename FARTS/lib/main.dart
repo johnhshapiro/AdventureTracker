@@ -146,6 +146,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
     Text('Index 3: Profile', style: optionStyle)
   ];
 
+  // This function is for the NavBar.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
