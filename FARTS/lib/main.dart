@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -40,8 +41,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.black,
+    return Scaffold(
+      //backgroundColor: Colors.black,
       body: Stack(
         // This is a 'Stack' type because it has multiple children elements (Image, and Column which in turn has many children itself)
         fit: StackFit
@@ -51,9 +52,8 @@ class _LoginPageState extends State<LoginPage> {
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
               color: Colors
-                  .black87, // The number here is the opacity (87% opaque to help get the layered look with the background image)
-              colorBlendMode: BlendMode
-                  .darken // Blends the background color with the background image.
+                  .black54, // The number here is the opacity.
+              colorBlendMode: BlendMode.color // Blends the background color with the background image.
               ),
           Column(
             mainAxisAlignment: MainAxisAlignment
@@ -92,12 +92,11 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.only(
                               top:
-                                  40.0), // Creates padding between login button and forms
+                                  40.0),
                         ),
                         // TODO: make the button check user credentials. Right now it just logs in no matter what
                         MaterialButton(
-                          color: Colors.grey[200],
-                          textColor: Colors.black,
+                          color: Colors.black87,
                           child: Text("Login"),
                           onPressed: () {
                             Navigator.push(
@@ -107,11 +106,10 @@ class _LoginPageState extends State<LoginPage> {
                             );
                           },
                           splashColor: Colors
-                              .blueAccent, //Creates the color splash when u press the button.
+                              .amber, //Creates the color splash when u press the button.
                         ),
                         MaterialButton(
-                          color: Colors.grey[200],
-                          textColor: Colors.black,
+                          color: Colors.black87,
                           child: Text("New User"),
                           onPressed: () {
                             Navigator.push(
@@ -122,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           // Doesn't do anything right now but will link to the create user page!
                           splashColor: Colors
-                              .blueAccent, //Creates the color splash when u press the button.
+                              .amber, //Creates the color splash when u press the button.
                         ),
                       ],
                     ),
@@ -194,7 +192,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: <Widget>[ 
             const RaisedButton(
               onPressed:
                   null, // Null will be changed to link to the next screen. This is a good next thing to work on.
