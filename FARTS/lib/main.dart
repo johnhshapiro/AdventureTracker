@@ -1,4 +1,3 @@
-//import 'dart:html'; What is this for it wont compile for me with this line included?
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -272,7 +271,7 @@ final _formkey = GlobalKey<FormState>();
                       labelStyle:
                           TextStyle(color: Colors.grey[200], fontSize: 20.0))),
               child: Container(
-                padding: const EdgeInsets.all(40.00),
+                padding: const EdgeInsets.all(5.00),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
