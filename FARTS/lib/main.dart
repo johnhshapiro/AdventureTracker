@@ -252,6 +252,8 @@ class CreateNewUser extends StatefulWidget {
 }
 
 class _CreateNewUserState extends State<CreateNewUser> {
+final _formkey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -260,6 +262,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
         fit: StackFit.expand,
         children: <Widget>[
           Form(
+            key: _formkey,
             child: Theme(
               data: ThemeData(
                   brightness: Brightness.dark,
@@ -271,29 +274,51 @@ class _CreateNewUserState extends State<CreateNewUser> {
               child: Container(
                 padding: const EdgeInsets.all(40.00),
                 child: Column(
-                  // Entering column as a child here allows for multiple forms.
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Required Field';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
-                        labelText: "New Username",
+                        labelText: "Username"
                       ),
-                      keyboardType: TextInputType.emailAddress,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Required Field';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Email Address",
                       ),
                       keyboardType: TextInputType.emailAddress,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Required Field';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
-                        labelText: "New Password",
+                        labelText: "Password",
                       ),
                       keyboardType: TextInputType.text,
                       obscureText: true,
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Required Field';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(
                         labelText: "Confirm Password",
                       ),
@@ -305,11 +330,12 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       textColor: Colors.black,
                       child: Text("Create"),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainMenuPage()),
+                        if (_formkey.currentState.validate()) {
+                          //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields')));
+                          SnackBar(content: Text('c'));
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => MainMenuPage()),
                         );
+                        }
                       },
                       splashColor: Colors
                           .blueAccent, //Creates the color splash when u press the button.
