@@ -26,7 +26,7 @@ Some widget properties take a single widget(child) whereas other properties like
 square brakcets[].
 
 
-**********************************************************Flutter SDK and Environment Notes*******************************************************
+**********************************************************Flutter SDK API and Environment Notes*******************************************************
 
 Importing and loading packages-
 Add package imports to the pubspec.yaml file and then underneath the ‘dependancies:’ list
@@ -39,6 +39,10 @@ Navigate to a new screen (programmatically)-
 An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing 
 a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous 
 route.
+
+Theme API- https://flutter.dev/docs/cookbook/design/themes
+
+Awesome guides from medium - https://medium.com/coding-with-flutter
 
 ************************************************************ Helpful Git Commands **************************************************************
 git checkout branchName
