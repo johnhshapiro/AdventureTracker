@@ -216,13 +216,14 @@ class _MainMenuPageState extends State<MainMenuPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         //unselectedItemColor: Colors.black,
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             title: Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chrome_reader_mode),
+            icon: Icon(Icons.subtitles),
             title: Text('Sheets'),
           ),
           BottomNavigationBarItem(
@@ -240,6 +241,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.yellow[600],
+        unselectedItemColor: Colors.black,
         onTap: _onItemTapped,
       ),
     );
