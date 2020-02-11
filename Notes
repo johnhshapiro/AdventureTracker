@@ -42,6 +42,8 @@ route.
 
 Theme API- https://flutter.dev/docs/cookbook/design/themes
 
+Awesome guides from medium - https://medium.com/coding-with-flutter
+
 ************************************************************ Helpful Git Commands **************************************************************
 git checkout branchName
 git stash   <-- stashes current changes so u can checkout a different branch

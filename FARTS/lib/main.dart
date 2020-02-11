@@ -51,8 +51,8 @@ class _LoginPageState extends State<LoginPage> {
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
               color: Colors
-                  .black54, // The number here is the opacity.
-              colorBlendMode: BlendMode.color // Blends the background color with the background image.
+                  .black87, // The number here is the opacity.
+              colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
               ),
           Column(
             mainAxisAlignment: MainAxisAlignment
@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         // TODO: make the button check user credentials. Right now it just logs in no matter what
                         MaterialButton(
-                          color: Colors.black87,
+                          color: Colors.grey[800],
                           child: Text("Login"),
                           onPressed: () {
                             Navigator.push(
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                               .amber, //Creates the color splash when u press the button.
                         ),
                         MaterialButton(
-                          color: Colors.black87,
+                          color: Colors.grey[800],
                           child: Text("New User"),
                           onPressed: () {
                             Navigator.push(
@@ -260,6 +260,13 @@ final _formkey = GlobalKey<FormState>();
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+          Image(
+              image: AssetImage("assets/loginImage.jpg"),
+              fit: BoxFit.cover,
+              color: Colors
+                  .black87, // The number here is the opacity.
+              colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
+              ),
           Form(
             key: _formkey,
             child: Theme(
@@ -271,7 +278,7 @@ final _formkey = GlobalKey<FormState>();
                       labelStyle:
                           TextStyle(color: Colors.grey[200], fontSize: 20.0))),
               child: Container(
-                padding: const EdgeInsets.all(5.00),
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -325,19 +332,18 @@ final _formkey = GlobalKey<FormState>();
                       obscureText: true,
                     ),
                     MaterialButton(
-                      color: Colors.grey[200],
-                      textColor: Colors.black,
+                      color: Colors.grey[800],
                       child: Text("Create"),
                       onPressed: () {
                         if (_formkey.currentState.validate()) {
-                          //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields')));
+                          //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields'))); TODO fixme show snackbar 'Checking Fields' on the press of create user
                           SnackBar(content: Text('c'));
                             Navigator.push(context,MaterialPageRoute(builder: (context) => MainMenuPage()),
                         );
                         }
                       },
                       splashColor: Colors
-                          .blueAccent, //Creates the color splash when u press the button.
+                          .amber, //Creates the color splash when u press the button.
                     ),
                   ],
                 ),
