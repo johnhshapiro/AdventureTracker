@@ -8,7 +8,7 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 void main() {
   // Test adapted from Iiro Krankka from page
   // https://stackoverflow.com/questions/50704647/how-to-test-navigation-via-navigator-in-flutter
-  // From the flutter.dev docs: https://flutter.dev/docs/cookbook/testing/widget/introduction
+  // From the flutter.dev docs: https://flutter.dev/docs/cookbook/testing/unit/mocking
   group('LOGIN PAGE widget tests', () {
     testWidgets('Login button is present and triggers navigation after tapped',
     (WidgetTester tester) async {
@@ -29,7 +29,7 @@ void main() {
 
       /// You'd also want to be sure that your page is now
       /// present in the screen.
-      expect(find.byType(MainMenuPage), findsOneWidget);
+      expect(find.byType(HomePage), findsOneWidget);
     });
     testWidgets('New user button is present and triggers navigation after tapped',
         (WidgetTester tester) async {
@@ -77,7 +77,7 @@ void main() {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: MainMenuPage(),
+            home: HomePage(),
             navigatorObservers: [mockObserver],
           ),
         );
@@ -87,14 +87,14 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
-        expect(find.byType(MainMenuPage), findsOneWidget);
+        expect(find.byType(HomePage), findsOneWidget);
     });
     testWidgets('NavBar Sheets Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: MainMenuPage(),
+            home: HomePage(),
             navigatorObservers: [mockObserver],
           ),
         );
@@ -104,14 +104,14 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
-        expect(find.byType(MainMenuPage), findsOneWidget);
+        expect(find.byType(HomePage), findsOneWidget);
     });
     testWidgets('NavBar Rules Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: MainMenuPage(),
+            home: HomePage(),
             navigatorObservers: [mockObserver],
           ),
         );
@@ -121,14 +121,14 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
-        expect(find.byType(MainMenuPage), findsOneWidget);
+        expect(find.byType(HomePage), findsOneWidget);
     });
     testWidgets('NavBar Spells Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: MainMenuPage(),
+            home: HomePage(),
             navigatorObservers: [mockObserver],
           ),
         );
@@ -138,7 +138,7 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
-        expect(find.byType(MainMenuPage), findsOneWidget);
+        expect(find.byType(HomePage), findsOneWidget);
     });
   });
   testWidgets('NavBar Profile Button test',
@@ -146,7 +146,7 @@ void main() {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
           MaterialApp(
-            home: MainMenuPage(),
+            home: HomePage(),
             navigatorObservers: [mockObserver],
           ),
         );
@@ -156,6 +156,6 @@ void main() {
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
-        expect(find.byType(MainMenuPage), findsOneWidget);
+        expect(find.byType(HomePage), findsOneWidget);
     });
 }

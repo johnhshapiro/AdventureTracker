@@ -19,7 +19,7 @@ class BoardsEdge extends StatelessWidget {
         theme: ThemeData(
             // Define the default brightness and colors.
             brightness: Brightness.dark,
-            primaryColor: Colors.black,
+            primaryColor: Colors.grey[800],
             accentColor: Colors.amber,
 
             // Define default font family
@@ -105,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MainMenuPage()),
+                                  builder: (context) => HomePage()),
                             );
                           },
                           splashColor: Colors
@@ -138,21 +138,16 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-class MainMenuPage extends StatefulWidget {
-  /* Note every stateful Widget requires two classes to implement. This stateless immuatable one with the 'createState()' 
-method creates a stateful insatnce of _MainMenuPageState which is implemented under MainMenuPage. */
-  MainMenuPage({Key key, this.title}) : super(key: key);
-
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
-
   @override
-  _MainMenuPageState createState() =>
-      _MainMenuPageState(); // The underscore prefix indicates this is a private class, see notes for more.
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MainMenuPageState extends State<MainMenuPage> {
-  int _selectedIndex = 0;
+class _HomePageState extends State<HomePage> {
   // This index keeps track of the current item selected on the bottom NavBar.
+  int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -170,7 +165,7 @@ class _MainMenuPageState extends State<MainMenuPage> {
       if (_selectedIndex == 0) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => MainMenuPage()),
+          MaterialPageRoute(builder: (context) => HomePage()),
         );
       }
       if (_selectedIndex == 1) {
@@ -187,36 +182,45 @@ class _MainMenuPageState extends State<MainMenuPage> {
       }
     });
   }
-
-  // All the code from the beginning of the class to here is for the NavBar
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[ 
-            const RaisedButton(
-              onPressed:
-                  null, // Null will be changed to link to the next screen. This is a good next thing to work on.
-              child: Text(
-                'Game Master',
-                //style: TextStyle(fontSize: 20, color: Colors.black),
-                ),
-            ),
-            const RaisedButton(
-              onPressed: 
-                null,
-              child: Text(
-                'Adventurer',
-                //style: TextStyle(fontSize: 20, color: Colors.black),
-                ), 
-            )
-          ],
-        ),
-      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image(
+            image: AssetImage("assets/loginImage.jpg"),
+            fit: BoxFit.cover,
+            color: Colors
+                .black87, // The number here is the opacity.
+            colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+            Form(child: Container(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  MaterialButton(
+                    onPressed: () {
+                    },
+                    child: Text('Game Master'),
+                    color: Colors.grey[800],
+                  ),
+                  MaterialButton(
+                    onPressed: () {
+                    },
+                    child: Text('Adventurer'),
+                    color: Colors.grey[800],
+                  ),
+                ],
+              ),
+            )),
+          ],)
+        ],),
       bottomNavigationBar: BottomNavigationBar(
-        //unselectedItemColor: Colors.black,
         type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -347,7 +351,7 @@ var _pwCheck;
                         if (_formkey.currentState.validate()) {
                           //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields'))); TODO fixme show snackbar 'Checking Fields' on the press of create user
                           SnackBar(content: Text('c'));
-                            Navigator.push(context,MaterialPageRoute(builder: (context) => MainMenuPage()),
+                            Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage()),
                         );
                         }
                       },
