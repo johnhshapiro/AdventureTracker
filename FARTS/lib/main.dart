@@ -7,6 +7,10 @@ is the single line lambda function syntax for the language. Pretty cool.  */
 
 class BoardsEdge extends StatelessWidget {
   // This is the root Widget (Class).
+
+  // This is a test variable for a unit test demo in FARTS/test/main_test.dart 
+  final int unitTestVar = 0;
+
   @override
   Widget build(BuildContext context) {
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
