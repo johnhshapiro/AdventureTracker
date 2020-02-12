@@ -106,5 +106,56 @@ void main() {
         verify(mockObserver.didPush(any, any));
         expect(find.byType(MainMenuPage), findsOneWidget);
     });
+    testWidgets('NavBar Rules Button test',
+      (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MainMenuPage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.text('Rules'), findsOneWidget);
+        await tester.tap(find.text('Rules'));
+        await tester.pumpAndSettle();
+
+        verify(mockObserver.didPush(any, any));
+        expect(find.byType(MainMenuPage), findsOneWidget);
+    });
+    testWidgets('NavBar Spells Button test',
+      (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MainMenuPage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.text('Spells'), findsOneWidget);
+        await tester.tap(find.text('Spells'));
+        await tester.pumpAndSettle();
+
+        verify(mockObserver.didPush(any, any));
+        expect(find.byType(MainMenuPage), findsOneWidget);
+    });
   });
+  testWidgets('NavBar Profile Button test',
+      (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: MainMenuPage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.text('Profile'), findsOneWidget);
+        await tester.tap(find.text('Profile'));
+        await tester.pumpAndSettle();
+
+        verify(mockObserver.didPush(any, any));
+        expect(find.byType(MainMenuPage), findsOneWidget);
+    });
 }
