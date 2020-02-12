@@ -256,11 +256,11 @@ class CreateNewUser extends StatefulWidget {
 
 class _CreateNewUserState extends State<CreateNewUser> {
 final _formkey = GlobalKey<FormState>();
+var _pwCheck;
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      //backgroundColor: Colors.black12,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -282,14 +282,15 @@ final _formkey = GlobalKey<FormState>();
                       labelStyle:
                           TextStyle(color: Colors.grey[200], fontSize: 20.0))),
               child: Container(
-                padding: const EdgeInsets.only(top: 10.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      // Username
                       validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required Field';
+                        if (value.isEmpty || value.length < 4) {
+                          return 'Must Be At Least 4 Characters';
                         }
                         return null;
                       },
@@ -298,9 +299,10 @@ final _formkey = GlobalKey<FormState>();
                       ),
                     ),
                     TextFormField(
+                      // Email
                       validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required Field';
+                        if (value.isEmpty || !value.contains('@')) {
+                          return 'Invalid Email';
                         }
                         return null;
                       },
@@ -310,9 +312,11 @@ final _formkey = GlobalKey<FormState>();
                       keyboardType: TextInputType.emailAddress,
                     ),
                     TextFormField(
+                      // Password
                       validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required Field';
+                        _pwCheck = value;
+                        if (value.isEmpty || value.length < 8 ) {
+                          return 'Must be at least 8 characters';
                         }
                         return null;
                       },
@@ -323,9 +327,10 @@ final _formkey = GlobalKey<FormState>();
                       obscureText: true,
                     ),
                     TextFormField(
+                      // Confirm Password
                       validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Required Field';
+                        if (value.isEmpty || value != _pwCheck) {
+                          return 'Password Doesn''\'t Match';
                         }
                         return null;
                       },
