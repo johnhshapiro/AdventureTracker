@@ -208,12 +208,14 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: Text('Game Master'),
                     color: Colors.grey[800],
+                    splashColor: Colors.amber,
                   ),
                   MaterialButton(
                     onPressed: () {
                     },
                     child: Text('Adventurer'),
                     color: Colors.grey[800],
+                    splashColor: Colors.amber,
                   ),
                 ],
               ),
@@ -336,6 +338,7 @@ var _pwCheck;
                         if (value.isEmpty || value != _pwCheck) {
                           return 'Password Doesn''\'t Match';
                         }
+                        _pwCheck = 'fuck you';
                         return null;
                       },
                       decoration: InputDecoration(
