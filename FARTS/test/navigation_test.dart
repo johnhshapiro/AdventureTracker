@@ -71,7 +71,7 @@ void main() {
     });
   });
 
-  group('SELECT MODE PAGE NAVBAR widget tests', () {
+  group('HOMEPAGE NAVBAR widget tests', () {
     testWidgets('NavBar Home Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
@@ -140,8 +140,7 @@ void main() {
         verify(mockObserver.didPush(any, any));
         expect(find.byType(HomePage), findsOneWidget);
     });
-  });
-  testWidgets('NavBar Profile Button test',
+    testWidgets('NavBar Profile Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
@@ -158,4 +157,42 @@ void main() {
         verify(mockObserver.didPush(any, any));
         expect(find.byType(HomePage), findsOneWidget);
     });
+  });
+
+  group('Homepage non-navbar button tests', () {
+    testWidgets('Game Master button widget test',
+      (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: HomePage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.text('Game Master'), findsOneWidget);
+        await tester.tap(find.text('Game Master'));
+        await tester.pumpAndSettle();
+
+        verify(mockObserver.didPush(any, any));
+        expect(find.byType(HomePage), findsOneWidget);
+    });
+    testWidgets('Adventurer button widget test',
+      (WidgetTester tester) async {
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+            home: HomePage(),
+            navigatorObservers: [mockObserver],
+          ),
+        );
+
+        expect(find.text('Adventurer'), findsOneWidget);
+        await tester.tap(find.text('Adventurer'));
+        await tester.pumpAndSettle();
+
+        verify(mockObserver.didPush(any, any));
+        expect(find.byType(HomePage), findsOneWidget);
+    });
+  });
 }
