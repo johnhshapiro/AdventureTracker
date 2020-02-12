@@ -8,46 +8,78 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 void main() {
   /// Test adapted from Iiro Krankka from page
   /// https://stackoverflow.com/questions/50704647/how-to-test-navigation-via-navigator-in-flutter
-  testWidgets('Button is present and triggers navigation after tapped',
-      (WidgetTester tester) async {
-    final mockObserver = MockNavigatorObserver();
-    await tester.pumpWidget(
-      MaterialApp(
-        home: LoginPage(),
-        navigatorObservers: [mockObserver],
-      ),
-    );
+  
+  group('LOGIN PAGE widget tests', () {
+    testWidgets('Login button is present and triggers navigation after tapped',
+    (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: LoginPage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
 
-    expect(find.text('Login'), findsOneWidget);
-    await tester.tap(find.text('Login'));
-    await tester.pumpAndSettle();
+      expect(find.text('Login'), findsOneWidget);
+      await tester.tap(find.text('Login'));
+      await tester.pumpAndSettle();
 
-    /// Verify that a push event happened
-    verify(mockObserver.didPush(any, any));
+      /// Verify that a push event happened
+      verify(mockObserver.didPush(any, any));
 
-    /// You'd also want to be sure that your page is now
-    /// present in the screen.
-    expect(find.byType(MainMenuPage), findsOneWidget);
+      /// You'd also want to be sure that your page is now
+      /// present in the screen.
+      expect(find.byType(MainMenuPage), findsOneWidget);
+    });
+    testWidgets('New user button is present and triggers navigation after tapped',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: LoginPage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('New User'), findsOneWidget);
+      await tester.tap(find.text('New User'));
+      await tester.pumpAndSettle();
+
+      /// Verify that a push event happened
+      verify(mockObserver.didPush(any, any));
+
+      /// You'd also want to be sure that your page is now
+      /// present in the screen.
+      expect(find.byType(CreateNewUser), findsOneWidget); 
+    });
   });
-  testWidgets('Button is present and triggers navigation after tapped',
+  
+
+  group('CREATE NEW USER PAGE widget tests', () {
+    testWidgets('Create new user button is present and triggers navigation after tapped',
       (WidgetTester tester) async {
-    final mockObserver = MockNavigatorObserver();
-    await tester.pumpWidget(
-      MaterialApp(
-        home: CreateNewUser(),
-        navigatorObservers: [mockObserver],
-      ),
-    );
+        final mockObserver = MockNavigatorObserver();
+        await tester.pumpWidget(
+          MaterialApp(
+          home: CreateNewUser(),
+          navigatorObservers: [mockObserver],
+          ),
+        );
 
-    expect(find.text('Create'), findsOneWidget);
-    await tester.tap(find.text('Create'));
-    await tester.pumpAndSettle();
+        expect(find.text('Create'), findsOneWidget);
+        await tester.tap(find.text('Create'));
+        await tester.pumpAndSettle();
 
-    /// Verify that a push event happened
-    verify(mockObserver.didPush(any, any));
+        /// Verify that a push event happened
+        verify(mockObserver.didPush(any, any));
 
-    /// You'd also want to be sure that your page is now
-    /// present in the screen.
-    //expect(find.byType(MainMenuPage), findsOneWidget); TODO this is breaking the build right now, fix widget testing. 
+        /// You'd also want to be sure that your page is now
+        /// present in the screen.
+        expect(find.byType(CreateNewUser), findsOneWidget); 
+    });
+  });
+
+  group('SELECT MODE PAGE widget tests', () {
+    
   });
 }
