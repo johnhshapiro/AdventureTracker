@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     LoginPage(),
     SelectModePage(),
     CreateNewUser(),
-    CreateNewUser()
+    CreateNewUser(),
   ];
 
   // This function and variable are for the NavBar.

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import './homepage.dart';
@@ -13,7 +15,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -65,7 +67,8 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     TextFormField(
                       // Password
                       validator: (value) {
-                        _pwCheck = value;
+                        _pwCheck = value; // TODO don't store the password value for checking password match purposes, instead create a hashfunction. 
+                        // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.
                         if (value.isEmpty || value.length < 8) {
                           return 'Must be at least 8 characters';
                         }
@@ -93,21 +96,22 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       keyboardType: TextInputType.text,
                       obscureText: true,
                     ),
-                    MaterialButton(
-                      color: Colors.grey[800],
-                      child: Text("Create"),
-                      onPressed: () {
-                        if (_formkey.currentState.validate()) {
-                          //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields'))); TODO fixme show snackbar 'Checking Fields' on the press of create user
-                          SnackBar(content: Text('c'));
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
-                        }
-                      },
-                      splashColor: Colors
-                          .amber, //Creates the color splash when u press the button.
+                    Builder(
+                      builder: (context) => MaterialButton(
+                        color: Colors.grey[800],
+                        child: Text("Create"),
+                        onPressed: () {
+                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Inputs...'),));
+                          if (_formkey.currentState.validate()) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomePage()),
+                            );
+                          }
+                        },
+                        splashColor: Colors
+                            .amber, //Creates the color splash when u press the button.
+                      ),
                     ),
                   ],
                 ),
