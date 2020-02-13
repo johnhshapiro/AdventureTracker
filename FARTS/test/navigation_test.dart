@@ -1,3 +1,4 @@
+import 'package:FARTS/selectmodepage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ void main() {
 
       /// You'd also want to be sure that your page is now
       /// present in the screen.
-      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(SelectModePage), findsOneWidget);
     });
     testWidgets(
         'New user button is present and triggers navigation after tapped',
