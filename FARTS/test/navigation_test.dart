@@ -1,9 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:FARTS/main.dart';
-import 'package:FARTS/selectmodepage.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
 
+//import 'package:FARTS/main.dart';
+//import 'package:FARTS/selectmodepage.dart';
+import 'package:FARTS/homepage.dart';
+import 'package:FARTS/createnewuserpage.dart';
+import 'package:FARTS/loginpage.dart';
 
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
