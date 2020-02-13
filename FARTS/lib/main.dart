@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import './selectmodepage.dart';
+
 void main() => runApp(BoardsEdge());
 /*Loads 'main' as a Widget, even the app itself is a Widget. '=>' AKA 'fat arrow' in Dart 
 is the single line lambda function syntax for the language. Pretty cool.  */
@@ -148,115 +150,40 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // This index keeps track of the current item selected on the bottom NavBar.
-  int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text('Index 0: Home', style: optionStyle),
-    Text('Index 1: Sheets', style: optionStyle),
-    Text('Index 2: Rules', style: optionStyle),
-    Text('Index 3: Spells', style: optionStyle),
-    Text('Index 4: Profile', style: optionStyle)
+  // This is a list of the NavBar icons/items, note it could also be something other than a NavBar
+  // item though like a Widget
+  final navBarItems = [
+    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('login')),
+    BottomNavigationBarItem(icon: Icon(Icons.subtitles), title: Text('mode')),
+    BottomNavigationBarItem(icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
+    BottomNavigationBarItem(icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
+  // This is a list of the routes available to the NavBar.  
+  final routeList = [LoginPage(), SelectModePage(), CreateNewUser(), CreateNewUser()];
 
-  // This function is for the NavBar.
+  // This function and variable are for the NavBar.
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
-      if (_selectedIndex == 0) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-      }
-      if (_selectedIndex == 1) {
-        // TODO add a route for the sheets page here.
-      }
-      if (_selectedIndex == 2) {
-        // TODO add a route for the rules page here.
-      }
-      if (_selectedIndex == 3) {
-        // TODO add a route for the spells page here.
-      }
-      if (_selectedIndex == 4) {
-        // TODO add a route for the profile page here.
-      }
+    _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image(
-            image: AssetImage("assets/loginImage.jpg"),
-            fit: BoxFit.cover,
-            color: Colors
-                .black87, // The number here is the opacity.
-            colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-            Form(child: Container(
-              padding: EdgeInsets.all(10.0),
-              child: Column(
-                children: <Widget>[
-                  MaterialButton(
-                    onPressed: () {
-                    },
-                    child: Text('Game Master'),
-                    color: Colors.grey[800],
-                    splashColor: Colors.amber,
-                  ),
-                  MaterialButton(
-                    onPressed: () {
-                    },
-                    child: Text('Adventurer'),
-                    color: Colors.grey[800],
-                    splashColor: Colors.amber,
-                  ),
-                  TextFormField(
-                    decoration: (InputDecoration(labelText: '')),
-                  ),
-                ],
-              ),
-            )),
-          ],)
-        ],),
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Home'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subtitles),
-            title: Text('Sheets'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chrome_reader_mode),
-            title: Text('Rules'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chrome_reader_mode),
-            title: Text('Spells'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            title: Text('Profile'),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.yellow[600],
-        unselectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+      type: BottomNavigationBarType.fixed,
+      items: navBarItems,
+      currentIndex: _selectedIndex, 
+      onTap: _onItemTapped
       ),
-    );
+      // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget).
+      body: IndexedStack(
+        // See how the page that is displayed is decided by the icon selected on the Navbar.
+        index: _selectedIndex,
+        children: routeList,
+      ));
   }
 }
 
@@ -267,7 +194,7 @@ class CreateNewUser extends StatefulWidget {
 
 class _CreateNewUserState extends State<CreateNewUser> {
 final _formkey = GlobalKey<FormState>();
-var _pwCheck;
+String _pwCheck;
 
   @override
   Widget build(BuildContext context) {
@@ -341,9 +268,10 @@ var _pwCheck;
                       // Confirm Password
                       validator: (value) {
                         if (value.isEmpty || value != _pwCheck) {
+                           _pwCheck = null;
                           return 'Password Doesn''\'t Match';
                         }
-                        _pwCheck = 'fuck you';
+                        _pwCheck = null;
                         return null;
                       },
                       decoration: InputDecoration(
