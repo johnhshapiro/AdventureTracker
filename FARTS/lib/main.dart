@@ -27,6 +27,7 @@ class BoardsEdge extends StatelessWidget {
 
             // Define the default TextTheme. Use this to specify the default
             // text styling for headlines (headline5), titles (headline6), bodies of text (bodyText2), and more.
+            // *NOTE* if you are seeing red underline for the textTheme variables you need to update flutter/dart
             textTheme: TextTheme(
               headline5: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
               headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
@@ -45,9 +46,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.black,
       body: Stack(
-        // This is a 'Stack' type because it has multiple children elements (Image, and Column which in turn has many children itself)
+        // Stack stacks multiple children widgets (Image, and Column which in turn has many children itself) in a space.
         fit: StackFit
             .expand, // Note 'fit' here is a property of the body Stack making the image expand to fill the display.
         children: <Widget>[
@@ -80,6 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         TextFormField(
                           decoration: InputDecoration(
+                            icon: Icon(Icons.person),
                             labelText: "Username",
                           ),
                           keyboardType: TextInputType
@@ -87,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextFormField(
                           decoration: InputDecoration(
+                            icon: Icon(Icons.lock),
                             labelText: "Password",
                           ),
                           keyboardType: TextInputType.text,
@@ -149,7 +151,7 @@ class _HomePageState extends State<HomePage> {
   // This index keeps track of the current item selected on the bottom NavBar.
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text('Index 1: Sheets', style: optionStyle),
@@ -216,6 +218,9 @@ class _HomePageState extends State<HomePage> {
                     child: Text('Adventurer'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
+                  ),
+                  TextFormField(
+                    decoration: (InputDecoration(labelText: '')),
                   ),
                 ],
               ),
