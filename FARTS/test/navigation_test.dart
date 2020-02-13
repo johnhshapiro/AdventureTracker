@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/main.dart';
+import 'package:FARTS/selectmodepage.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
+
+
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -72,7 +75,7 @@ void main() {
   });
 
   group('HOMEPAGE NAVBAR widget tests', () {
-    testWidgets('NavBar Home Button test',
+    testWidgets('NavBar login Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
@@ -82,14 +85,14 @@ void main() {
           ),
         );
 
-        expect(find.text('Home'), findsOneWidget);
-        await tester.tap(find.text('Home'));
+        expect(find.text('login'), findsOneWidget);
+        await tester.tap(find.text('login'));
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
         expect(find.byType(HomePage), findsOneWidget);
     });
-    testWidgets('NavBar Sheets Button test',
+    testWidgets('NavBar mode Button test',
       (WidgetTester tester) async {
         final mockObserver = MockNavigatorObserver();
         await tester.pumpWidget(
@@ -99,64 +102,13 @@ void main() {
           ),
         );
 
-        expect(find.text('Sheets'), findsOneWidget);
-        await tester.tap(find.text('Sheets'));
+        expect(find.text('mode'), findsOneWidget);
+        await tester.tap(find.text('mode'));
         await tester.pumpAndSettle();
 
         verify(mockObserver.didPush(any, any));
         expect(find.byType(HomePage), findsOneWidget);
-    });
-    testWidgets('NavBar Rules Button test',
-      (WidgetTester tester) async {
-        final mockObserver = MockNavigatorObserver();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: HomePage(),
-            navigatorObservers: [mockObserver],
-          ),
-        );
-
-        expect(find.text('Rules'), findsOneWidget);
-        await tester.tap(find.text('Rules'));
-        await tester.pumpAndSettle();
-
-        verify(mockObserver.didPush(any, any));
-        expect(find.byType(HomePage), findsOneWidget);
-    });
-    testWidgets('NavBar Spells Button test',
-      (WidgetTester tester) async {
-        final mockObserver = MockNavigatorObserver();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: HomePage(),
-            navigatorObservers: [mockObserver],
-          ),
-        );
-
-        expect(find.text('Spells'), findsOneWidget);
-        await tester.tap(find.text('Spells'));
-        await tester.pumpAndSettle();
-
-        verify(mockObserver.didPush(any, any));
-        expect(find.byType(HomePage), findsOneWidget);
-    });
-    testWidgets('NavBar Profile Button test',
-      (WidgetTester tester) async {
-        final mockObserver = MockNavigatorObserver();
-        await tester.pumpWidget(
-          MaterialApp(
-            home: HomePage(),
-            navigatorObservers: [mockObserver],
-          ),
-        );
-
-        expect(find.text('Profile'), findsOneWidget);
-        await tester.tap(find.text('Profile'));
-        await tester.pumpAndSettle();
-
-        verify(mockObserver.didPush(any, any));
-        expect(find.byType(HomePage), findsOneWidget);
-    });
+    }); 
   });
 
   group('Homepage non-navbar button tests', () {
