@@ -1,3 +1,4 @@
+import 'package:FARTS/selectmodepage.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
@@ -21,9 +22,9 @@ class _LoginPageState extends State<LoginPage> {
           Image(
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
-              color: Colors
-                  .black87, // The number here is the opacity.
-              colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
+              color: Colors.black87, // The number here is the opacity.
+              colorBlendMode: BlendMode
+                  .luminosity // Blends the background color with the background image.
               ),
           Column(
             mainAxisAlignment: MainAxisAlignment
@@ -62,9 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: true,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              top:
-                                  40.0),
+                          padding: const EdgeInsets.only(top: 40.0),
                         ),
                         // TODO: make the button check user credentials. Right now it just logs in no matter what
                         MaterialButton(
@@ -74,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()),
+                                  builder: (context) => SelectModePage()),
                             );
                           },
                           splashColor: Colors

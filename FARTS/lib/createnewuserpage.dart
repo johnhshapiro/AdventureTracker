@@ -8,8 +8,8 @@ class CreateNewUser extends StatefulWidget {
 }
 
 class _CreateNewUserState extends State<CreateNewUser> {
-final _formkey = GlobalKey<FormState>();
-String _pwCheck;
+  final _formkey = GlobalKey<FormState>();
+  String _pwCheck;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,9 @@ String _pwCheck;
           Image(
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
-              color: Colors
-                  .black87, // The number here is the opacity.
-              colorBlendMode: BlendMode.luminosity // Blends the background color with the background image.
+              color: Colors.black87, // The number here is the opacity.
+              colorBlendMode: BlendMode
+                  .luminosity // Blends the background color with the background image.
               ),
           Form(
             key: _formkey,
@@ -47,9 +47,7 @@ String _pwCheck;
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        labelText: "Username"
-                      ),
+                      decoration: InputDecoration(labelText: "Username"),
                     ),
                     TextFormField(
                       // Email
@@ -68,7 +66,7 @@ String _pwCheck;
                       // Password
                       validator: (value) {
                         _pwCheck = value;
-                        if (value.isEmpty || value.length < 8 ) {
+                        if (value.isEmpty || value.length < 8) {
                           return 'Must be at least 8 characters';
                         }
                         return null;
@@ -83,8 +81,8 @@ String _pwCheck;
                       // Confirm Password
                       validator: (value) {
                         if (value.isEmpty || value != _pwCheck) {
-                           _pwCheck = null;
-                          return 'Password Doesn''\'t Match';
+                          _pwCheck = null;
+                          return 'Password Doesn' '\'t Match';
                         }
                         _pwCheck = null;
                         return null;
@@ -102,8 +100,10 @@ String _pwCheck;
                         if (_formkey.currentState.validate()) {
                           //Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Fields'))); TODO fixme show snackbar 'Checking Fields' on the press of create user
                           SnackBar(content: Text('c'));
-                            Navigator.push(context,MaterialPageRoute(builder: (context) => HomePage()),
-                        );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
                         }
                       },
                       splashColor: Colors
