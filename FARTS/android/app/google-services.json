@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "548532890197",
+    "firebase_url": "https://flutter-adventure-rts.firebaseio.com",
+    "project_id": "flutter-adventure-rts",
+    "storage_bucket": "flutter-adventure-rts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:548532890197:android:3ec3d0b9b3fa027337c2dc",
+        "android_client_info": {
+          "package_name": "com.example.FARTS"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "548532890197-lmr9thmpbs6t50v7ls0uqefi76irnjgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_EhhGzuzypIWfJqUzHCO9S9BZ71TAG64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "548532890197-lmr9thmpbs6t50v7ls0uqefi76irnjgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
