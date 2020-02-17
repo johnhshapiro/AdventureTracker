@@ -46,8 +46,11 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('sample'),
                   color: Colors.red[300],
+                  child: MaterialButton(
+                    onPressed: null,
+                    splashColor: Colors.amber,
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),

@@ -78,23 +78,7 @@ void main() {
     });
   });
 
-  group('HOMEPAGE NAVBAR widget tests', () {
-    testWidgets('NavBar login Button test', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('login'), findsOneWidget);
-      await tester.tap(find.text('login'));
-      await tester.pumpAndSettle();
-
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
+  group('HOMEPAGE NAVBAR Widget Tests', () {
     testWidgets('NavBar mode Button test', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
@@ -104,8 +88,8 @@ void main() {
         ),
       );
 
-      expect(find.text('mode'), findsOneWidget);
-      await tester.tap(find.text('mode'));
+      expect(find.text('Mode'), findsOneWidget);
+      await tester.tap(find.text('Mode'));
       await tester.pumpAndSettle();
 
       verify(mockObserver.didPush(any, any));
