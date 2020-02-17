@@ -78,13 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                         MaterialButton(
                           color: Colors.grey[800],
                           child: Text("Login"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SelectModePage()),
-                            );
-                          },
+                          onPressed: signIn,
                           splashColor: Colors
                               .amber, //Creates the color splash when u press the button.
                         ),
