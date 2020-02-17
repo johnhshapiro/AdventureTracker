@@ -1,9 +1,11 @@
+import 'package:FARTS/createcampaignpage.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
 import './loginpage.dart';
 import './selectmodepage.dart';
 import './createnewuserpage.dart';
+import "./createcampaignpage.dart";
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -17,11 +19,11 @@ class _HomePageState extends State<HomePage> {
   // item though like a Widget
   final navBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.home), title: Text('login')),
+      icon: Icon(Icons.home), title: Text('Login')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.subtitles), title: Text('mode')),
+      icon: Icon(Icons.subtitles), title: Text('Mode')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
+      icon: Icon(Icons.add), title: Text('Campaign')),
     BottomNavigationBarItem(
         icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   final routeList = [
     LoginPage(),
     SelectModePage(),
-    CreateNewUser(),
+    CreateCampaign(),
     CreateNewUser(),
   ];
 
