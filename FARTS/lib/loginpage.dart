@@ -74,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
-                        // TODO: make the button check user credentials. Right now it just logs in no matter what
                         MaterialButton(
                           color: Colors.grey[800],
                           child: Text("Login"),
