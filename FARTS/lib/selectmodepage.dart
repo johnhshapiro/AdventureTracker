@@ -1,4 +1,5 @@
 import 'package:FARTS/homepage.dart';
+import 'package:FARTS/characters.dart';
 import 'package:flutter/material.dart';
 
 class SelectModePage extends StatefulWidget {
@@ -50,7 +51,7 @@ class _SelectModePageState extends State<SelectModePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
+                          MaterialPageRoute(builder: (context) => CharacterSelect()),
                         );
                       },
                     ),
