@@ -27,13 +27,20 @@ class _CharacterSelectState extends State<CharacterSelect> {
           ),
           ListView.separated(
             padding: const EdgeInsets.all(50),
-            itemCount: chars.length,
+            itemCount: chars.length + 1,
             itemBuilder: (BuildContext contex, int index) {
-              return Container(
-                height: 50,
-                color: Colors.grey,
-                child: Center(child: Text('${chars[index]}'))
-              );
+              if (index == chars.length)
+                return Container(
+                  height: 50,
+                  color: Colors.grey,
+                  child: Center(child: Text('Create New'))
+                );
+              else
+                return Container(
+                  height: 50,
+                  color: Colors.grey,
+                  child: Center(child: Text('${chars[index]}'))
+                );
             },
             separatorBuilder: (BuildContext context, int index) => const Divider()
           )
