@@ -85,8 +85,13 @@ class _LoginPageState extends State<LoginPage> {
                         MaterialButton(
                           color: Colors.grey[800],
                           child: Text("New User"),
-                          onPressed: signIn,
-                          // Doesn't do anything right now but will link to the create user page!
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CreateNewUser()),
+                            );
+                          },
                           splashColor: Colors
                               .amber, //Creates the color splash when u press the button.
                         ),
