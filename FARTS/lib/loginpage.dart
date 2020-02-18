@@ -74,12 +74,29 @@ class _LoginPageState extends State<LoginPage> {
                         Padding(
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
-                        MaterialButton(
-                          color: Colors.grey[800],
-                          child: Text("Login"),
-                          onPressed: signIn,
-                          splashColor: Colors
-                              .amber, //Creates the color splash when u press the button.
+                        Builder(
+                          builder: (context) => MaterialButton(
+                            color: Colors.grey[800],
+                            child: Text("Sign In"),
+                            onPressed: () async {
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Signing in'),));
+                              if (_formKey.currentState.validate()) {
+                                try {
+                                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SelectModePage()),
+                                  );
+                                } catch (e) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid email or password"),));
+                                  print(e.message);
+                                }
+                              }
+                            },
+                            splashColor: Colors
+                                .amber, //Creates the color splash when u press the button. By u do u mean me?
+                          ),
                         ),
                         MaterialButton(
                           color: Colors.grey[800],
@@ -104,22 +121,5 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-  }
-
-  Future<void> signIn() async {
-    final formState = _formKey.currentState;
-    if (formState.validate()) {
-      formState.save();
-      try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SelectModePage()),
-        );
-      } catch (e) {
-        print(e.message);
-      }
-    }
   }
 }
