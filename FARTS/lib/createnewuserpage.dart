@@ -69,7 +69,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       validator: (value) {
                         _pwCheck = value; // TODO don't store the password value for checking password match purposes, instead create a hashfunction. 
                         // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.
-                        if (value.isEmpty || value.length < 8) {
+                        if (value.isEmpty || value.length < 6) {
                           return 'Must be at least 8 characters';
                         }
                         return null;

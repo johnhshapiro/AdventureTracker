@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CreateCampaign extends StatefulWidget {
+class Campaign extends StatefulWidget {
   @override
-  _CreateCampaignState createState() => _CreateCampaignState();
+  _CampaignState createState() => _CampaignState();
 }
 
-class _CreateCampaignState extends State<CreateCampaign> {
+class _CampaignState extends State<Campaign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +29,13 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: TextField(
-                    decoration: InputDecoration(labelText: "Date"),
+                    decoration: InputDecoration(labelText: "Date/Session #"),
                   ),
+                ),
+                Container(  
+                  padding: const EdgeInsets.all(1),
+                  child: Image.asset('assets/samplemap.jpg'),
+                  //child: AssetImage('assets/samplemap.jpg'),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
@@ -41,25 +46,23 @@ class _CreateCampaignState extends State<CreateCampaign> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   child: TextField(
-                    decoration: InputDecoration(labelText: "Session Number"),
+                    decoration: InputDecoration(labelText: "Characters"),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  color: Colors.red[300],
-                  child: MaterialButton(
-                    onPressed: null,
-                    splashColor: Colors.amber,
+                  child: TextField(
+                    decoration: InputDecoration(labelText: "NPCS"),
                   ),
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('sample'),
+                  child: const Text('Encounters'),
                   color: Colors.green,
                 ),
                 Container(
                   padding: const EdgeInsets.all(8),
-                  child: const Text('sample'),
+                  child: const Text('Treasure'),
                   color: Colors.blue,
                 ),
                 Container(

@@ -1,4 +1,4 @@
-import 'package:FARTS/createcampaignpage.dart';
+import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 
 import './main.dart';
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.subtitles), title: Text('Mode')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.add), title: Text('Campaign')),
+      icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
         icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
   final routeList = [
     LoginPage(),
     SelectModePage(),
-    CreateCampaign(),
+    Campaign(),
     CreateNewUser(),
   ];
 
