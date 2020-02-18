@@ -44,44 +44,20 @@ class _CharacterSelectState extends State<CharacterSelect> {
             },
             separatorBuilder: (BuildContext context, int index) => const Divider()
           )
-          //  Column(
-          //   crossAxisAlignment: CrossAxisAlignment.center,
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: <Widget>[
-          //     Form(
-          //         child: Container(
-          //       padding: EdgeInsets.all(10.0),
-          //       child: Column(
-          //         children: <Widget>[
-          //           MaterialButton(
-          //             child: Text('Game Master'),
-          //             color: Colors.grey[800],
-          //             splashColor: Colors.amber,
-          //             onPressed: () {
-          //               Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(builder: (context) => CharacterSelect()),
-          //               );
-          //             },
-          //           ),
-          //           MaterialButton(
-          //             child: Text('Adventurer'),
-          //             color: Colors.grey[800],
-          //             splashColor: Colors.amber,
-          //             onPressed: () {
-          //               Navigator.push(
-          //                 context,
-          //                 MaterialPageRoute(builder: (context) => CharacterSelect()),
-          //                   );
-          //             },
-          //           ),
-          //         ],
-          //       ),
-          //     )),
-          //   ],
-          // )
         ]
       )
     );
   }
+}
+
+class CharacterSheetPage extends StatefulWidget {
+  CharacterSheetPage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _CharacterSheetPageState createState() => _CharacterSheetPageState();
+}
+
+class _CharacterSheetPageState extends State<CharacterSheetPage> {
+  @override
 }
