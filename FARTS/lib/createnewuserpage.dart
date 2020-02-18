@@ -110,7 +110,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                           }
                         },
                         splashColor: Colors
-                            .amber, //Creates the color splash when u press the button.
+                            .amber, //Creates the color splash when u press the button. By u do u mean me?
                       ),
                     ),
                   ],
