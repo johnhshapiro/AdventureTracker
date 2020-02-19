@@ -77,22 +77,67 @@ void main() {
     });
   });
 
-  // group('HOMEPAGE NAVBAR Widget Tests', () {
-  //   testWidgets('NavBar mode Button test', (WidgetTester tester) async {
-  //     final mockObserver = MockNavigatorObserver();
-  //     await tester.pumpWidget(
-  //       MaterialApp(
-  //         home: HomePage(),
-  //         navigatorObservers: [mockObserver],
-  //       ),
-  //     );
+  group('HOMEPAGE NavBar widget tests', () {
+    testWidgets('Login button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
 
-  //     expect(find.text('Mode'), findsOneWidget);
-  //     await tester.tap(find.text('Mode'));
-  //     await tester.pumpAndSettle();
+      expect(find.text('Login'), findsOneWidget);
+      await tester.tap(find.text('Login'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
 
-  //     verify(mockObserver.didPush(any, any));
-  //     expect(find.byType(SelectModePage), findsOneWidget);
-  //   });
-  // });
+    testWidgets('Mode button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('Mode'), findsOneWidget);
+      await tester.tap(find.text('Mode'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
+
+    testWidgets('Campaign button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('Campaign'), findsOneWidget);
+      await tester.tap(find.text('Campaign'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
+
+    testWidgets('create user button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: HomePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('create user'), findsOneWidget);
+      await tester.tap(find.text('create user'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
+
+  });
+
 }
