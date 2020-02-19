@@ -1,4 +1,5 @@
 import 'package:FARTS/selectmodepage.dart';
+import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
@@ -169,6 +170,20 @@ void main() {
       await tester.tap(find.text('Adventurer'));
       verify(mockObserver.didPush(any, any));
       expect(find.byType(SelectModePage), findsOneWidget);
+    });
+  });
+
+  group("View Campaign Page Widget Tests", () {
+    testWidgets('game master mode button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: Campaign(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+     // TODO test for character stream not just for text 
+      expect(find.byType(Campaign), findsOneWidget);
     });
   });
 

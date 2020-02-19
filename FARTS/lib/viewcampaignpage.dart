@@ -7,6 +7,9 @@ class Campaign extends StatefulWidget {
 }
 
 class _CampaignState extends State<Campaign> {
+
+  // Uses the DateTime class to get the current time of the area the device is in.
+  static var now = new DateTime.now();
  
   @override
   Widget build(BuildContext context) {
@@ -50,17 +53,19 @@ class _CampaignState extends State<Campaign> {
                         child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0)),
                         // if this data was a number you can also just call .toString() at the end of it here.
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: TextField(
-                          decoration: InputDecoration(labelText: "Date/Session #"),
-                          // TODO generate the date and time programatically, fetch session nummber from db
-                        ),
+                      Column(
+                        children: <Widget>[
+                          Text("Date/Time", style: TextStyle(fontSize: 20.0),),
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            child: Text(now.toString()),
+                          ),
+                        ],
                       ),
                       Column(
                         children: <Widget>[
                           Text("Map", style: TextStyle(fontSize: 20.0),),
-                          Container(  
+                          Container(
                             padding: const EdgeInsets.all(1),
                             child: Image.asset('assets/samplemap.jpg'),
                             // TODO, actually load the relevant map from the campaign collection not just a file from the assets folder.
