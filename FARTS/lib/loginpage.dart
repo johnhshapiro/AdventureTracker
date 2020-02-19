@@ -58,7 +58,13 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           keyboardType: TextInputType
                               .emailAddress, // This is just telling it to pull up the right keyboard type for an email address
-                          // TODO: add email validation
+                          // email validation
+                          validator: (value) {
+                            if (value.isEmpty || !value.contains('@')) {
+                              return 'Invalid email address';
+                            }
+                            return null;
+                          },
                           onChanged: (input) => _email = input,
                         ),
                         TextFormField(
@@ -67,7 +73,13 @@ class _LoginPageState extends State<LoginPage> {
                             labelText: "Password",
                           ),
                           keyboardType: TextInputType.text,
-                          // TODO: add password validation
+                          // password validation
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 6) {
+                              return 'Password is blank or less than 6 characters';
+                            }
+                            return null;
+                          },
                           onChanged: (input) => _password = input,
                           obscureText: true,
                         ),
