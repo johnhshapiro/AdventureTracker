@@ -9,7 +9,7 @@ class Campaign extends StatefulWidget {
 class _CampaignState extends State<Campaign> {
 
   // Uses the DateTime class to get the current time of the area the device is in.
-  static var now = new DateTime.now();
+  var now = new DateTime.now();
  
   @override
   Widget build(BuildContext context) {
@@ -44,18 +44,23 @@ class _CampaignState extends State<Campaign> {
                     mainAxisSpacing: 5,
                     crossAxisCount: 2,
                     children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.all(15),
-                        // Here the text is being accessed from the snapshot of the db. Documents is an array of data snapshots from the db collection
-                        // called 'campaigns' (already specified in the stream instance) and the [0] index corresponds to the first item in the collection.
-                        // 'name' then specifies we want the data snapshot from the 'name' field, and voila we get the contents of the name field.
-                        // TODO change the document index (aka which campaign u want) dyanmic based on which campaign the user/gm has selected in-app.
-                        child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0)),
-                        // if this data was a number you can also just call .toString() at the end of it here.
+                      Column(
+                        children: <Widget>[
+                          Text("Campaign", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
+                          Container(
+                            padding: const EdgeInsets.all(15),
+                            // Here the text is being accessed from the snapshot of the db. Documents is an array of data snapshots from the db collection
+                            // called 'campaigns' (already specified in the stream instance) and the [0] index corresponds to the first item in the collection.
+                            // 'name' then specifies we want the data snapshot from the 'name' field, and voila we get the contents of the name field.
+                            // TODO change the document index (aka which campaign u want) dyanmic based on which campaign the user/gm has selected in-app.
+                            child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0)),
+                            // if this data was a number you can also just call .toString() at the end of it here.
+                          ),
+                        ],
                       ),
                       Column(
                         children: <Widget>[
-                          Text("Date/Time", style: TextStyle(fontSize: 20.0),),
+                          Text("Date/Time", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
                           Container(
                             padding: const EdgeInsets.all(20),
                             child: Text(now.toString()),
@@ -64,7 +69,7 @@ class _CampaignState extends State<Campaign> {
                       ),
                       Column(
                         children: <Widget>[
-                          Text("Map", style: TextStyle(fontSize: 20.0),),
+                          Text("Map", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
                           Container(
                             padding: const EdgeInsets.all(1),
                             child: Image.asset('assets/samplemap.jpg'),
@@ -74,7 +79,7 @@ class _CampaignState extends State<Campaign> {
                       ),
                       Column(
                         children: <Widget>[
-                          Text("Notes", style: TextStyle(fontSize: 20.0)),
+                          Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
                           Container(
                             padding: const EdgeInsets.all(8),
                             child: Text(snapshot.data.documents[0]['notes']),
