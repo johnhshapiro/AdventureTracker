@@ -54,6 +54,8 @@ Awesome guides from medium - https://medium.com/coding-with-flutter
 git checkout branchName
 git stash   <-- stashes current changes so u can checkout a different branch
 git stash pop   <-- unstash changes once youre back on the branch that has been stashed
+git stash drop <stash id>     <-- delete specific stash given id number
+git stash clear        <-- delete entire stash stack
 git merge nameOfBranchToMergeIntoCurrentBranch
 
 ************************************************************ Links to Prototype, Travis, UX, Jira **************************************************************

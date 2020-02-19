@@ -59,9 +59,7 @@ void main() {
   });
 
   group('CREATE NEW USER PAGE widget tests', () {
-    testWidgets(
-        'Create new user button is present and triggers navigation after tapped',
-        (WidgetTester tester) async {
+    testWidgets('Create new user button is present and triggers navigation', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
@@ -94,42 +92,7 @@ void main() {
       await tester.pumpAndSettle();
 
       verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-  });
-
-  group('Homepage non-navbar button tests', () {
-    testWidgets('Game Master button widget test', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Game Master'), findsOneWidget);
-      await tester.tap(find.text('Game Master'));
-      await tester.pumpAndSettle();
-
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-    testWidgets('Adventurer button widget test', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Adventurer'), findsOneWidget);
-      await tester.tap(find.text('Adventurer'));
-      await tester.pumpAndSettle();
-
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
+      expect(find.byType(SelectModePage), findsOneWidget);
     });
   });
 }
