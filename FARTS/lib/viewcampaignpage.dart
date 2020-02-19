@@ -11,6 +11,7 @@ class _CampaignState extends State<Campaign> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
         // Streambuilder allows an async. stream from our firestore db to populate widgets on this page.
         body:StreamBuilder(
           // You can provide initial data so your widgets display something whike they are loading snapshots.
@@ -41,12 +42,13 @@ class _CampaignState extends State<Campaign> {
                     crossAxisCount: 2,
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(15),
                         // Here the text is being accessed from the snapshot of the db. Documents is an array of data snapshots from the db collection
                         // called 'campaigns' (already specified in the stream instance) and the [0] index corresponds to the first item in the collection.
                         // 'name' then specifies we want the data snapshot from the 'name' field, and voila we get the contents of the name field.
                         // TODO change the document index (aka which campaign u want) dyanmic based on which campaign the user/gm has selected in-app.
-                        child: Text(snapshot.data.documents[0]['name']),
+                        child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0)),
+                        // if this data was a number you can also just call .toString() at the end of it here.
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -55,17 +57,26 @@ class _CampaignState extends State<Campaign> {
                           // TODO generate the date and time programatically, fetch session nummber from db
                         ),
                       ),
-                      Container(  
-                        padding: const EdgeInsets.all(1),
-                        child: Image.asset('assets/samplemap.jpg'),
-                        // TODO, actually load the relevant map from the campaign collection not just a file from the assets folder.
+                      Column(
+                        children: <Widget>[
+                          Text("Map", style: TextStyle(fontSize: 20.0),),
+                          Container(  
+                            padding: const EdgeInsets.all(1),
+                            child: Image.asset('assets/samplemap.jpg'),
+                            // TODO, actually load the relevant map from the campaign collection not just a file from the assets folder.
+                          ),
+                        ],
                       ),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: TextField(
-                          decoration: InputDecoration(labelText: "Notes"),
-                        ),
-                        // TODO get notes from the campaign collection in the db, not just hard coded text
+                      Column(
+                        children: <Widget>[
+                          Text("Notes", style: TextStyle(fontSize: 20.0)),
+                          Container(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(snapshot.data.documents[0]['notes']),
+                            
+                            // TODO get notes from the campaign collection in the db, not just hard coded text
+                          ),
+                        ],
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),

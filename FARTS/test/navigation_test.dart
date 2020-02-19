@@ -140,4 +140,36 @@ void main() {
 
   });
 
+  group('SELECT MODE PAGE widget tests', () {
+    testWidgets('game master mode button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SelectModePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('Game Master'), findsOneWidget);
+      await tester.tap(find.text('Game Master'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(SelectModePage), findsOneWidget);
+    });
+
+    testWidgets('adventurer mode button is present', (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: SelectModePage(),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+
+      expect(find.text('Adventurer'), findsOneWidget);
+      await tester.tap(find.text('Adventurer'));
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(SelectModePage), findsOneWidget);
+    });
+  });
+
 }
