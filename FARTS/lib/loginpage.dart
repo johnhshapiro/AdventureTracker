@@ -110,6 +110,18 @@ class _LoginPageState extends State<LoginPage> {
                           splashColor: Colors
                               .amber, //Creates the color splash when u press the button.
                         ),
+                        MaterialButton(
+                          color: Colors.grey[800],
+                          child: Text("Dev Bypass"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePage()
+                                ),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
