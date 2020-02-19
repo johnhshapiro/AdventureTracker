@@ -20,7 +20,7 @@ class BoardsEdge extends StatelessWidget {
   Widget build(BuildContext context) {
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
     return MaterialApp(
-        home: HomePage(), // Sets the login page as the home page.
+        home: LoginPage(), // Sets the login page as the home page.
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.dark,
