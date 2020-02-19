@@ -77,22 +77,22 @@ void main() {
     });
   });
 
-  group('HOMEPAGE NAVBAR Widget Tests', () {
-    testWidgets('NavBar mode Button test', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
+  // group('HOMEPAGE NAVBAR Widget Tests', () {
+  //   testWidgets('NavBar mode Button test', (WidgetTester tester) async {
+  //     final mockObserver = MockNavigatorObserver();
+  //     await tester.pumpWidget(
+  //       MaterialApp(
+  //         home: HomePage(),
+  //         navigatorObservers: [mockObserver],
+  //       ),
+  //     );
 
-      expect(find.text('Mode'), findsOneWidget);
-      await tester.tap(find.text('Mode'));
-      await tester.pumpAndSettle();
+  //     expect(find.text('Mode'), findsOneWidget);
+  //     await tester.tap(find.text('Mode'));
+  //     await tester.pumpAndSettle();
 
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(SelectModePage), findsOneWidget);
-    });
-  });
+  //     verify(mockObserver.didPush(any, any));
+  //     expect(find.byType(SelectModePage), findsOneWidget);
+  //   });
+  // });
 }
