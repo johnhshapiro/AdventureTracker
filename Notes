@@ -39,8 +39,10 @@ Navigate to a new screen (programmatically)-
 An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing 
 a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous 
 route.
-I used this guide to help me create state preserving nvigation witht he bottom navbar
+I used this guide to help me create state preserving navigation witht he bottom navbar
 https://developpaper.com/three-ways-to-keep-the-state-of-the-original-page-after-page-switching-by-flutter/
+This article outlines another appraoch using a keyedSubTree and fader animations between pages!! (COOL!)
+https://medium.com/flutter/getting-to-the-bottom-of-navigation-in-flutter-b3e440b9386
 
 Cookbook (Flutter Guide) Table of contents - https://flutter.dev/docs/cookbook
 Layout Guide - https://flutter.dev/docs/development/ui/layout
