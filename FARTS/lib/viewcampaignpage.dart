@@ -4,6 +4,37 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+// This album class contains the converted future data from the network request. 
+class Album {
+  final userId;
+  final id;
+  final title;
+  Album({this.userId, this.id, this.title});
+
+  // This factory constructor crates an album form JSON.
+  factory Album.fromJson(Map<String, dynamic> json) {
+    return Album(
+      userId: json['userId'],
+      id: json['id'],
+      title: json['title'],
+    );
+  }
+}
+
+// This future gets the http data
+// Future<Album> fetchAlbum() async {
+//   final response = await http.get('http://dnd5eapi.co/api/spells/acid-arrow');
+
+//   // 200 code = sucess code form server, returns an album
+//   if(response.statusCode == 200) {
+//     return Album.fromJson(json.decode(response.body));
+//   }
+//   // If you dont get a 200 code, throw and error.
+//   else {
+//     throw Exception('Failed to load album from http.get method');
+//   }
+// }
+
 class Campaign extends StatefulWidget {
   @override
   _CampaignState createState() => _CampaignState();
@@ -11,9 +42,18 @@ class Campaign extends StatefulWidget {
 
 class _CampaignState extends State<Campaign> {
 
+  // Holds the future data in an album object.
+  Future<Album> futureAlbum;
+
+  // The actual API call is here, NOT in body so it isnt making an API call every time the build method is called
+  // (which happens a lot and will slow down the app, the API, and burn data).
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   futureAlbum = fetchAlbum();
+  // }
   // Uses the DateTime class to get the current time of the area the device is in.
   var now = new DateTime.now();
- 
   
   @override
   Widget build(BuildContext context) {
@@ -116,6 +156,20 @@ class _CampaignState extends State<Campaign> {
                           onPressed: () {
                           poo();
                         },),
+                      ),
+                      Container( // This widget displays the API future data as an album. 
+                        color: Colors.blue[100],
+                        child: FutureBuilder<Album>(
+                          future: futureAlbum,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return Text(snapshot.data.title);
+                            }
+                            else {
+                              return Text("${snapshot.error}");
+                            }
+                          } 
+                        ),
                       ),
                     ],
                   ),
