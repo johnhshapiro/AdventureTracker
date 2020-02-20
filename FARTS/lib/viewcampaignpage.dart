@@ -23,59 +23,60 @@ class _CampaignState extends State<Campaign> {
           // Here the instance object is created to interact with the db (and all methods bult in to the firestore import)
           stream: Firestore.instance.collection("campaigns").snapshots(),
           builder: (context, snapshot) {
-            // Check for snapshot errors, do something about it.
-            if (snapshot.hasError) {
-              //return UhOh(snapshot.error);
-            }
-            // Shows a loding progress indicator while data is still being fetched.
+            // Shows a loading progress indicator while data is still being fetched.
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
-              // could also return text like the line below
-              // return Text("Loading data...");
             }
-            // CustomScrollview is the actual name of the gridview widget.
+            if (snapshot.hasError) {
+              //return UhOh(snapshot.error);
+              // TODO actually throw an exception or log an error.
+            }
+            // CustomScrollview is the actual name of the gridview layout widget.
             return CustomScrollView(
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
-                  padding: const EdgeInsets.all(20),
-                  sliver: SliverGrid.count(
+                  padding: const EdgeInsets.all(5),
+                  // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number
+                  // of evenly spaced widgets per row.
+                  sliver: SliverGrid.extent(
                     crossAxisSpacing: 5,
                     mainAxisSpacing: 5,
-                    crossAxisCount: 2,
+                    // This is the max number of pixels the widgets will expand horizontally. 
+                    maxCrossAxisExtent: 1080,
                     children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          Text("Campaign", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            // Here the text is being accessed from the snapshot of the db. Documents is an array of data snapshots from the db collection
-                            // called 'campaigns' (already specified in the stream instance) and the [0] index corresponds to the first item in the collection.
-                            // 'name' then specifies we want the data snapshot from the 'name' field, and voila we get the contents of the name field.
-                            // TODO change the document index (aka which campaign u want) dyanmic based on which campaign the user/gm has selected in-app.
-                            child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0)),
-                            // if this data was a number you can also just call .toString() at the end of it here.
-                          ),
-                        ],
+                      Container(
+                        margin: EdgeInsets.only(top: 50.0),
+                        //padding: EdgeInsets.all(5.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text("Campaign", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+                            Container(
+                              padding: EdgeInsets.all(14.0),
+                              child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 20.0))),
+                            Text("Date/Time", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
+                            Container(
+                              padding: EdgeInsets.all(14.0),
+                              child: Text(now.toString(), style: TextStyle(fontSize: 20.0),)),
+                              // TODO format the time and date to be 'murican.
+                            Text("Session Number", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
+                            Container(
+                              padding: EdgeInsets.all(14.0),
+                              child: Text("69", style: TextStyle(fontSize: 20.0),)),
+                            Text("Map", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+                            Container(
+                              padding: EdgeInsets.all(14.0),
+                              child: Text("<map name>", style: TextStyle(fontSize: 20.0),)),
+                          ],
+                        ),
                       ),
-                      Column(
-                        children: <Widget>[
-                          Text("Date/Time", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            child: Text(now.toString()),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
-                          Text("Map", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
-                          Container(
-                            padding: const EdgeInsets.all(1),
-                            child: Image.asset('assets/samplemap.jpg'),
-                            // TODO, actually load the relevant map from the campaign collection not just a file from the assets folder.
-                          ),
-                        ],
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: FittedBox(
+                          fit: BoxFit.fitHeight,
+                          child: Image.asset('assets/samplemap.jpg'),
+                          // TODO, actually load the relevant map image form db.
+                        ),
                       ),
                       Column(
                         children: <Widget>[
@@ -89,11 +90,14 @@ class _CampaignState extends State<Campaign> {
                         ],
                       ),
                       Container(
-                        padding: const EdgeInsets.all(8),
-                        child: TextField(
-                          decoration: InputDecoration(labelText: "Characters"),
+                        padding: EdgeInsets.all(8),
+                        //color: Colors.green,
+                        child: Text("Party info here maybe, colors/shape just to show some stuff that can be done",
+                          style: TextStyle(fontSize: 20.0, color: Colors.yellow),),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.pink,
                         ),
-                        // TODO, get characters from db
                       ),
                       Container(
                         padding: const EdgeInsets.all(8),
@@ -102,9 +106,10 @@ class _CampaignState extends State<Campaign> {
                         ),
                       ),
                       Container(
+                        constraints: BoxConstraints.tightForFinite(),
                         padding: const EdgeInsets.all(8),
-                        child: const Text('Encounters'),
-                        color: Colors.green,
+                        child: const Text('Encounters or whatever else here'),
+                        color: Colors.yellow,
                       ),
                     ],
                   ),
