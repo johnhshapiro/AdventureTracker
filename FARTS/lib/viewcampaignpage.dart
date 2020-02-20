@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class Campaign extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class _CampaignState extends State<Campaign> {
   // Uses the DateTime class to get the current time of the area the device is in.
   var now = new DateTime.now();
  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,10 +110,12 @@ class _CampaignState extends State<Campaign> {
                         ),
                       ),
                       Container(
-                        constraints: BoxConstraints.tightForFinite(),
-                        padding: const EdgeInsets.all(8),
-                        child: const Text('Encounters or whatever else here'),
-                        color: Colors.yellow,
+                        child: MaterialButton(
+                          color: Colors.red,
+                          child: Text("I'm an API Button that prints everything you could possibly want to know about acid arrow to the console", style: TextStyle(fontSize: 30.0),),
+                          onPressed: () {
+                          poo();
+                        },),
                       ),
                     ],
                   ),
@@ -120,4 +126,8 @@ class _CampaignState extends State<Campaign> {
         )
     );
   }
+  void poo() async{
+    print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
+  }
 } 
+
