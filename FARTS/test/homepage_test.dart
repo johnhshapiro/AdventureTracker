@@ -10,7 +10,7 @@ import 'package:FARTS/homepage.dart';
 void main() {
   group('Homepage widget tests', () {
 
-    testWidgets('Homepage contains root, indexed stack, bottomnavbar.', (WidgetTester tester) async {
+    testWidgets('Contains root class, indexed stack, bottom navbar.', (WidgetTester tester) async {
 
       // Create an instance of the HomePage widget and pump it.
       MaterialApp app = MaterialApp(home: Scaffold(body: HomePage(),),);
@@ -24,7 +24,6 @@ void main() {
 
       testWidgets('NavBar text and icons are present', (WidgetTester tester) async {
         MaterialApp app = MaterialApp(home: Scaffold(body: HomePage(),),);
-        
         await tester.pumpWidget(app);
 
         // Make sure all the NavBar text is present and correct.
@@ -35,10 +34,9 @@ void main() {
 
         // Make sure the Icons are on the NavBar
         expect(find.byType(Icon), findsWidgets);
-
     });
 
-    testWidgets('NavBar navigates to other pages', (WidgetTester tester) async {
+    testWidgets('NavBar navigation tests', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       MaterialApp app = MaterialApp(home: HomePage(), navigatorObservers: [mockObserver]);
       await tester.pumpWidget(app);
@@ -49,7 +47,13 @@ void main() {
       await tester.tap(find.text("Campaign"));
       await tester.tap(find.text("create user"));
       verify(mockObserver.didPush(any, any));
-      
+    });
+
+    testWidgets('Local functions and variables are present', (WidgetTester tester) async {
+      MaterialApp app = MaterialApp(home: HomePage(),);
+      await tester.pumpWidget(app);
+
+      // TODO write some tests here the make sure the local functions and variables are present.
     });
 
   });

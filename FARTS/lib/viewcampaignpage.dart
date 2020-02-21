@@ -53,7 +53,7 @@ class _CampaignState extends State<Campaign> {
   //   futureAlbum = fetchAlbum();
   // }
   // Uses the DateTime class to get the current time of the area the device is in.
-  var now = new DateTime.now();
+  var _now = new DateTime.now();
   
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class _CampaignState extends State<Campaign> {
                             Text("Date/Time", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
                             Container(
                               padding: EdgeInsets.all(14.0),
-                              child: Text(now.toString(), style: TextStyle(fontSize: 20.0),)),
+                              child: Text(_now.toString(), style: TextStyle(fontSize: 20.0),)),
                               // TODO format the time and date to be 'murican.
                             Text("Session Number", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
                             Container(
@@ -154,7 +154,7 @@ class _CampaignState extends State<Campaign> {
                           color: Colors.red,
                           child: Text("I'm an API Button that prints everything you could possibly want to know about acid arrow to the console", style: TextStyle(fontSize: 30.0),),
                           onPressed: () {
-                          poo();
+                          _callAPI();
                         },),
                       ),
                       Container( // This widget displays the API future data as an album. 
@@ -180,7 +180,7 @@ class _CampaignState extends State<Campaign> {
         )
     );
   }
-  void poo() async{
+  void _callAPI() async{
     print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
   }
 } 
