@@ -79,70 +79,7 @@ void main() {
       expect(find.byType(CreateNewUser), findsOneWidget);
     });
   });
-
-  group('HOMEPAGE NavBar widget tests', () {
-    testWidgets('Login button is present', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Login'), findsOneWidget);
-      await tester.tap(find.text('Login'));
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-
-    testWidgets('Mode button is present', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Mode'), findsOneWidget);
-      await tester.tap(find.text('Mode'));
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-
-    testWidgets('Campaign button is present', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Campaign'), findsOneWidget);
-      await tester.tap(find.text('Campaign'));
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-
-    testWidgets('create user button is present', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: HomePage(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('create user'), findsOneWidget);
-      await tester.tap(find.text('create user'));
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(HomePage), findsOneWidget);
-    });
-
-  });
-
+  
   group('SELECT MODE PAGE widget tests', () {
     testWidgets('game master mode button is present', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
