@@ -61,6 +61,7 @@ class _CampaignState extends State<Campaign> {
       backgroundColor: Colors.black,
         // Streambuilder allows an async. stream from our firestore db to populate widgets on this page.
         body:StreamBuilder(
+          key: Key('streamBuilderKey'),
           // You can provide initial data so your widgets display something whike they are loading snapshots.
           //initialData: dataVariableHere,
 
@@ -76,7 +77,8 @@ class _CampaignState extends State<Campaign> {
               // TODO actually throw an exception or log an error.
             }
             // CustomScrollview is the actual name of the gridview layout widget.
-            return CustomScrollView(
+            CustomScrollView(
+              key: Key('CSV'), 
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
