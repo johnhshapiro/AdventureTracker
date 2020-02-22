@@ -34,8 +34,7 @@ class _CharacterListState extends State<CharacterList> {
     final chars = Provider.of<QuerySnapshot>(context);
     List charList = new List();
     for (var doc in chars.documents) {
-      print(doc.data['name']);
-      charList.add(doc.data['name']);
+      charList.add(doc);
     }
 
     return Container(
@@ -54,16 +53,28 @@ class _CharacterListState extends State<CharacterList> {
             itemCount: charList.length + 1,
             itemBuilder: (BuildContext contex, int index) {
               if (index == charList.length)
-                return Container(
-                  height: 50,
-                  color: Colors.grey,
-                  child: Center(child: Text('Create New'))
+                return MaterialButton(
+                      child: Text('Create New'),
+                      color: Colors.grey[800],
+                      splashColor: Colors.amber,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CharacterSelect()),
+                    );
+                  }
                 );
               else
-                return Container(
-                  height: 50,
-                  color: Colors.grey,
-                  child: Center(child: Text('${charList[index]}'))
+                return MaterialButton(
+                      child: Text('${charList[index].data['name']}'),
+                      color: Colors.grey[800],
+                      splashColor: Colors.amber,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CharacterSelect()),
+                    );
+                  }
                 );
             },
             separatorBuilder: (BuildContext context, int index) => const Divider()
