@@ -30,6 +30,7 @@ class _CharacterListState extends State<CharacterList> {
       charList.add(doc);
     }
 
+
     return Container(
 
       child: Stack(
@@ -65,7 +66,7 @@ class _CharacterListState extends State<CharacterList> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CharacterSelect()),
+                          MaterialPageRoute(builder: (context) => CharacterSheetPage(character: charList[index])),
                     );
                   }
                 );
@@ -94,7 +95,6 @@ class _CharacterSelectState extends State<CharacterSelect> {
     return StreamProvider<QuerySnapshot>.value(
       value: CharacterDB().chars,
       child: Scaffold(
-
         body: CharacterList(),
       ),
 
@@ -102,14 +102,32 @@ class _CharacterSelectState extends State<CharacterSelect> {
   }
 }
 
-// class CharacterSheetPage extends StatefulWidget {
-//   CharacterSheetPage({Key key, this.title}) : super(key: key);
-//   final String title;
+class CharacterSheetPage extends StatefulWidget {
+  final DocumentSnapshot character;
 
-//   @override
-//   _CharacterSheetPageState createState() => _CharacterSheetPageState();
-// }
+  CharacterSheetPage({Key key, this.title, @required this.character}) : super(key: key);
+  final String title;
 
-// class _CharacterSheetPageState extends State<CharacterSheetPage> {
-//   // @override
-// }
+  @override
+  _CharacterSheetPageState createState() => _CharacterSheetPageState();
+}
+
+class _CharacterSheetPageState extends State<CharacterSheetPage> {
+
+  @override
+  Widget build(BuildContext context) {
+    var keys = widget.character.data.keys.toList();
+
+    return ListView.separated(
+      padding: const EdgeInsets.all(50),
+      itemCount: keys.length,
+      separatorBuilder: (BuildContext context, int index) => Divider(),
+      itemBuilder: (BuildContext contex, int index) {
+
+        return Container(
+          child: Text('${keys[index]}: ${widget.character.data[keys[index]]}'),
+        );
+      }
+    );
+  }
+}
