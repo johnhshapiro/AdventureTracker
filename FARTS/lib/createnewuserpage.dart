@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import './homepage.dart';
 
@@ -11,7 +12,7 @@ class CreateNewUser extends StatefulWidget {
 
 class _CreateNewUserState extends State<CreateNewUser> {
   final _formkey = GlobalKey<FormState>();
-  String _pwCheck;
+  String _pwCheck, _email, _password, _confirmPassword, _username;
 
   @override
   Widget build(BuildContext context) {
@@ -121,5 +122,17 @@ class _CreateNewUserState extends State<CreateNewUser> {
         ],
       ),
     );
+  }
+  void createUser() async {
+    if (_formkey.currentState.validate()) {
+      try {
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage())
+        );
+      } catch (e) {
+      }
+    }
   }
 }
