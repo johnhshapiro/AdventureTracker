@@ -19,27 +19,37 @@ void main() {
   // https://stackoverflow.com/questions/50704647/how-to-test-navigation-via-navigator-in-flutter
   // From the flutter.dev docs: https://flutter.dev/docs/cookbook/testing/unit/mocking
   group('LOGIN PAGE widget tests', () {
-    testWidgets('Login button is present and triggers navigation after tapped',
+    testWidgets('Sign in Elements are present and reject invalid input',
         (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
           home: LoginPage(),
-          navigatorObservers: [mockObserver],
         ),
       );
-
-      expect(find.text('Sign In'), findsOneWidget);
-      await tester.tap(find.text('Sign In'));
+      // We use finder to find the elements on the page.
+      Finder email = find.byKey(new Key ('email'));
+      Finder password  = find.byKey(new Key ('password'));
+      Finder signIn = find.text('Sign In');
+      Finder formWidgetFinder = find.byType(Form);
+      Form formWidget = tester.widget(formWidgetFinder) as Form;
+      GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
+      // Invalid email and short password result in invalid form
+      await tester.enterText (email, "invalidEmail");
+      await tester.enterText(password, "short");
+      await tester.pump();
+      await tester.tap(signIn);
       await tester.pumpAndSettle();
-
-      /// Verify that a push event happened
-      verify(mockObserver.didPush(any, any));
-
-      /// You'd also want to be sure that your page is now
-      /// present in the screen.
-      // TODO: write a correct test here JOHN!
-      //expect(find.byType(SelectModePage), findsOneWidget);
+      expect(formKey.currentState.validate(), isFalse);
+      expect(find.text('Invalid email address'), findsOneWidget);
+      expect(find.text('Password is blank or less than 6 characters'), findsOneWidget);
+      // Test that valid email and password works
+      await tester.enterText (email, "vailid@valid.com");
+      await tester.enterText(password, "valid1");
+      await tester.tap(signIn);
+      await tester.pumpAndSettle();
+      expect(formKey.currentState.validate(), isTrue);
+      expect(find.text('Invalid email address'), findsNothing);
+      expect(find.text('Password is blank or less than 6 characters'), findsNothing);
     });
     testWidgets(
         'New user button is present and triggers navigation after tapped',

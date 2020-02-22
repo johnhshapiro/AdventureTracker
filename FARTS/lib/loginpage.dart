@@ -52,6 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
+                          key: new Key('email'),
                           decoration: InputDecoration(
                             icon: Icon(Icons.person),
                             labelText: "Email",
@@ -68,6 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                           onChanged: (input) => _email = input,
                         ),
                         TextFormField(
+                          key: new Key('password'),
                           decoration: InputDecoration(
                             icon: Icon(Icons.lock),
                             labelText: "Password",
