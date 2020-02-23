@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
+import 'package:FARTS/characters/character_sheet.dart';
+
 
 
 class CharacterDB {
@@ -102,32 +104,4 @@ class _CharacterSelectState extends State<CharacterSelect> {
   }
 }
 
-class CharacterSheetPage extends StatefulWidget {
-  final DocumentSnapshot character;
 
-  CharacterSheetPage({Key key, this.title, @required this.character}) : super(key: key);
-  final String title;
-
-  @override
-  _CharacterSheetPageState createState() => _CharacterSheetPageState();
-}
-
-class _CharacterSheetPageState extends State<CharacterSheetPage> {
-
-  @override
-  Widget build(BuildContext context) {
-    var keys = widget.character.data.keys.toList();
-
-    return ListView.separated(
-      padding: const EdgeInsets.all(50),
-      itemCount: keys.length,
-      separatorBuilder: (BuildContext context, int index) => Divider(),
-      itemBuilder: (BuildContext contex, int index) {
-
-        return Container(
-          child: Text('${keys[index]}: ${widget.character.data[keys[index]]}'),
-        );
-      }
-    );
-  }
-}

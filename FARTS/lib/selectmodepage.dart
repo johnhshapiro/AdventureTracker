@@ -1,5 +1,5 @@
 import 'package:FARTS/homepage.dart';
-import 'package:FARTS/characters.dart';
+import 'package:FARTS/characters/character_select.dart';
 import 'package:flutter/material.dart';
 
 class SelectModePage extends StatefulWidget {
