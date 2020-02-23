@@ -5,7 +5,7 @@ import 'navigation_test.dart';
 
 // Relevant pages
 import 'package:FARTS/homepage.dart';
-
+import 'package:FARTS/loginpage.dart';
 
 void main() {
   group('Homepage widget tests', () {
