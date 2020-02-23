@@ -1,6 +1,7 @@
 import 'package:FARTS/selectmodepage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 import './main.dart';
 import './homepage.dart';
@@ -93,13 +94,14 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.grey[800],
                             child: Text("Sign In"),
                             onPressed: () async {
+                              HapticFeedback.heavyImpact();
                               Scaffold.of(context).showSnackBar(SnackBar(content: Text('Signing in'),));
                               if (_formKey.currentState.validate()) {
                                 try {
                                   await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => HomePage()),
+                                    MaterialPageRoute(builder: (context) => SelectModePage()),
                                   );
                                 } catch (e) {
                                   Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid email or password"),));
@@ -128,10 +130,11 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey[800],
                           child: Text("Dev Bypass"),
                           onPressed: () {
+                            HapticFeedback.heavyImpact();
                             Navigator.push(
                               context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomePage()
+                                  builder: (context) => SelectModePage()
                                 ),
                             );
                           },
