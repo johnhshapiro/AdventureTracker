@@ -1,8 +1,13 @@
+import 'package:FARTS/homepage.dart';
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+
+// Relevant pages.
+import 'package:FARTS/vibrate.dart';
 
 // This album class contains the converted future data from the network request. 
 class Album {
@@ -77,7 +82,7 @@ class _CampaignState extends State<Campaign> {
               // TODO actually throw an exception or log an error.
             }
             // CustomScrollview is the actual name of the gridview layout widget.
-            CustomScrollView(
+            return CustomScrollView(
               key: Key('CSV'), 
               primary: false,
               slivers: <Widget>[
@@ -156,7 +161,8 @@ class _CampaignState extends State<Campaign> {
                           color: Colors.red,
                           child: Text("I'm an API Button that prints everything you could possibly want to know about acid arrow to the console", style: TextStyle(fontSize: 30.0),),
                           onPressed: () {
-                          _callAPI();
+                            Vibrate().epicRoll();
+                            //_callAPI();
                         },),
                       ),
                       Container( // This widget displays the API future data as an album. 
