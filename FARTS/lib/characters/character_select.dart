@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:FARTS/characters/character_sheet.dart';
+import 'package:FARTS/characters/new_character.dart.';
 
 
 
@@ -56,7 +57,7 @@ class _CharacterListState extends State<CharacterList> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CharacterSelect()),
+                          MaterialPageRoute(builder: (context) => CreateNewCharacter()),
                     );
                   }
                 );

@@ -93,7 +93,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
               }
             ),
             Text(""),
-            Text(char['notes'], style: TextStyle(fontSize: 30.0))
+            Text(char['notes'] ?? "", style: TextStyle(fontSize: 30.0))
             
           ],
           staggeredTiles: <StaggeredTile>[
