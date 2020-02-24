@@ -26,7 +26,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
           Image(
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
-              color: Colors.black87, // The number here is the opacity.
+              color: Colors.black54, // The number here is the opacity.
               colorBlendMode: BlendMode
                   .luminosity // Blends the background color with the background image.
               ),
@@ -99,7 +99,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     ),
                     Builder(
                       builder: (context) => MaterialButton(
-                        color: Colors.grey[800],
+                        color: Colors.grey[900],
                         child: Text("Create"),
                         // TODO: Validation checks if username is taken, maybe email as well
                         onPressed: () {

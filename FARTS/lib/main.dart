@@ -24,7 +24,7 @@ class BoardsEdge extends StatelessWidget {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.dark,
-          primaryColor: Colors.grey[800],
+          primaryColor: Colors.grey[900],
           accentColor: Colors.amber,
 
           // Define default font family

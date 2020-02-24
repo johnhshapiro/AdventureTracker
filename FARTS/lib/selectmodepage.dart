@@ -1,6 +1,8 @@
-import 'package:FARTS/homepage.dart';
 import 'package:FARTS/vibrate.dart';
 import 'package:flutter/material.dart';
+
+// Relevant pages.
+import 'package:FARTS/homepage.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);
@@ -30,19 +32,22 @@ class _SelectModePageState extends State<SelectModePage> {
                   Form(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        MaterialButton(
-                        child: Text('Game Master'),
-                        color: Colors.grey[600],
-                        onPressed: (){
-                          Vibrate().bigRoll();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
-                        },
+                        Container(
+                          margin: EdgeInsets.only(bottom: 20.0),
+                          child: MaterialButton(
+                          child: Text('Game Master'),
+                          color: Colors.grey[900],
+                          onPressed: (){
+                            Vibrate().bigRoll();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomePage()),
+                            );
+                          },
                       ),
+                        ),
                       ],
                     ),
                   ),
@@ -61,22 +66,25 @@ class _SelectModePageState extends State<SelectModePage> {
                     .luminosity // Blends the background color with the background image.
                 ),
                 Form(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      MaterialButton(
-                        child: Text('Adventurer'),
-                        color: Colors.grey[600],
-                        onPressed: (){
-                          Vibrate().bigRoll();
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomePage()),
-                          );
-                        },
-                      ),
-                    ]
+                  child: Container(
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        MaterialButton(
+                          child: Text('Adventurer'),
+                          color: Colors.grey[900],
+                          onPressed: (){
+                            Vibrate().bigRoll();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomePage()),
+                            );
+                          },
+                        ),
+                      ]
+                    ),
                   ),
                 ),
               ],

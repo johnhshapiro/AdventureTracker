@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
           Image(
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
-              color: Colors.black87, // The number here is the opacity.
+              color: Colors.black54, // The number here is the opacity.
               colorBlendMode: BlendMode
                   .luminosity // Blends the background color with the background image.
               ),
@@ -91,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         Builder(
                           builder: (context) => MaterialButton(
-                            color: Colors.grey[800],
+                            color: Colors.grey[900],
                             child: Text("Sign In"),
                             onPressed: () async {
                               HapticFeedback.heavyImpact();
@@ -114,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         MaterialButton(
-                          color: Colors.grey[800],
+                          color: Colors.grey[900],
                           child: Text("New User"),
                           onPressed: () {
                             Navigator.push(
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
                               .amber, //Creates the color splash when u press the button.
                         ),
                         MaterialButton(
-                          color: Colors.grey[800],
+                          color: Colors.grey[900],
                           child: Text("Dev Bypass"),
                           onPressed: () {
                             HapticFeedback.heavyImpact();
