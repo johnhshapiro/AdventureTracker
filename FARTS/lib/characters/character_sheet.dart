@@ -42,8 +42,11 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
           crossAxisCount: 10,
           mainAxisSpacing: 0,
           crossAxisSpacing: 2.0,
-          padding: EdgeInsets.all(4.0),
+          padding: EdgeInsets.all(20.0),
           children: <Widget>[
+            /* How this works:
+            The child at index 'n' provides the content for StaggeredTile at index 'n'.
+            */
             Text(char['name'], style: TextStyle(fontSize: 30.0)),
             // ListView.builder(
             //   scrollDirection: Axis.horizontal,
@@ -93,6 +96,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
               }
             ),
             Text(""),
+            Text("Notes", style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),),
             Text(char['notes'] ?? "", style: TextStyle(fontSize: 30.0))
             
           ],
@@ -125,6 +129,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
             StaggeredTile.count(5,5), // Equipment
             StaggeredTile.count(5,5), // Empty tab (placeholder or spacing)
             // Bottom
+            StaggeredTile.count(10,1), // Notes label
             StaggeredTile.count(10,5), // Notes
 
 
