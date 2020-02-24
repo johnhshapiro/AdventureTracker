@@ -20,19 +20,19 @@ class _HomePageState extends State<HomePage> {
   // item though like a Widget
   final navBarItems = [
     BottomNavigationBarItem(
+      icon: Icon(Icons.announcement), title: Text('Campaign')),
+    BottomNavigationBarItem(
       icon: Icon(Icons.home), title: Text('Login')),
     BottomNavigationBarItem(
       icon: Icon(Icons.subtitles), title: Text('Mode')),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
         icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
+    Campaign(),
     LoginPage(),
     SelectModePage(),
-    Campaign(),
     CreateNewUser(),
   ];
 
