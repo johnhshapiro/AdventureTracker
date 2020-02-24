@@ -11,6 +11,10 @@ class Vibrate {
     HapticFeedback.heavyImpact();
     sleep(Duration(milliseconds: 60));
     HapticFeedback.heavyImpact();
+    sleep(Duration(milliseconds: 80));
+    HapticFeedback.lightImpact();
+    sleep(Duration(milliseconds: 20));
+    HapticFeedback.heavyImpact();
   }
 
   void bigRoll() {
