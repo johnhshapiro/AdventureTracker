@@ -69,3 +69,8 @@ Travis https://travis-ci.com/johnhshapiro/AdventureTracker
 Coveralls Code Covergae: https://coveralls.io/github/johnhshapiro/AdventureTracker
 FireBase https://console.firebase.google.com/u/0/project/flutter-adventure-rts/overview
 DND 5th edition API http://www.dnd5eapi.co/
+
+************************************************************ Testing **************************************************************
+
+genhtml -o coverage coverage/lcov.info
+open coverage/index.html
