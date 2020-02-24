@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:FARTS/characters/character_sheet.dart';
-import 'package:FARTS/characters/new_character.dart.';
+import 'package:FARTS/characters/new_character.dart';
 
 
 
@@ -29,8 +29,10 @@ class _CharacterListState extends State<CharacterList> {
 
     final chars = Provider.of<QuerySnapshot>(context);
     List charList = new List();
-    for (var doc in chars.documents) {
-      charList.add(doc);
+    if (chars != null) {
+      for (var doc in chars.documents) {
+        charList.add(doc);
+      }
     }
 
 
@@ -98,7 +100,7 @@ class _CharacterSelectState extends State<CharacterSelect> {
     return StreamProvider<QuerySnapshot>.value(
       value: CharacterDB().chars,
       child: Scaffold(
-        body: CharacterList(),
+        body: CharacterList() ?? [],
       ),
 
     );

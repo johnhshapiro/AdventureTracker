@@ -1,6 +1,6 @@
 import 'package:FARTS/characters/ability_scores_and_skills.dart';
-import 'package:FARTS/characters/combat.dart';
-import 'package:FARTS/characters/inventory.dart';
+// import 'package:FARTS/characters/combat.dart';
+// import 'package:FARTS/characters/inventory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

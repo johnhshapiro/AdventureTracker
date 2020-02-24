@@ -134,13 +134,11 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
         _gridTileShapes.add(
           StaggeredTile.count(3, 5), // Strength ability score
         );
-        print('$i, $_statIndex, $_lookup, $_statName');  
       } else { // All other tiles are skills or saving throws
           if (i==1 || i==10 || i==35){
             _gridChildContent.add(
               Text(""),
              );
-             print(i);
           } else if (i==2) {
             _gridChildContent.add(
               Text("Saving Throws", style: TextStyle(fontSize: 20.0)),
@@ -156,19 +154,16 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
             _gridChildContent.add(
               skillCell(calculateModifier(char['stats'][_lookup]), _statName),
             );
-            print(i);
           }  else if (i==11) {
             _gridChildContent.add(
               Text("Skills", style: TextStyle(fontSize: 20.0)),
              );
-             print(i);
           } else {
             _lookup = skillsAndSavingThrows[i][1];
             _skillName = skillsAndSavingThrows[i][0];
             _gridChildContent.add(
               skillCell(calculateModifier(char['stats'][_lookup]), _skillName),
              );
-            print('$i, $_lookup, $_skillName');  
           }
           _gridTileShapes.add(
             StaggeredTile.count(4, 1),
