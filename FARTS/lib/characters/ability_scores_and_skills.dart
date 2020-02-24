@@ -190,60 +190,6 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
           padding: EdgeInsets.all(40.0),
           children: _gridChildContent,
           staggeredTiles: _gridTileShapes,
-          // children: <Widget>[
-          //   Text("Ability Scores and Skills", style: TextStyle(fontSize: 30.0)),
-          //   abilityScoreCell("Strength", char['stats']['str']),
-          //   Text("Saving Throws", style: TextStyle(fontSize: 25.0)),
-          //   skillCell(calculateModifier(char['stats']['str']), "Strength"),
-          //   skillCell(calculateModifier(char['stats']['dex']), "Dexterity"),
-          //   abilityScoreCell("Dexterity", char['stats']['dex']),
-          //   skillCell(calculateModifier(char['stats']['con']), "Constitution"),
-          //   skillCell(calculateModifier(char['stats']['int']), "Intelligence"),
-          //   skillCell(calculateModifier(char['stats']['wis']), "Wisdom"),
-          //   abilityScoreCell("Dexterity", char['stats']['con']),
-          //   skillCell(calculateModifier(char['stats']['cha']), "Charisma"),
-          //   Text("Skills", style: TextStyle(fontSize: 25.0)),
-          //   Text(""),
-
-
-            
-          // ],
-          // staggeredTiles: <StaggeredTile>[
-          //   /* How it works:
-          //   Tiles build left to right top to bottom. 
-          //   They can all be difference sizes and shapes.
-          //   To move to the next row make sure all columns in current row are accounted for.
-          //   Once on next row remember to account for "taller" tiles from previous rows.
-          //   */
-          //   // Title rows
-          //   StaggeredTile.count(7,2), // Title
-          //   // First three rows - one ability score and 3 saving throws/skills
-          //   StaggeredTile.count(3, 3), // Strength ability score
-          //   StaggeredTile.count(4, 1), // Saving throws label
-          //   StaggeredTile.count(4, 1), // Strength saving throw
-          //   StaggeredTile.count(4, 1), // Dexterity saving throw
-          //   StaggeredTile.count(3, 3), // Dexterity ability score
-          //   StaggeredTile.count(4, 1), // Constitution saving throw
-          //   StaggeredTile.count(4, 1), // Intelligence saving throw
-          //   StaggeredTile.count(4, 1), // Wisdom saving throw
-          //   StaggeredTile.count(3, 3), // Constitution ability score
-          //   StaggeredTile.count(4, 1), // Charisma saving throw
-          //   StaggeredTile.count(4, 1), // Skills label
-          //   StaggeredTile.count(4, 1), // Blank line
-          //   StaggeredTile.count(3, 3), // Intelligence ability score
-          //   StaggeredTile.count(4, 1), // Charisma saving throw
-          //   StaggeredTile.count(4, 1), // Skills label
-          //   StaggeredTile.count(4, 1), // Acrobatics skill 
-          //   StaggeredTile.count(3, 3), // Wisdom ability score
-          //   StaggeredTile.count(4, 1), // Athletics skill
-          //   StaggeredTile.count(4, 1), // Blank line
-          //   StaggeredTile.count(4, 1), // Blank line
-          //   StaggeredTile.count(3, 3), // Charisma ability score
-          //   StaggeredTile.count(4, 1), // Charisma saving throw
-          //   StaggeredTile.count(4, 1), // Blank line
-          //   StaggeredTile.count(4, 1), // Blank line
-
-          // ],
         )
       )
     );
