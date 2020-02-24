@@ -36,7 +36,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^3.0.0 # used for mocking
-
+  flutter_driver:
+    sdk: flutter
+  build_runner: ^1.0.0
+  json_serializable: ^3.0.1
+  test: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

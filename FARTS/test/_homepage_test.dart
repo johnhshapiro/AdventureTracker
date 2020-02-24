@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 import 'package:mockito/mockito.dart';
-import 'navigation_test.dart';
+import '_navigation_test.dart';
 
 // Relevant pages
 import 'package:FARTS/homepage.dart';
-import 'package:FARTS/loginpage.dart';
+// import 'package:FARTS/loginpage.dart';
 
 void main() {
   group('Homepage widget tests', () {

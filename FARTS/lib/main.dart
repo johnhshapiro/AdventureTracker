@@ -1,10 +1,10 @@
-import 'package:FARTS/viewcampaignpage.dart';
+// import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import './selectmodepage.dart';
+// import './selectmodepage.dart';
 import './loginpage.dart';
-import './homepage.dart';
+// import './homepage.dart';
 
 void main() => runApp(BoardsEdge());
 /*Loads 'main' as a Widget, even the app itself is a Widget. '=>' AKA 'fat arrow' in Dart 
