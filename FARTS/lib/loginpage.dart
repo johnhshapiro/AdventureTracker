@@ -1,5 +1,6 @@
 import 'package:FARTS/selectmodepage.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import './main.dart';
 import './homepage.dart';
@@ -11,6 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // the next two lines are for authentification
+  String _email, _password;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                 .center, // For column, main axis alignment will always be vertically aligned (row = horizontal for main axis)
             children: <Widget>[
               Form(
+                key: _formKey, // this is the key for authentification
                 child: Theme(
                   // This theme is wrapping the entire Column child which displays all the text fields, allowing the forms to have their own speerate theme (brighter than the background)
                   data: ThemeData(
@@ -47,37 +52,64 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         TextFormField(
+                          key: new Key('email'),
                           decoration: InputDecoration(
                             icon: Icon(Icons.person),
-                            labelText: "Username",
+                            labelText: "Email",
                           ),
                           keyboardType: TextInputType
                               .emailAddress, // This is just telling it to pull up the right keyboard type for an email address
+                          // email validation
+                          validator: (value) {
+                            if (value.isEmpty || !value.contains('@')) {
+                              return 'Invalid email address';
+                            }
+                            return null;
+                          },
+                          onChanged: (input) => _email = input,
                         ),
                         TextFormField(
+                          key: new Key('password'),
                           decoration: InputDecoration(
                             icon: Icon(Icons.lock),
                             labelText: "Password",
                           ),
                           keyboardType: TextInputType.text,
+                          // password validation
+                          validator: (value) {
+                            if (value.isEmpty || value.length < 6) {
+                              return 'Password is blank or less than 6 characters';
+                            }
+                            return null;
+                          },
+                          onChanged: (input) => _password = input,
                           obscureText: true,
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
-                        // TODO: make the button check user credentials. Right now it just logs in no matter what
-                        MaterialButton(
-                          color: Colors.grey[800],
-                          child: Text("Login"),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SelectModePage()),
-                            );
-                          },
-                          splashColor: Colors
-                              .amber, //Creates the color splash when u press the button.
+                        Builder(
+                          builder: (context) => MaterialButton(
+                            color: Colors.grey[800],
+                            child: Text("Sign In"),
+                            onPressed: () async {
+                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Signing in'),));
+                              if (_formKey.currentState.validate()) {
+                                try {
+                                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => HomePage()),
+                                  );
+                                } catch (e) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid email or password"),));
+                                  print(e.message);
+                                }
+                              }
+                            },
+                            splashColor: Colors
+                                .amber, //Creates the color splash when u press the button. By u do u mean me?
+                          ),
                         ),
                         MaterialButton(
                           color: Colors.grey[800],
@@ -89,9 +121,20 @@ class _LoginPageState extends State<LoginPage> {
                                   builder: (context) => CreateNewUser()),
                             );
                           },
-                          // Doesn't do anything right now but will link to the create user page!
                           splashColor: Colors
                               .amber, //Creates the color splash when u press the button.
+                        ),
+                        MaterialButton(
+                          color: Colors.grey[800],
+                          child: Text("Dev Bypass"),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomePage()
+                                ),
+                            );
+                          },
                         ),
                       ],
                     ),

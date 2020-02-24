@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
 
 import './homepage.dart';
 
@@ -11,7 +13,9 @@ class CreateNewUser extends StatefulWidget {
 
 class _CreateNewUserState extends State<CreateNewUser> {
   final _formkey = GlobalKey<FormState>();
-  String _pwCheck;
+  final CollectionReference userCollection = Firestore.instance.collection('users');
+  String _username, _email, _password, _error = '';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
               colorBlendMode: BlendMode
                   .luminosity // Blends the background color with the background image.
               ),
-          Form(
+            Form(
             key: _formkey,
             child: Theme(
               data: ThemeData(
@@ -49,16 +53,18 @@ class _CreateNewUserState extends State<CreateNewUser> {
                         }
                         return null;
                       },
+                      onChanged: (input) => _username= input,
                       decoration: InputDecoration(labelText: "Username"),
                     ),
                     TextFormField(
-                      // Email
+                      // Email,
                       validator: (value) {
                         if (value.isEmpty || !value.contains('@')) {
-                          return 'Invalid Email';
+                          return 'Invalid email';
                         }
                         return null;
                       },
+                      onChanged: (input) => _email = input,
                       decoration: InputDecoration(
                         labelText: "Email Address",
                       ),
@@ -66,14 +72,11 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     ),
                     TextFormField(
                       // Password
-                      validator: (value) {
-                        _pwCheck = value; // TODO don't store the password value for checking password match purposes, instead create a hashfunction. 
-                        // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.
-                        if (value.isEmpty || value.length < 8) {
-                          return 'Must be at least 8 characters';
-                        }
-                        return null;
-                      },
+                      validator: (value) =>
+                        value.length < 6 ? 'Password must be at least 6 characters': null,
+                        // TODO don't store the password value for checking password match purposes, instead create a hashfunction. 
+                        // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.,
+                      onChanged: (input) => _password = input,
                       decoration: InputDecoration(
                         labelText: "Password",
                       ),
@@ -83,11 +86,9 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     TextFormField(
                       // Confirm Password
                       validator: (value) {
-                        if (value.isEmpty || value != _pwCheck) {
-                          _pwCheck = null;
+                        if (value.isEmpty || value != _password) {
                           return 'Password Doesn' '\'t Match';
                         }
-                        _pwCheck = null;
                         return null;
                       },
                       decoration: InputDecoration(
@@ -100,18 +101,18 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       builder: (context) => MaterialButton(
                         color: Colors.grey[800],
                         child: Text("Create"),
+                        // TODO: Validation checks if username is taken, maybe email as well
                         onPressed: () {
                           Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Inputs...'),));
-                          if (_formkey.currentState.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          }
+                          createUser();
                         },
                         splashColor: Colors
-                            .amber, //Creates the color splash when u press the button.
+                            .amber, //Creates the color splash when u press the button. By u do u mean me?
                       ),
+                    ),
+                    // TODO: Think of a better way to show the error text
+                    Text(
+                      _error
                     ),
                   ],
                 ),
@@ -121,5 +122,28 @@ class _CreateNewUserState extends State<CreateNewUser> {
         ],
       ),
     );
+  }
+  Future createUser() async {
+    if (_formkey.currentState.validate()) {
+      try {
+        AuthResult result =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+        String uid = result.user.uid;
+        await userCollection.document(uid).setData({
+          'username': _username,
+          'email': _email,
+          'characters': [null],
+          'gmCampaigns': [null],
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage())
+        );
+      } catch(e) {
+        print(e.code);
+        if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+          setState(() =>_error = "A user with that email already exists");
+        }
+      }
+    }
   }
 }

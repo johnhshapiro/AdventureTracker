@@ -37,11 +37,11 @@
 .pub/
 /build/
 
-# Coverage Related
-/coverage
-
 # Web related
 lib/generated_plugin_registrant.dart
+
+# Coverage generated code
+/coverage/
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages

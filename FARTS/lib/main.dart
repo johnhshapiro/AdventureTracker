@@ -1,3 +1,4 @@
+import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -33,11 +34,9 @@ class BoardsEdge extends StatelessWidget {
           // text styling for headlines (headline5), titles (headline6), bodies of text (bodyText2), and more.
           // *NOTE* if you are seeing red underline for the textTheme variables you need to update flutter/dart
           textTheme: TextTheme(
-              title: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-              subtitle: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-              body2: TextStyle(fontSize: 14.0, fontFamily: 'Georgia')
-            ),
-        )
-      );
+              headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+              title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+              body2: TextStyle(fontSize: 14.0, fontFamily: 'Georgia')),
+        ));
   }
 }
