@@ -109,7 +109,6 @@ class _CampaignState extends State<Campaign> {
                       ),
                       Container(
                         padding: EdgeInsets.all(8),
-                        //color: Colors.green,
                         child: Text("Party info",
                           style: TextStyle(fontSize: 20.0, color: Colors.yellow),),
                         decoration: BoxDecoration(
@@ -129,21 +128,25 @@ class _CampaignState extends State<Campaign> {
                           child: Text("API Call", style: TextStyle(fontSize: 30.0),),
                           onPressed: () {
                             Vibrate().smallRoll();
-                            //_callAPI();
                         },),
                       ),
-                      Container( // This widget displays the API future data as an album. 
-                        color: Colors.blue[100],
-                        child: FutureBuilder<Album>(
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return Text(snapshot.data.title);
-                            }
-                            else {
-                              return Text("${snapshot.error}");
-                            }
-                          } 
-                        ),
+                      Container( 
+                        color: Colors.grey[800],
+                        child: MaterialButton(
+                          child: Text('Small Roll Test'),
+                          onPressed: Vibrate().smallRoll,)
+                      ),
+                      Container( 
+                        color: Colors.grey[800],
+                        child: MaterialButton(
+                          child: Text('Big Roll Test'),
+                          onPressed: Vibrate().bigRoll,)
+                      ),
+                      Container( 
+                        color: Colors.grey[800],
+                        child: MaterialButton(
+                          child: Text('Epic Roll Test'),
+                          onPressed: Vibrate().epicRoll,)
                       ),
                     ],
                   ),

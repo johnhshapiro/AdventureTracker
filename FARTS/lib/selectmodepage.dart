@@ -1,4 +1,5 @@
 import 'package:FARTS/homepage.dart';
+import 'package:FARTS/vibrate.dart';
 import 'package:flutter/material.dart';
 
 class SelectModePage extends StatefulWidget {
@@ -31,18 +32,17 @@ class _SelectModePageState extends State<SelectModePage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          child: MaterialButton(
-                            child: Text('Game Master'),
-                            color: Colors.grey[600],
-                            onPressed: (){
-                              Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                              );
-                            },
-                          ), 
-                        ),
+                        MaterialButton(
+                        child: Text('Game Master'),
+                        color: Colors.grey[600],
+                        onPressed: (){
+                          Vibrate().bigRoll();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                      ),
                       ],
                     ),
                   ),
@@ -69,6 +69,7 @@ class _SelectModePageState extends State<SelectModePage> {
                         child: Text('Adventurer'),
                         color: Colors.grey[600],
                         onPressed: (){
+                          Vibrate().bigRoll();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomePage()),
@@ -83,55 +84,5 @@ class _SelectModePageState extends State<SelectModePage> {
           ),
       ],),
     );
-    // return Scaffold(
-    //   body: Stack(
-    //     fit: StackFit.expand,
-    //     children: <Widget>[
-    //       Image(
-    //           image: AssetImage("assets/loginImage.jpg"),
-    //           fit: BoxFit.cover,
-    //           color: Colors.black87, // The number here is the opacity.
-    //           colorBlendMode: BlendMode
-    //               .luminosity // Blends the background color with the background image.
-    //           ),
-    //       Column(
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: <Widget>[
-    //           Form(
-    //               child: Container(
-    //             padding: EdgeInsets.all(10.0),
-    //             child: Column(
-    //               children: <Widget>[
-    //                 MaterialButton(
-    //                   child: Text('Game Master'),
-    //                   color: Colors.grey[800],
-    //                   splashColor: Colors.amber,
-    //                   onPressed: () {
-    //                     Navigator.push(
-    //                       context,
-    //                       MaterialPageRoute(builder: (context) => HomePage()),
-    //                     );
-    //                   },
-    //                 ),
-    //                 MaterialButton(
-    //                   child: Text('Adventurer'),
-    //                   color: Colors.grey[800],
-    //                   splashColor: Colors.amber,
-    //                   onPressed: () {
-    //                     Navigator.push(
-    //                       context,
-    //                       MaterialPageRoute(builder: (context) => HomePage()),
-    //                     );
-    //                   },
-    //                 ),
-    //               ],
-    //             ),
-    //           )),
-    //         ],
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }
