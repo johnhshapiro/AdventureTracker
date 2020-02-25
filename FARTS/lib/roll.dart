@@ -20,7 +20,83 @@ class _RollState extends State<Roll> {
         },
       ),
       body: ListView(
-
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+          Container(
+            margin: EdgeInsets.all(30.0),
+            color: Colors.red, 
+            child: Text('lol'), 
+          ),
+        ],
       ), 
     );
   }
