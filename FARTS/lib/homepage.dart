@@ -1,3 +1,4 @@
+import 'package:FARTS/roll.dart';
 import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.home), title: Text('Login')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.subtitles), title: Text('Mode')),
+      icon: Icon(Icons.casino), title: Text('Roll')),
     BottomNavigationBarItem(
         icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   final _routeList = [
     Campaign(),
     LoginPage(),
-    SelectModePage(),
+    Roll(),
     CreateNewUser(),
   ];
 

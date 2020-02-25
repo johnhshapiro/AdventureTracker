@@ -31,7 +31,7 @@ class Campaign extends StatefulWidget {
 class _CampaignState extends State<Campaign> {
   // Uses the DateTime class to get the current time of the area the device is in.
   //var _now = new DateFormat.("yyyy-MM-dd HH:mm:ss").format(new DateTime.now());
-  static DateFormat dateFormat = DateFormat("H:mm MM-dd-yy");
+  static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
   String _now = dateFormat.format(DateTime.now());
   
   @override
@@ -56,7 +56,7 @@ class _CampaignState extends State<Campaign> {
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
-                  padding: const EdgeInsets.all(5),
+                  padding: EdgeInsets.all(5),
                   // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number
                   // of evenly spaced widgets per row.
                   sliver: SliverGrid.extent(
@@ -68,25 +68,33 @@ class _CampaignState extends State<Campaign> {
                       Container(
                         margin: EdgeInsets.only(top: 50.0),
                         //padding: EdgeInsets.all(5.0),
-                        child: Column(
+                        child: Stack(
+                          fit: StackFit.expand,
                           children: <Widget>[
-                            Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),),
-                            Container(
-                              padding: EdgeInsets.all(14.0),
-                              child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 24.0))),
-                            Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[600])),
-                            Container(
-                              padding: EdgeInsets.all(14.0),
-                              child: Text(_now.toString(), style: TextStyle(fontSize: 24.0),)),
-                            Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[600])),
-                            Container(
-                              padding: EdgeInsets.all(14.0),
-                              child: Text("1", style: TextStyle(fontSize: 24.0),)),
-                              // TODO increment the session number dynamically
-                            Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[600]),),
-                            Container(
-                              padding: EdgeInsets.all(14.0),
-                              child: Text("Shrek's Swamp", style: TextStyle(fontSize: 24.0),)),
+                            Image(image: AssetImage('assets/realoldpaper.jpg'),
+                            fit: BoxFit.cover,
+                            ),
+                            Column(
+                              children: <Widget>[
+                                Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
+                                Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic))),
+                                Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+                                Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  child: Text(_now.toString(), style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
+                                Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+                                Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  child: Text("1", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
+                                  // TODO increment the session number dynamically
+                                Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
+                                Container(
+                                  padding: EdgeInsets.all(14.0),
+                                  child: Text("Shrek's Swamp", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -142,7 +150,7 @@ class _CampaignState extends State<Campaign> {
                           child: Text('Big Roll Test'),
                           onPressed: Vibrate().bigRoll,)
                       ),
-                      Container( 
+                      Container(
                         color: Colors.grey[800],
                         child: MaterialButton(
                           child: Text('Epic Roll Test'),
