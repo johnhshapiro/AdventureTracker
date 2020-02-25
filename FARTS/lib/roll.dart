@@ -39,12 +39,11 @@ class _RollState extends State<Roll> {
       margin: EdgeInsets.all(5),
       color: Colors.grey[900],
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: TextField(
-              decoration: InputDecoration(labelText: 'd2', ),
-              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: 'Roll Name', ),
             ),
           ),
           Expanded(
