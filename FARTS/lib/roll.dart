@@ -36,16 +36,43 @@ class _RollState extends State<Roll> {
   _buildListTile(int index) {
     return Container(
       padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
       color: Colors.grey[900],
-      child: ListTile(
-        title: Text('test output yoyoyo'),
-        trailing: IconButton(
-          icon: Icon(Icons.add),
-          color: Colors.amber,
-          onPressed: () {
-            _addListItem();
-          }
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: 'd2', ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: 'd3', ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: 'd4', ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(labelText: 'd6', ),
+              keyboardType: TextInputType.number,
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.add, size: 30.0,),
+            color: Colors.amber,
+            onPressed: () {
+              _addListItem();
+            }
+          ),
+        ],
       ),
     );
   }
