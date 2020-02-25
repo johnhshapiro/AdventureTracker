@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // Relevant pages.
 import './loginpage.dart';
-import './selectmodepage.dart';
+import './selectmodepage.dart'; 
 import './createnewuserpage.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +17,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   
+  // This var keeps track fo the bottom NavBar's current index selection.
+  int _selectedIndex = 0;
   // This is a list of the NavBar icons/items, note it could also be something other than a NavBar
   // item though like a Widget
   final navBarItems = [
@@ -59,8 +61,7 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  // This function and variable are for the NavBar.
-  int _selectedIndex = 0;
+  // This function controls the NavBar current index.
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;

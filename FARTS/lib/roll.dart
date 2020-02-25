@@ -9,95 +9,52 @@ class Roll extends StatefulWidget {
 }
 
 class _RollState extends State<Roll> {
+  int listItemCount = 1;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.casino),
-        onPressed: () {
-          Vibrate().smallRoll();
+        onPressed: (){
+          Vibrate().bigRoll();
         },
+        child: Icon(Icons.casino),
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
-          ),
-          Container(
-            margin: EdgeInsets.all(30.0),
-            color: Colors.red, 
-            child: Text('lol'), 
+          Expanded(
+            child: ListView.builder(
+              itemCount: this.listItemCount,
+              itemBuilder: (context, index) => this._buildListTile(index)),
           ),
         ],
-      ), 
+      ),
     );
   }
+
+  // Build an Individual List Tile
+  _buildListTile(int index) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      color: Colors.grey[900],
+      child: ListTile(
+        title: Text('test output yoyoyo'),
+        trailing: IconButton(
+          icon: Icon(Icons.add),
+          color: Colors.amber,
+          onPressed: () {
+            _addListItem();
+          }
+        ),
+      ),
+    );
+  }
+
+  // Increments the count of list items, allows for infinite list.
+  _addListItem() {
+    setState(() {
+      listItemCount = listItemCount + 1;
+    });
+  }
+
 }
