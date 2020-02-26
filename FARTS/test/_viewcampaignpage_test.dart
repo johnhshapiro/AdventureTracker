@@ -26,12 +26,4 @@ void main() {
 
   });
 
-  test('Album Class tests',  () {
-    final tester = Album();
-
-    // Make sure the local variables are initially null.
-    expect(tester.userId, null);
-    expect(tester.id, null);
-    expect(tester.title, null);
-  });
 }

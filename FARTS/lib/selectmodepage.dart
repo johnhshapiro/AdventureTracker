@@ -24,6 +24,7 @@ class _SelectModePageState extends State<SelectModePage> {
               children: <Widget>[
                   GestureDetector(
                     onTap: (){
+                      Vibrate().bigRoll();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HomePage()),
@@ -68,6 +69,7 @@ class _SelectModePageState extends State<SelectModePage> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
+                  Vibrate().bigRoll();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),

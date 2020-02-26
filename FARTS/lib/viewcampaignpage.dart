@@ -7,21 +7,21 @@ import 'package:intl/intl.dart';
 import 'package:FARTS/vibrate.dart';
 
 // This album class contains the converted future data from the network request. 
-class Album {
-  final userId;
-  final id;
-  final title;
-  Album({this.userId, this.id, this.title});
+// class Album {
+//   final userId;
+//   final id;
+//   final title;
+//   Album({this.userId, this.id, this.title});
 
-  // This factory constructor crates an album form JSON.
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-    );
-  }
-}
+//   // This factory constructor crates an album form JSON.
+//   factory Album.fromJson(Map<String, dynamic> json) {
+//     return Album(
+//       userId: json['userId'],
+//       id: json['id'],
+//       title: json['title'],
+//     );
+//   }
+// }
 
 class Campaign extends StatefulWidget {
   @override
@@ -165,7 +165,7 @@ class _CampaignState extends State<Campaign> {
         )
     );
   }
-  void _callAPI() async{
+  void _callAPI() async { 
     print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
   }
 } 

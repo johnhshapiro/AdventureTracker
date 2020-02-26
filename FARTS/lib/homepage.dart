@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // Relevant pages.
 import './loginpage.dart';
-import './selectmodepage.dart'; 
+import './selectmodepage.dart';
 import './createnewuserpage.dart';
 
 class HomePage extends StatefulWidget {
