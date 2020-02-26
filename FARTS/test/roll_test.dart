@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Relevant pages
@@ -10,6 +9,7 @@ void main() {
     final app = Roll();
 
     app.rollInRange(0, 1);
+    app.rollMultipleInRange(0, 1, 1, 1);
   });
 
 }

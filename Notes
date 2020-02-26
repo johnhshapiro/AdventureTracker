@@ -11,6 +11,17 @@ Enforcing privacy with underscore prefix-
 _identifierName (with the underscore prefix) enforces privacy as dart does not have the keywords
  ‘public’ ‘private’ or ‘protected’ like Java. For details, see https://dart.dev/guides/language/language-tour#libraries-and-visibility
 
+Ternary Operator ('?') use examples.
+https://alvinalexander.com/flutter/dart-ternary-operator-syntax-examples
+
+**********************************************************Flutter SDK, API, and Environment Notes*******************************************************
+
+Importing and loading packages-
+Add package imports to the pubspec.yaml file and then underneath the ‘dependancies:’ list
+You then need to get (load) these packages. You can either just save the yaml file in VScode which will automatically get the package, or run 
+the following in your terminal
+	flutter pub get
+Then add an import statement for your package at the top of the main dart file.
 
 State vs Stateless Widgets-
 Stateless widgets are immutable, meaning their properties can’t change – All values are final.
@@ -24,16 +35,6 @@ Here are just the Material Components Widgets (buttons and stuff which will like
 
 Some widget properties take a single widget(child) whereas other properties like 'action' can take a array of widgets (children) denoted by the 
 square brakcets[].
-
-
-**********************************************************Flutter SDK, API, and Environment Notes*******************************************************
-
-Importing and loading packages-
-Add package imports to the pubspec.yaml file and then underneath the ‘dependancies:’ list
-You then need to get (load) these packages. You can either just save the yaml file in VScode which will automatically get the package, or run 
-the following in your terminal
-	flutter pub get
-Then add an import statement for your package at the top of the main dart file.
 
 Navigate to a new screen (programmatically)-
 An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing 

@@ -1,9 +1,9 @@
-import 'package:FARTS/roll.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Relevant pages
 import 'vibrate.dart';
+import 'roll.dart';
 
 class RollPage extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class RollPage extends StatefulWidget {
 }
 
 class _RollPageState extends State<RollPage> {
+  int _totalNumDice = 0;
   int _totalRollValue = 0;
   int _listItemCount = 1;
   int _d4Count = 0;
@@ -25,6 +26,11 @@ class _RollPageState extends State<RollPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(_totalRollValue.toString(), style: TextStyle(fontSize: 50),),
+      ),
       floatingActionButton: GestureDetector(
         onLongPress: () {
           setState(() {
@@ -45,17 +51,12 @@ class _RollPageState extends State<RollPage> {
         children: <Widget>[
           Expanded(
             child: ListView.builder(
-              itemCount: this._listItemCount,
-              // Adds more list items dynamically by calling the build function.  
-              //itemBuilder: (context, index) => this._buildListTile(index)),
+              itemCount: _listItemCount,
+              // Adds more list items dynamically by calling the build function.
               itemBuilder: (BuildContext context, int index) {
                 return _buildDiceBody(index);
               }
             ),
-          ),
-          Container(
-            margin: EdgeInsets.all(30),
-            child: Text('Test output: ' + _totalRollValue.toString(), style: TextStyle(fontSize: 24, color: Colors.red),),
           ),
         ],
       ),
@@ -63,7 +64,7 @@ class _RollPageState extends State<RollPage> {
   }
 
   _buildDiceBody(int index) {
-    return Container(
+    return new Container(
       height: 80,
       padding: EdgeInsets.all(5),       
       margin: EdgeInsets.all(5),
@@ -76,22 +77,15 @@ class _RollPageState extends State<RollPage> {
             child: IconButton(
               icon: Icon(Icons.casino, size: 40.0, color: Colors.amber,),
               onPressed: () {
-                Vibrate().bigRoll();
-                print('inside icon button $_totalRollValue');
                 _rollDice();
               }
             ),
           ),
 
-        //  Container(
-        //    margin: EdgeInsets.all(8),
-        //     child: TextField(
-        //       decoration: InputDecoration(
-        //       hintText: 'Name',
-        //       ),
-        //     ),
-        //   ),
-
+         SizedBox(
+           width: 100,
+           child: TextField(
+             decoration: InputDecoration(hintText: 'Name'),),),
           Container(
             color: Colors.blue,
             margin: EdgeInsets.all(8),
@@ -199,6 +193,9 @@ class _RollPageState extends State<RollPage> {
                     });
                   },
                 ),
+                // Note the ternary operator ('?') this is a shorthand 'if' statement that evalutes to
+                // "if the dice count isn't 0 show a notification bubble with the dice count. If it is 0
+                // show an empty container (aka show no notification).
                 _d10Count != 0 ? Positioned(
                   right: 11,
                   top: 11,
@@ -216,7 +213,8 @@ class _RollPageState extends State<RollPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ) : Container()
+                ) : Container() // Here is the condition not met value for the ternary operator. Note the colon,
+                // the full syntax is <result = testCondition ? trueValue falseValue
               ],
             ),
           ),
@@ -327,47 +325,34 @@ class _RollPageState extends State<RollPage> {
   _rollDice() {
     setState(() {
     _totalRollValue = 0;
+    _totalNumDice = _d2Count + _d4Count + _d6Count + _d10Count + _d12Count + _d20Count + _d100Count + _dnCount;
+    // TODO try keeping track of _dNUMBER count variables here to fix bug (renitizalize when function is called).
 
-    // Return d2 total
-    for (int i = 0; i < _d2Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 3);
-    }
-
-    // Return d4 total
-    for (int i = 0; i < _d4Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 5);
-    }
-
-    // Return d6 total
-    for (int i = 0; i < _d6Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 7);
-    }
-
-    // Return d10 total
-    for (int i = 0; i < _d10Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 11);
-    }
-
-    // Return d12 total
-    for (int i = 0; i < _d12Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 13);
-    }
-
-    // Return d20 total
-    for (int i = 0; i < _d20Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 21);
-    }
-
-    // Return d100 total
-    for (int i = 0; i < _d100Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 101);
-    }
+    // Capture d2 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 3, _d2Count, 0);
+    // Capture d4 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 5, _d4Count, 0);
+    // Capture d6 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 7, _d6Count, 0);
+    // Capture d10 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 11, _d10Count, 0);
+    // Capture d12 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 13, _d12Count, 0);
+    // Capture d20 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 21, _d20Count, 0);
+    // Capture d100 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 101, _d100Count, 0);
 
     // TODO create a local variable to hold the dn face value and then pass this to the Roll class as a param.
     // Return dn total
     // for (int i = 0; i < _dnCount; i ++) {
     //   _totalRollValue += Roll().rollInRange(1, 5);
     // }
+
+      // Trigger vibration 'dice roll' feedback based on how many dice are being rolled.
+      if(_totalNumDice > 0 && _totalNumDice < 5) { Vibrate().smallRoll();}
+      if(_totalNumDice >= 5 && _totalNumDice < 10) { Vibrate().bigRoll();}
+      if(_totalNumDice >= 10) { Vibrate().epicRoll();}
   
     return _totalRollValue;
     });

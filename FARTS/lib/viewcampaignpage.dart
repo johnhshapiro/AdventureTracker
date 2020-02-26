@@ -52,7 +52,7 @@ class _CampaignState extends State<Campaign> {
             }
             // CustomScrollview is the actual name of the gridview layout widget.
             return CustomScrollView(
-              key: Key('CSV'), 
+              key: Key('CSV'),
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
