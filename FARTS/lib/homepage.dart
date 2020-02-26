@@ -1,11 +1,10 @@
-import 'package:FARTS/roll.dart';
-import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
 import './loginpage.dart';
-import './selectmodepage.dart';
 import './createnewuserpage.dart';
+import 'package:FARTS/rollpage.dart';
+import 'package:FARTS/viewcampaignpage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -35,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   final _routeList = [
     Campaign(),
     LoginPage(),
-    Roll(),
+    RollPage(),
     CreateNewUser(),
   ];
 
