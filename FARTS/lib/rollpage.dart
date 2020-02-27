@@ -380,6 +380,7 @@ class _DiceBagState extends State<DiceBag> {
       if(_totalNumDice >= 5 && _totalNumDice < 10) { Vibrate().bigRoll();}
       if(_totalNumDice >= 10) { Vibrate().epicRoll();}
 
+    // Send _totalRollValue back to parent via provided callback function.
     widget.parentAction(_totalRollValue);
     });
   }
