@@ -10,7 +10,6 @@ class AuthenticationService {
         FirebaseUser user = result.user;
         return user;
       } catch (e) {
-        print(e.message);
         return null;
       }
   }
