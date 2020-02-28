@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 // import './main.dart';
 // import './homepage.dart';
 import './createnewuserpage.dart';
+import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -16,9 +17,11 @@ class _LoginPageState extends State<LoginPage> {
   // the next two lines are for authentification
   String _email, _password;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(
         // Stack stacks multiple children widgets (Image, and Column which in turn has many children itself) in a space.
         fit: StackFit
@@ -90,28 +93,18 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
                         Builder(
-                          builder: (context) => MaterialButton(
+                          builder: (context) {
+                            var materialButton = MaterialButton(
                             color: Colors.grey[900],
                             child: Text("Sign In"),
                             onPressed: () async {
-                              HapticFeedback.heavyImpact();
-                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Signing in'),));
-                              if (_formKey.currentState.validate()) {
-                                try {
-                                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => SelectModePage()),
-                                  );
-                                } catch (e) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid email or password"),));
-                                  print(e.message);
-                                }
-                              }
+                              await signIn();
                             },
                             splashColor: Colors
                                 .amber, //Creates the color splash when u press the button. By u do u mean me?
-                          ),
+                          );
+                            return materialButton;
+                          },
                         ),
                         MaterialButton(
                           color: Colors.grey[900],
@@ -149,5 +142,24 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
+  }
+  Future signIn() async {
+    HapticFeedback.heavyImpact();
+    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Signing in'),));
+    if (_formKey.currentState.validate()) {
+      try {
+        AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
+        FirebaseUser user = result.user;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomePage()),
+        );
+        return user;
+      } catch (e) {
+        _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Invalid email or password"),));
+        print(e.message);
+        return null;
+      }
+    }
   }
 }
