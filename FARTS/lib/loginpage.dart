@@ -1,4 +1,5 @@
 import 'package:FARTS/selectmodepage.dart';
+import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // the next two lines are for authentification
   String _email, _password;
+  final AuthenticationService _auth = AuthenticationService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
@@ -98,7 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.grey[900],
                             child: Text("Sign In"),
                             onPressed: () async {
-                              await signIn();
+                              HapticFeedback.heavyImpact();
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Signing in'),));
+                              if (_formKey.currentState.validate()) {
+                                await _auth.signIn(_email, _password);
+                              }
                             },
                             splashColor: Colors
                                 .amber, //Creates the color splash when u press the button. By u do u mean me?
@@ -142,24 +148,5 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
     );
-  }
-  Future signIn() async {
-    HapticFeedback.heavyImpact();
-    _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Signing in'),));
-    if (_formKey.currentState.validate()) {
-      try {
-        AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-        FirebaseUser user = result.user;
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-        return user;
-      } catch (e) {
-        _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text("Invalid email or password"),));
-        print(e.message);
-        return null;
-      }
-    }
   }
 }
