@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:FARTS/vibrate.dart';
-
 class Roll {
   final _random = Random();
   // TODO TRY USING ASSERTIONS to check parameters and values

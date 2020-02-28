@@ -1,11 +1,9 @@
-import 'package:FARTS/viewcampaignpage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
-import './loginpage.dart';
 import './createnewuserpage.dart';
 import 'package:FARTS/rollpage.dart';
-import 'package:FARTS/viewcampaignpage.dart';
+import 'package:FARTS/campaignview/viewcampaignpage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -25,18 +23,12 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.home), title: Text('Login')),
-    BottomNavigationBarItem(
       icon: Icon(Icons.casino), title: Text('Roll')),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     Campaign(),
-    LoginPage(),
     RollPage(),
-    CreateNewUser(),
   ];
 
   @override

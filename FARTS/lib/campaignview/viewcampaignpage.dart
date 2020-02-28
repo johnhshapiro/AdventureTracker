@@ -1,10 +1,11 @@
+import 'package:FARTS/campaignview/viewmap.dart';
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 // Relevant pages.
-import 'package:FARTS/vibrate.dart';
+import 'package:FARTS/services/vibrate.dart';
 
 class Campaign extends StatefulWidget {
   @override
@@ -20,7 +21,6 @@ class _CampaignState extends State<Campaign> {
     return Scaffold(
       backgroundColor: Colors.black,
         body:StreamBuilder(
-          key: Key('streamBuilderKey'),
           stream: Firestore.instance.collection("campaigns").snapshots(),
           builder: (context, snapshot) {
             // Shows a loading progress indicator while data is still being fetched.
@@ -28,12 +28,10 @@ class _CampaignState extends State<Campaign> {
               return CircularProgressIndicator();
             }
             if (snapshot.hasError) {
-              //return UhOh(snapshot.error);
-              // TODO actually throw an exception or log an error.
+              throw Exception("FireStore DB snapshot Error, cannot access campaign collection.");
             }
             // CustomScrollview is the actual name of the gridview layout widget.
             return CustomScrollView(
-              key: Key('CSV'),
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
@@ -52,15 +50,18 @@ class _CampaignState extends State<Campaign> {
                         child: Stack(
                           fit: StackFit.expand,
                           children: <Widget>[
+                            
                             Image(image: AssetImage('assets/realoldpaper.jpg'),
-                            fit: BoxFit.cover,
-                            ),
+                              fit: BoxFit.cover, 
+                              ),
+                            
                             Column(
                               children: <Widget>[
                                 Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
                                 Container(
                                   padding: EdgeInsets.all(14.0),
-                                  child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic))),
+                                  child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.black, fontStyle: FontStyle.italic))
+                                ),
                                 Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
                                 Container(
                                   padding: EdgeInsets.all(14.0),
@@ -73,20 +74,42 @@ class _CampaignState extends State<Campaign> {
                                 Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
                                 Container(
                                   padding: EdgeInsets.all(14.0),
-                                  child: Text("Shrek's Swamp", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
+                                  child: Text("Shrek's Swamp", style: TextStyle(fontSize: 30.0, color: Colors.black, fontStyle: FontStyle.italic),)),
                               ],
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(5.0),
-                        child: FittedBox(
-                          fit: BoxFit.fitHeight,
-                          child: Image.asset('assets/samplemap.jpg'),
-                          // TODO, actually load the relevant map image form db.
+
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MapView()));
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(5.0),
+                          child: FittedBox(
+                            fit: BoxFit.fitHeight,
+                            child: Image.asset('assets/samplemap.jpg'),
+                            // TODO, actually load the relevant map image form db.
+                          ),
                         ),
                       ),
+
+                      Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Party info", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+                          ),
+                          _characterListview(context, snapshot),
+                          FloatingActionButton(
+                            onPressed: null,
+                            child: Icon(Icons.add, color: Colors.amber), 
+                            backgroundColor: Colors.grey[800],
+                          ),
+                        ],
+                      ),
+
                       Column(
                         children: <Widget>[
                           Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
@@ -96,15 +119,7 @@ class _CampaignState extends State<Campaign> {
                           ),
                         ],
                       ),
-                      Container(
-                        padding: EdgeInsets.all(8),
-                        child: Text("Party info",
-                          style: TextStyle(fontSize: 20.0, color: Colors.yellow),),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.blue,
-                        ),
-                      ),
+
                       Container(
                         padding: const EdgeInsets.all(8),
                         child: TextField(
@@ -149,5 +164,19 @@ class _CampaignState extends State<Campaign> {
   void _callAPI() async { 
     print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
   }
+  _characterListview(context, snapshot) {
+    return Container(
+      padding: EdgeInsets.all(5),
+      height: 275,
+      child: ListView(children: <Widget>[
+        Text('character 1'),
+        Text('character 2'),
+        Text('character 3'),
+        Text('character n...'),
+        //Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.white, fontStyle: FontStyle.italic))
+      ],),
+    );
+  }
+
 } 
 

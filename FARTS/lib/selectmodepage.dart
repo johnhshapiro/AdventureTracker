@@ -1,12 +1,11 @@
-import 'package:FARTS/characters/character_sheet.dart';
-import 'package:FARTS/characters/new_character.dart';
-import 'package:FARTS/vibrate.dart';
-import 'package:FARTS/homepage.dart';
-import 'package:FARTS/characters/character_select.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/homepage.dart';
+import 'package:FARTS/characters/character_sheet.dart';
+import 'package:FARTS/characters/new_character.dart';
+import 'package:FARTS/services/vibrate.dart';
+import 'package:FARTS/characters/character_select.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);
@@ -77,7 +76,7 @@ class _SelectModePageState extends State<SelectModePage> {
                     Navigator.push(
                       context,
                       // TODO point this at the top level character view page (this is the tappable image, dont forget to do this for the button below also.)
-                      //MaterialPageRoute(builder: (context) => ()),
+                      MaterialPageRoute(builder: (context) => CreateNewCharacter()),
                     );
                   },
                   child: Image(
@@ -103,7 +102,7 @@ class _SelectModePageState extends State<SelectModePage> {
                             Navigator.push(
                               context,
                               // TODO point this at the top level character view page (this is the actual button)
-                              //MaterialPageRoute(builder: (context) => ),
+                              MaterialPageRoute(builder: (context) => CreateNewCharacter()),
                             );
                           },
                         ),

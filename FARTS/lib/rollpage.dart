@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Relevant pages
-import 'vibrate.dart';
-import 'roll.dart';
+import 'services/vibrate.dart';
+import 'services/roll.dart';
 
 class RollPage extends StatefulWidget {
   @override
@@ -41,7 +41,7 @@ class _RollPageState extends State<RollPage> {
             margin: EdgeInsets.only(top: 45),
             height: 90,
             child: Text(_totalRollValue.toString(), style: TextStyle(fontSize: 75, color: Colors.red),),
-      ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: _listItemCount,
@@ -155,7 +155,8 @@ class _DiceBagState extends State<DiceBag> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ) : Container()
+                ) 
+                : Container()
               ],
             ),
           ),
