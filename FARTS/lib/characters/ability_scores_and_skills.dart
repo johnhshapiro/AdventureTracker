@@ -2,6 +2,56 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+int calculateModifier(int ability_score) {
+  int mod = ((ability_score - 10)/2).floor();
+  return mod;
+}
+
+StaggeredGridView abilityScoreCell(String name, int score) {
+  // Single Block for ability score
+  return StaggeredGridView.count(
+    crossAxisCount: 3,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 2.0,
+        padding: EdgeInsets.all(4.0),
+        children: <Widget>[
+          Text(name, style: TextStyle(fontSize:15.0, color: Colors.grey[600]),),
+          Text(score.toString(), style: TextStyle(fontSize: 25.0)),
+          Text(calculateModifier(score).toString(), style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+          
+        ],
+        staggeredTiles: <StaggeredTile>[
+
+          StaggeredTile.count(3, 2), // Ability name
+          StaggeredTile.count(2, 3), // Ability score
+          StaggeredTile.count(1, 3), // Ability modifier
+
+        ],
+  );
+
+}
+
+StaggeredGridView skillCell(int modifier, String name) {
+    // Single Block for saving through or skill
+    return StaggeredGridView.count(
+      crossAxisCount: 4,
+          mainAxisSpacing: 0,
+          crossAxisSpacing: 2.0,
+          padding: EdgeInsets.all(4.0),
+          children: <Widget>[
+            Text(modifier.toString(), style: TextStyle(fontSize: 20.0)),
+            Text(name, style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),),
+            
+          ],
+          staggeredTiles: <StaggeredTile>[
+
+            StaggeredTile.count(1, 1), // Modifier
+            StaggeredTile.count(3, 1), // Name
+
+          ],
+    );
+}
+
 
 class AbilityScoresPage extends StatefulWidget {
   final DocumentSnapshot character;
@@ -16,95 +66,45 @@ class AbilityScoresPage extends StatefulWidget {
 
 class _AbilityScoresState extends State<AbilityScoresPage> {
 
-  int calculateModifier(int ability_score) {
-    int mod = ((ability_score - 10)/2).floor();
-    return mod;
-  }
-
-  StaggeredGridView abilityScoreCell(String name, int score) {
-    // Single Block for ability score
-    return StaggeredGridView.count(
-      crossAxisCount: 3,
-          mainAxisSpacing: 0,
-          crossAxisSpacing: 2.0,
-          padding: EdgeInsets.all(4.0),
-          children: <Widget>[
-            Text(name, style: TextStyle(fontSize:15.0, color: Colors.grey[600]),),
-            Text(score.toString(), style: TextStyle(fontSize: 25.0)),
-            Text(calculateModifier(score).toString(), style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
-            
-          ],
-          staggeredTiles: <StaggeredTile>[
-
-            StaggeredTile.count(3, 2), // Ability name
-            StaggeredTile.count(2, 3), // Ability score
-            StaggeredTile.count(1, 3), // Ability modifier
-
-          ],
-    );
-
-  }
-
-  StaggeredGridView skillCell(int modifier, String name) {
-      // Single Block for saving through or skill
-      return StaggeredGridView.count(
-        crossAxisCount: 4,
-            mainAxisSpacing: 0,
-            crossAxisSpacing: 2.0,
-            padding: EdgeInsets.all(4.0),
-            children: <Widget>[
-              Text(modifier.toString(), style: TextStyle(fontSize: 20.0)),
-              Text(name, style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),),
-              
-            ],
-            staggeredTiles: <StaggeredTile>[
-
-              StaggeredTile.count(1, 1), // Modifier
-              StaggeredTile.count(3, 1), // Name
-
-            ],
-      );
-  }
-
   @override
   Widget build(BuildContext context) {
 
    
     DocumentSnapshot char = widget.character;
 
-    List<List<String>> statFields = [ // Used for ability scores and right column
-      ["str", "Strength"], // tile 3 of right column
-      ["dex", "Dexterity"], // 4
-      ["con", "Constitution"], // 5
-      ["int", "Intelligence"], // 7
-      ["wis", "Wisdom"], // 8
-      ["cha", "Charisma"] // 9
+    List<List<String>> statFields = [
+      ["str", "Strength"], 
+      ["dex", "Dexterity"], 
+      ["con", "Constitution"], 
+      ["int", "Intelligence"], 
+      ["wis", "Wisdom"], 
+      ["cha", "Charisma"] 
     ];
 
-    Map skillsAndSavingThrows = { 
+    List<List<String>> skillsAndSavingThrows = [ 
       /*  Maps tile number to skills 
       skipped multiples of 6 because every 
       sixth tile is an ability score */
-      13: ["Acrobatics", "dex"], 
-      14: ["Animal Handling", "wis"], 
-      15: ["Acrana", "int"], 
-      16: ["Athletics", "str"], 
-      17: ["Deception", "cha"], 
-      19: ["History", "int"], 
-      20: ["Insight", "wis"],
-      21: ["Intimidation", "cha"],
-      22: ["Investigation", "int"],
-      23: ["Medicine", "wis"],
-      25: ["Nature", "int"],
-      26: ["Perception", "wis"],
-      27: ["Performance", "cha"],
-      28: ["Persuasion", "cha"],
-      29: ["Religion", "int"],
-      31: ["Sleigh of Hand", "dex"],
-      32: ["Stealth", "dex"],
-      33: ["Survival", "wis"],
-      34: ["Passive Perception", "wis"]
-    };
+      ["Acrobatics", "dex"], 
+      ["Animal Handling", "wis"], 
+      ["Acrana", "int"], 
+      ["Athletics", "str"], 
+      ["Deception", "cha"], 
+      ["History", "int"], 
+      ["Insight", "wis"],
+      ["Intimidation", "cha"],
+      ["Investigation", "int"],
+      ["Medicine", "wis"],
+      ["Nature", "int"],
+      ["Perception", "wis"],
+      ["Performance", "cha"],
+      ["Persuasion", "cha"],
+      ["Religion", "int"],
+      ["Sleigh of Hand", "dex"],
+      ["Stealth", "dex"],
+      ["Survival", "wis"],
+      ["Passive Perception", "wis"]
+    ];
 
 
     List<Widget> _gridChildContent = [];
@@ -168,10 +168,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
           _gridTileShapes.add(
             StaggeredTile.count(4, 1),
           );
-
       }
-
-
     }
 
     return  Scaffold(

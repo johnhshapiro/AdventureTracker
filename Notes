@@ -39,8 +39,10 @@ Navigate to a new screen (programmatically)-
 An app bringing up a new page, called a route in Flutter, is handled by the Navigator which manages a stack containing the app’s routes. Pushing 
 a route onto the Navigator’s stack updates the display for that route. Popping a route from the Navigator’s stack returns the display to the previous 
 route.
-I used this guide to help me create state preserving nvigation witht he bottom navbar
+I used this guide to help me create state preserving navigation witht he bottom navbar
 https://developpaper.com/three-ways-to-keep-the-state-of-the-original-page-after-page-switching-by-flutter/
+This article outlines another appraoch using a keyedSubTree and fader animations between pages!! (COOL!)
+https://medium.com/flutter/getting-to-the-bottom-of-navigation-in-flutter-b3e440b9386
 
 Cookbook (Flutter Guide) Table of contents - https://flutter.dev/docs/cookbook
 Layout Guide - https://flutter.dev/docs/development/ui/layout
@@ -54,11 +56,16 @@ Awesome guides from medium - https://medium.com/coding-with-flutter
 git checkout branchName
 git stash   <-- stashes current changes so u can checkout a different branch
 git stash pop   <-- unstash changes once youre back on the branch that has been stashed
+git stash drop <stash id>     <-- delete specific stash given id number
+git stash clear        <-- delete entire stash stack
 git merge nameOfBranchToMergeIntoCurrentBranch
 
 ************************************************************ Links to Prototype, Travis, UX, Jira **************************************************************
 Jira https://cs4360flutteradventure.atlassian.net/jira/software/projects/FACS4360/boards/1
 UX https://www.lucidchart.com/documents/edit/0349f137-e774-495f-bbe8-a7cbe2d6bb06/0_0?shared=true
 Prototype https://ijos5w.axshare.com/#id=o0wske&p=home
+ER Diagram https://www.lucidchart.com/documents/edit/52a25253-9258-4e2d-9634-7c699501b653/fkSxUUaHvgl5?shared=true
 Travis https://travis-ci.com/johnhshapiro/AdventureTracker 
 Coveralls Code Covergae: https://coveralls.io/github/johnhshapiro/AdventureTracker
+FireBase https://console.firebase.google.com/u/0/project/flutter-adventure-rts/overview
+DND 5th edition API http://www.dnd5eapi.co/
