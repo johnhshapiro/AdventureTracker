@@ -1,3 +1,4 @@
+import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
-      icon: Icon(Icons.home), title: Text('Login')),
+      icon: Icon(Icons.home), title: Text('Sign Out')),
     BottomNavigationBarItem(
       icon: Icon(Icons.casino), title: Text('Roll')),
     BottomNavigationBarItem(
@@ -33,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     Campaign(),
-    LoginPage(),
+    Logout(),
     RollPage(),
     CreateNewUser(),
   ];
