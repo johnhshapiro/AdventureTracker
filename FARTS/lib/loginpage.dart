@@ -1,10 +1,13 @@
 import 'package:FARTS/selectmodepage.dart';
+import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
-import './main.dart';
-import './homepage.dart';
+// import './main.dart';
+// import './homepage.dart';
 import './createnewuserpage.dart';
+import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,10 +17,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // the next two lines are for authentification
   String _email, _password;
+  final AuthenticationService _auth = AuthenticationService();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Stack(
         // Stack stacks multiple children widgets (Image, and Column which in turn has many children itself) in a space.
         fit: StackFit
@@ -26,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
           Image(
               image: AssetImage("assets/loginImage.jpg"),
               fit: BoxFit.cover,
-              color: Colors.black87, // The number here is the opacity.
+              color: Colors.black54, // The number here is the opacity.
               colorBlendMode: BlendMode
                   .luminosity // Blends the background color with the background image.
               ),
@@ -89,30 +95,25 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.only(top: 40.0),
                         ),
                         Builder(
-                          builder: (context) => MaterialButton(
-                            color: Colors.grey[800],
+                          builder: (context) {
+                            var materialButton = MaterialButton(
+                            color: Colors.grey[900],
                             child: Text("Sign In"),
                             onPressed: () async {
-                              Scaffold.of(context).showSnackBar(SnackBar(content: Text('Signing in'),));
+                              HapticFeedback.heavyImpact();
+                              _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Signing in'),));
                               if (_formKey.currentState.validate()) {
-                                try {
-                                  await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password);
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => HomePage()),
-                                  );
-                                } catch (e) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text("Invalid email or password"),));
-                                  print(e.message);
-                                }
+                                await _auth.signIn(_email, _password);
                               }
                             },
                             splashColor: Colors
                                 .amber, //Creates the color splash when u press the button. By u do u mean me?
-                          ),
+                          );
+                            return materialButton;
+                          },
                         ),
                         MaterialButton(
-                          color: Colors.grey[800],
+                          color: Colors.grey[900],
                           child: Text("New User"),
                           onPressed: () {
                             Navigator.push(
@@ -125,13 +126,14 @@ class _LoginPageState extends State<LoginPage> {
                               .amber, //Creates the color splash when u press the button.
                         ),
                         MaterialButton(
-                          color: Colors.grey[800],
+                          color: Colors.grey[900],
                           child: Text("Dev Bypass"),
                           onPressed: () {
+                            HapticFeedback.heavyImpact();
                             Navigator.push(
                               context,
                                 MaterialPageRoute(
-                                  builder: (context) => HomePage()
+                                  builder: (context) => SelectModePage()
                                 ),
                             );
                           },

@@ -8,12 +8,13 @@ void main() {
   group('View Campaign page widget tests', () {
 
     testWidgets('View campaign page widgets are present', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: Scaffold(body: Campaign(),),);
+      MaterialApp app = MaterialApp(home: Campaign());
       await tester.pumpWidget(app);
 
       // Make sure these widgets are on the view campaign page.
       expect(find.byType(Campaign), findsOneWidget);
       expect(find.byType(Container), findsWidgets);
+      expect(find.byType(Scaffold), findsWidgets);
     });
 
     testWidgets('View Campaign Text is present', (WidgetTester tester) async {
@@ -25,12 +26,4 @@ void main() {
 
   });
 
-//   test('Album Class tests',  () {
-//     final tester = Album();
-
-//     // Make sure the local variables are initially null.
-//     expect(tester.userId, null);
-//     expect(tester.id, null);
-//     expect(tester.title, null);
-//   });
-// }
+}

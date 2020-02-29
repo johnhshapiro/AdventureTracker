@@ -65,7 +65,12 @@ Jira https://cs4360flutteradventure.atlassian.net/jira/software/projects/FACS436
 UX https://www.lucidchart.com/documents/edit/0349f137-e774-495f-bbe8-a7cbe2d6bb06/0_0?shared=true
 Prototype https://ijos5w.axshare.com/#id=o0wske&p=home
 ER Diagram https://www.lucidchart.com/documents/edit/52a25253-9258-4e2d-9634-7c699501b653/fkSxUUaHvgl5?shared=true
-Travis https://travis-ci.com/johnhshapiro/AdventureTracker 
-Coveralls Code Covergae: https://coveralls.io/github/johnhshapiro/AdventureTracker
+Travis https://travis-ci.com/johnhshapiro/AdventureTracker
+Coveralls Code Coverage: https://coveralls.io/github/johnhshapiro/AdventureTracker
 FireBase https://console.firebase.google.com/u/0/project/flutter-adventure-rts/overview
 DND 5th edition API http://www.dnd5eapi.co/
+
+************************************************************ Testing **************************************************************
+
+genhtml -o coverage coverage/lcov.info
+open coverage/index.html

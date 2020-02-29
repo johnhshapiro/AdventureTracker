@@ -2,8 +2,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-int calculateModifier(int ability_score) {
-  int mod = ((ability_score - 10)/2).floor();
+int calculateModifier(int abilityScore) {
+  int mod = ((abilityScore - 10)/2).floor();
   return mod;
 }
 
@@ -11,22 +11,23 @@ StaggeredGridView abilityScoreCell(String name, int score) {
   // Single Block for ability score
   return StaggeredGridView.count(
     crossAxisCount: 3,
-        mainAxisSpacing: 0,
-        crossAxisSpacing: 2.0,
-        padding: EdgeInsets.all(4.0),
-        children: <Widget>[
-          Text(name, style: TextStyle(fontSize:15.0, color: Colors.grey[600]),),
-          Text(score.toString(), style: TextStyle(fontSize: 25.0)),
-          Text(calculateModifier(score).toString(), style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
-          
-        ],
-        staggeredTiles: <StaggeredTile>[
+    primary: false,
+    mainAxisSpacing: 0,
+    crossAxisSpacing: 0,
+    padding: EdgeInsets.all(4.0),
+    children: <Widget>[
+      Text(name, style: TextStyle(fontSize:15.0, color: Colors.grey[600]),),
+      Text(score.toString(), style: TextStyle(fontSize: 25.0)),
+      Text(calculateModifier(score).toString(), style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+      
+    ],
+    staggeredTiles: <StaggeredTile>[
 
-          StaggeredTile.count(3, 2), // Ability name
-          StaggeredTile.count(2, 3), // Ability score
-          StaggeredTile.count(1, 3), // Ability modifier
+      StaggeredTile.count(3, 2), // Ability name
+      StaggeredTile.count(2, 3), // Ability score
+      StaggeredTile.count(1, 3), // Ability modifier
 
-        ],
+    ],
   );
 
 }
@@ -35,20 +36,21 @@ StaggeredGridView skillCell(int modifier, String name) {
     // Single Block for saving through or skill
     return StaggeredGridView.count(
       crossAxisCount: 4,
-          mainAxisSpacing: 0,
-          crossAxisSpacing: 2.0,
-          padding: EdgeInsets.all(4.0),
-          children: <Widget>[
-            Text(modifier.toString(), style: TextStyle(fontSize: 20.0)),
-            Text(name, style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),),
-            
-          ],
-          staggeredTiles: <StaggeredTile>[
+      primary: false,
+      mainAxisSpacing: 0,
+      crossAxisSpacing: 0,
+      padding: EdgeInsets.all(0),
+      children: <Widget>[
+        Text(modifier.toString(), style: TextStyle(fontSize: 20.0)),
+        Text(name, style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),),
+        
+      ],
+      staggeredTiles: <StaggeredTile>[
 
-            StaggeredTile.count(1, 1), // Modifier
-            StaggeredTile.count(3, 1), // Name
+        StaggeredTile.count(1, 1), // Modifier
+        StaggeredTile.count(3, 1), // Name
 
-          ],
+      ],
     );
 }
 
@@ -73,12 +75,12 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
     DocumentSnapshot char = widget.character;
 
     List<List<String>> statFields = [
-      ["str", "Strength"], 
-      ["dex", "Dexterity"], 
-      ["con", "Constitution"], 
-      ["int", "Intelligence"], 
-      ["wis", "Wisdom"], 
-      ["cha", "Charisma"] 
+      ["Strength", "str"], 
+      ["Dexterity", "dex"], 
+      ["Constitution", "con"], 
+      ["Intelligence", "int"], 
+      ["Wisdom", "wis"], 
+      ["Charisma", "cha"] 
     ];
 
     List<List<String>> skillsAndSavingThrows = [ 
@@ -106,6 +108,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
       ["Passive Perception", "wis"]
     ];
 
+    skillsAndSavingThrows = statFields + skillsAndSavingThrows;
 
     List<Widget> _gridChildContent = [];
     List<StaggeredTile> _gridTileShapes = [];
@@ -121,12 +124,12 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
       StaggeredTile.count(7,2),
     );
 
-
+    int skillLineCount = 0;
     for (var i = 0; i < 36; i++) {
       if (i % 6 == 0) { // The first and every sixth tile will be an ability score
         _statIndex = (i/6).floor();
-        _lookup = statFields[_statIndex][0];
-        _statName = statFields[_statIndex][1];
+        _lookup = statFields[_statIndex][1];
+        _statName = statFields[_statIndex][0];
 
         _gridChildContent.add(
           abilityScoreCell(_statName, char['stats'][_lookup]),
@@ -134,41 +137,37 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
         _gridTileShapes.add(
           StaggeredTile.count(3, 5), // Strength ability score
         );
+
       } else { // All other tiles are skills or saving throws
-          if (i==1 || i==10 || i==35){
-            _gridChildContent.add(
-              Text(""),
-             );
-          } else if (i==2) {
-            _gridChildContent.add(
-              Text("Saving Throws", style: TextStyle(fontSize: 20.0)),
-             );
-          } else if (i > 2 && i < 10 ) {
-            if (i < 6) {
-              _statIndex = i-3;
-            } else {
-              _statIndex = i-4;
-            }
-            _lookup = statFields[_statIndex][0];
-            _statName = statFields[_statIndex][1];
-            _gridChildContent.add(
-              skillCell(calculateModifier(char['stats'][_lookup]), _statName),
+
+        if (skillLineCount==0) {
+          _gridChildContent.add(
+            Text("Saving Throws", style: TextStyle(fontSize: 20.0)),
             );
-          }  else if (i==11) {
+
+          } else if (skillLineCount==7) {
             _gridChildContent.add(
               Text("Skills", style: TextStyle(fontSize: 20.0)),
              );
-          } else {
-            _lookup = skillsAndSavingThrows[i][1];
-            _skillName = skillsAndSavingThrows[i][0];
+
+          } else if (skillLineCount < skillsAndSavingThrows.length - 2) {
+            _lookup = skillsAndSavingThrows[skillLineCount][1];
+            _skillName = skillsAndSavingThrows[skillLineCount][0];
             _gridChildContent.add(
               skillCell(calculateModifier(char['stats'][_lookup]), _skillName),
              );
+          } else {
+          _gridChildContent.add(
+            Text("", style: TextStyle(fontSize: 20.0)),
+            );
           }
-          _gridTileShapes.add(
-            StaggeredTile.count(4, 1),
-          );
+
+        _gridTileShapes.add(
+          StaggeredTile.count(4, 1),
+        );
+        skillLineCount++;
       }
+
     }
 
     return  Scaffold(
