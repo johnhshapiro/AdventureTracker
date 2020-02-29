@@ -37,6 +37,7 @@ StaggeredGridView skillCell(int modifier, String name) {
     return StaggeredGridView.count(
       crossAxisCount: 4,
       primary: false,
+      physics: NeverScrollableScrollPhysics(),
       mainAxisSpacing: 0,
       crossAxisSpacing: 0,
       padding: EdgeInsets.all(0),
