@@ -38,10 +38,24 @@ class AuthenticationService {
       gmCampaigns: snapshot.data['gmCampaigns'],
       email: snapshot.data['email'],
     );
-    print(ud.characters);
-    print(ud.username);
+    print(ud.uid); // demo of how to get references from UserData
+
+    // NOTE: The following is for demo purposes. How to follow reference and get another document
+    for (DocumentReference char in ud.characters) {
+      print(char.path);
+      printCharName(char.path);
+
+    }
     return ud;
   }
+
+  Future<void> printCharName(String charPath) async {
+      
+    String charName = await Firestore.instance.document(charPath).snapshots().first.then((DocumentSnapshot charDoc) {
+       return charDoc.data['name'].toString(); 
+    });
+    print(charName);
+  } // NOTE: End reference demo
 
 
   Stream<FirebaseUser> get user {

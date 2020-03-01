@@ -1,7 +1,7 @@
 class UserData {
 
   final String uid;
-  final dynamic characters;
+  final List<dynamic> characters;
   final String email;
   final dynamic gmCampaigns;
   final String username;
