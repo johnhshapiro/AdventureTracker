@@ -13,6 +13,10 @@ class AuthWrapper extends StatelessWidget {
     final user = Provider.of<FirebaseUser>(context);
 
     // return either loginpage or homepage, depending on whether user is signed in
+    return showCorrectPage(user);
+  }
+
+  Widget showCorrectPage(FirebaseUser user) {
     if (user == null) {
       return LoginPage();
     } else {
