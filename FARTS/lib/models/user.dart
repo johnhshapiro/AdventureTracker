@@ -1,15 +1,7 @@
-class User {
-
-  final String uid;
-
-  User({ this.uid });
-
-}
-
 class UserData {
 
   final String uid;
-  final List characters;
+  final dynamic characters;
   final String email;
   final dynamic gmCampaigns;
   final String username;

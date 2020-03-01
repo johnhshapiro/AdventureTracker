@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:FARTS/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationService {
 
@@ -10,37 +11,40 @@ class AuthenticationService {
       try {
         AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
         FirebaseUser user = result.user;
-        return _userFromFirebaseUser(user);
+        Stream<DocumentSnapshot> userStream = _userFromFirebaseUser(user) ?? null;
+        UserData userDoc = await userStream.first.then(_userDataFromSnapshot) ?? null;
+        return user;
       } catch (e) {
         print(e.message);
         return null;
       }
   }
 
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  Stream<DocumentSnapshot> _userFromFirebaseUser(FirebaseUser fbUser) {
+    String userId = fbUser.uid.toString() ?? null;
+    Stream<DocumentSnapshot> docStream = Firestore.instance.document('users/$userId').snapshots();
+    return docStream;
   }
 
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot, User user) {
+  Stream<UserData> get userDoc {
+    return userDoc;
+  }
+
+  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
     UserData ud = UserData(
-      uid: user.uid,
+      uid: snapshot.data.toString(),
       characters: snapshot.data['characters'],
       username: snapshot.data['username'],
       gmCampaigns: snapshot.data['gmCampaigns'],
       email: snapshot.data['email'],
     );
-    print(ud.characters.runtimeType);
-    return ud;
-  }
-  
-  Stream<UserData> get userData {
-    Stream<UserData> ud = Firestore.instance.document('users/$uid').snapshots()
-      .map(_userDataFromSnapshot);
-    print(ud);
+    print(ud.characters);
+    print(ud.username);
     return ud;
   }
 
-  Stream<UserData> get user {
+
+  Stream<FirebaseUser> get user {
   // This stream is used to check state changes in authorization
     return _auth.onAuthStateChanged ?? null;
   }
