@@ -1,4 +1,5 @@
-import 'package:FARTS/characters/ability_scores_and_skills.dart';
+import 'package:FARTS/screens/characters/ability_scores_and_skills.dart';
+import 'package:FARTS/models/character.dart';
 // import 'package:FARTS/characters/combat.dart';
 // import 'package:FARTS/characters/inventory.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CharacterSheetPage extends StatefulWidget {
   
-  final DocumentSnapshot character;
+  final Character character;
 
   CharacterSheetPage({Key key, this.title, @required this.character}) : super(key: key);
   final String title;
@@ -29,7 +30,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
       
     // }
     
-    DocumentSnapshot char = widget.character;
+    Character char = widget.character;
     String race = "Race placeholder"; // getRefData("race").data['name'];
     String classes = "Classes placeholder";
 
@@ -47,7 +48,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
             /* How this works:
             The child at index 'n' provides the content for StaggeredTile at index 'n'.
             */
-            Text(char['name'], style: TextStyle(fontSize: 30.0)),
+            Text(char.name, style: TextStyle(fontSize: 30.0)),
             // ListView.builder(
             //   scrollDirection: Axis.horizontal,
             //   itemCount: char['classes'].
@@ -56,8 +57,8 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
             Text(classes, style: TextStyle(fontSize: 10.0)),
             Text("Class(es) and level(s)", style: TextStyle(fontSize:10.0, color: Colors.grey[600]),),
             Text(race.toString(), style: TextStyle(fontSize: 10.0)),
-            Text(char['alignment'], style: TextStyle(fontSize: 10.0)),
-            Text(char['experiencePoints'].toString(), style: TextStyle(fontSize: 10.0)),
+            Text(char.alignment, style: TextStyle(fontSize: 10.0)),
+            Text(char.experiencePoints.toString(), style: TextStyle(fontSize: 10.0)),
             Text("Name", style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),),
             Text("Race", style: TextStyle(fontSize:10.0, color: Colors.grey[600]),),
             Text("Alignment", style: TextStyle(fontSize:10.0, color: Colors.grey[600]),),
@@ -97,7 +98,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
             ),
             Text(""),
             Text("Notes", style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),),
-            Text(char['notes'] ?? "", style: TextStyle(fontSize: 30.0))
+            Text(char.notes ?? "", style: TextStyle(fontSize: 30.0))
             
           ],
           staggeredTiles: <StaggeredTile>[

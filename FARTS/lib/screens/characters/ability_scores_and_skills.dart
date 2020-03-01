@@ -1,6 +1,7 @@
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:FARTS/models/character.dart';
 
 int calculateModifier(int abilityScore) {
   int mod = ((abilityScore - 10)/2).floor();
@@ -57,7 +58,7 @@ StaggeredGridView skillCell(int modifier, String name) {
 
 
 class AbilityScoresPage extends StatefulWidget {
-  final DocumentSnapshot character;
+  final Character character;
 
   AbilityScoresPage({Key key, this.title, @required this.character}) : super(key: key);
   final String title;
@@ -73,7 +74,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
   Widget build(BuildContext context) {
 
    
-    DocumentSnapshot char = widget.character;
+    Character char = widget.character;
 
     List<List<String>> statFields = [
       ["Strength", "str"], 
@@ -133,7 +134,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
         _statName = statFields[_statIndex][0];
 
         _gridChildContent.add(
-          abilityScoreCell(_statName, char['stats'][_lookup]),
+          abilityScoreCell(_statName, char.stats[_lookup]),
         );
         _gridTileShapes.add(
           StaggeredTile.count(3, 5), // Strength ability score
@@ -155,7 +156,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
             _lookup = skillsAndSavingThrows[skillLineCount][1];
             _skillName = skillsAndSavingThrows[skillLineCount][0];
             _gridChildContent.add(
-              skillCell(calculateModifier(char['stats'][_lookup]), _skillName),
+              skillCell(calculateModifier(char.stats[_lookup]), _skillName),
              );
           } else {
           _gridChildContent.add(

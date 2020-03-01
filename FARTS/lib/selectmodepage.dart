@@ -1,5 +1,5 @@
 import 'package:FARTS/homepage.dart';
-import 'package:FARTS/characters/character_select.dart';
+import 'package:FARTS/screens/characters/character_select.dart';
 import 'package:FARTS/vibrate.dart';
 import 'package:flutter/material.dart';
 

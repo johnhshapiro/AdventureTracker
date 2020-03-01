@@ -1,40 +1,56 @@
+import 'package:FARTS/screens/characters/character_sheet.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
-import 'package:FARTS/characters/character_sheet.dart';
-import 'package:FARTS/characters/new_character.dart';
+import 'package:FARTS/screens/characters/new_character.dart';
+import 'package:FARTS/services/character_list.dart';
+import 'package:FARTS/models/character.dart';
+import 'package:FARTS/models/user.dart';
+import 'package:FARTS/services/user_data.dart';
 
 
+// class GetUserCharacters extends StatefulWidget {
+//   final String userId;
 
-class CharacterDB {
+//   GetUserCharacters({@required this.userId});
 
-  final CollectionReference charCollection = Firestore.instance.collection('characters');
+//   @override
+//   _GetUserCharactersState createState() => _GetUserCharactersState();
 
+// }
 
-  Stream<QuerySnapshot> get chars {
-    return charCollection.snapshots();
-  }
+// class _GetUserCharactersState extends State<GetUserCharacters> {
+//   @override
 
-}
+//   Widget build(BuildContext context) {
+    
+//   }
+// }
+
 
 class CharacterList extends StatefulWidget {
+  // final List characterList;
+
+  // CharacterList({@required this.characterList});
+
   @override
   _CharacterListState createState() => _CharacterListState();
 }
 
 class _CharacterListState extends State<CharacterList> {
+
   @override
   Widget build(BuildContext context) {
 
-    final chars = Provider.of<QuerySnapshot>(context);
-    List charList = new List();
-    if (chars != null) {
-      for (var doc in chars.documents) {
-        charList.add(doc);
-      }
-    }
+    final chars = Provider.of<List<Character>>(context) ?? [];
+    // final userStream = StreamProvider<UserData>.value(
+    //   value: UserService(uid: widget.userId).userData,
+    // );
 
+    // final user = Provider.of<UserData>(userStream);
+    // print("2: " + user.runtimeType.toString()); 
+    // StreamProvider<UserData>
 
     return Container(
 
@@ -49,9 +65,9 @@ class _CharacterListState extends State<CharacterList> {
           ),
           ListView.separated(
             padding: const EdgeInsets.all(50),
-            itemCount: charList.length + 1,
+            itemCount: chars.length + 1,
             itemBuilder: (BuildContext contex, int index) {
-              if (index == charList.length)
+              if (index == chars.length)
                 return MaterialButton(
                       child: Text('Create New'),
                       color: Colors.grey[800],
@@ -65,13 +81,13 @@ class _CharacterListState extends State<CharacterList> {
                 );
               else
                 return MaterialButton(
-                      child: Text('${charList[index].data['name']}'),
+                      child: Text('${chars[index].name}'),
                       color: Colors.grey[800],
                       splashColor: Colors.amber,
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CharacterSheetPage(character: charList[index])),
+                          MaterialPageRoute(builder: (context) => CharacterSheetPage(character: chars[index])),
                     );
                   }
                 );
@@ -95,12 +111,25 @@ class CharacterSelect extends StatefulWidget {
 
 class _CharacterSelectState extends State<CharacterSelect> {
    
+  
+
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<QuerySnapshot>.value(
-      value: CharacterDB().chars,
+
+    final user = Provider.of<FirebaseUser>(context);
+    print("1: " + user.toString());
+
+    return StreamProvider<List<Character>>.value(
+      value: CharacterService().chars,
       child: Scaffold(
         body: CharacterList() ?? [],
+          // characterList: 
+          // StreamProvider<UserData>.value(
+          //   value: UserService().userData,
+          //   child: Scaffold(
+          //     body: GetUserCharacters(userId: user.uid.toString()) ?? [],
+          //   )
+        //)
       ),
 
     );
