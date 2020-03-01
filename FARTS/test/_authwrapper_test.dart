@@ -8,22 +8,34 @@ import 'package:flutter_test/flutter_test.dart';
 
 class MockFirebaseUser extends Mock implements FirebaseUser {}
 
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
+
 void main() {
-  testWidgets(
-      'FirebaseUser not null goes to homepage and null goes to loginpage',
-      (WidgetTester tester) async {
-    final mockUser = new MockFirebaseUser();
-    await tester.pumpWidget(
-      MaterialApp(
-        home: AuthWrapper().showCorrectPage(null),
-      ),
-    );
-    expect(find.byType(LoginPage), findsOneWidget);
-    await tester.pumpWidget(
-      MaterialApp(
-        home: AuthWrapper().showCorrectPage(mockUser),
-      ),
-    );
-    expect(find.byType(HomePage), findsOneWidget);
+  group('App navigates to correct page based on firebaseuser', () {
+    testWidgets('Application goes to loginpage when user is null',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: AuthWrapper().showCorrectPage(null),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(LoginPage), findsOneWidget);
+    });
+    testWidgets('Application loads homepage when user is not null',
+        (WidgetTester tester) async {
+      final mockUser = new MockFirebaseUser();
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: AuthWrapper().showCorrectPage(mockUser),
+          navigatorObservers: [mockObserver],
+        ),
+      );
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(HomePage), findsOneWidget);
+    });
   });
 }
