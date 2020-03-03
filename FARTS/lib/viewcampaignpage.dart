@@ -6,31 +6,12 @@ import 'package:intl/intl.dart';
 // Relevant pages.
 import 'package:FARTS/vibrate.dart';
 
-// This album class contains the converted future data from the network request. 
-// class Album {
-//   final userId;
-//   final id;
-//   final title;
-//   Album({this.userId, this.id, this.title});
-
-//   // This factory constructor crates an album form JSON.
-//   factory Album.fromJson(Map<String, dynamic> json) {
-//     return Album(
-//       userId: json['userId'],
-//       id: json['id'],
-//       title: json['title'],
-//     );
-//   }
-// }
-
 class Campaign extends StatefulWidget {
   @override
   _CampaignState createState() => _CampaignState();
 }
 
 class _CampaignState extends State<Campaign> {
-  // Uses the DateTime class to get the current time of the area the device is in.
-  //var _now = new DateFormat.("yyyy-MM-dd HH:mm:ss").format(new DateTime.now());
   static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
   String _now = dateFormat.format(DateTime.now());
   
@@ -52,7 +33,7 @@ class _CampaignState extends State<Campaign> {
             }
             // CustomScrollview is the actual name of the gridview layout widget.
             return CustomScrollView(
-              key: Key('CSV'), 
+              key: Key('CSV'),
               primary: false,
               slivers: <Widget>[
                 SliverPadding(

@@ -1,13 +1,11 @@
 import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 // import './main.dart';
 // import './homepage.dart';
 import './createnewuserpage.dart';
-import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override

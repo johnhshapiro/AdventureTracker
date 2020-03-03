@@ -27,7 +27,7 @@ void main() {
         await tester.pumpWidget(app);
 
         // Make sure all the NavBar text is present and correct.
-        expect(find.text('Login'), findsOneWidget);
+        expect(find.text('Sign Out'), findsOneWidget);
         expect(find.text('Roll'), findsOneWidget);
         expect(find.text('Campaign'), findsOneWidget);
         expect(find.text('create user'), findsOneWidget);
@@ -42,7 +42,7 @@ void main() {
       await tester.pumpWidget(app);
 
       // I'm 70% sure this is testing navigation correctly? TODO become 1000% sure
-      await tester.tap(find.text("Login"));
+      await tester.tap(find.text("Sign Out"));
       await tester.tap(find.text("Roll"));
       await tester.tap(find.text("Campaign"));
       await tester.tap(find.text("create user"));

@@ -26,8 +26,8 @@ class BoardsEdge extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
-    return StreamProvider<FirebaseUser>.value(
-      value: AuthenticationService().user,
+    return StreamProvider<UserData>.value(
+      value: AuthenticationService().userDoc,
           child: MaterialApp(
           home: AuthWrapper(), // Sets AuthWrapper as homepage, which returns the homepage only if user is signed in
           theme: ThemeData(

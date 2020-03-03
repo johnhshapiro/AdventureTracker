@@ -1,4 +1,5 @@
 import 'package:FARTS/viewcampaignpage.dart';
+import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -30,14 +31,14 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
-        icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
+        icon: Icon(Icons.chrome_reader_mode), title: Text('Logout')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     LoginPage(),
     SelectModePage(),
     Campaign(),
-    CreateNewUser(),
+    Logout(),
   ];
 
   @override

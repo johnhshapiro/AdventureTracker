@@ -10,29 +10,7 @@ import 'package:FARTS/models/user.dart';
 import 'package:FARTS/services/user_data.dart';
 
 
-// class GetUserCharacters extends StatefulWidget {
-//   final String userId;
-
-//   GetUserCharacters({@required this.userId});
-
-//   @override
-//   _GetUserCharactersState createState() => _GetUserCharactersState();
-
-// }
-
-// class _GetUserCharactersState extends State<GetUserCharacters> {
-//   @override
-
-//   Widget build(BuildContext context) {
-    
-//   }
-// }
-
-
 class CharacterList extends StatefulWidget {
-  // final List characterList;
-
-  // CharacterList({@required this.characterList});
 
   @override
   _CharacterListState createState() => _CharacterListState();
@@ -44,13 +22,6 @@ class _CharacterListState extends State<CharacterList> {
   Widget build(BuildContext context) {
 
     final chars = Provider.of<List<Character>>(context) ?? [];
-    // final userStream = StreamProvider<UserData>.value(
-    //   value: UserService(uid: widget.userId).userData,
-    // );
-
-    // final user = Provider.of<UserData>(userStream);
-    // print("2: " + user.runtimeType.toString()); 
-    // StreamProvider<UserData>
 
     return Container(
 
@@ -123,13 +94,6 @@ class _CharacterSelectState extends State<CharacterSelect> {
       value: CharacterService().chars,
       child: Scaffold(
         body: CharacterList() ?? [],
-          // characterList: 
-          // StreamProvider<UserData>.value(
-          //   value: UserService().userData,
-          //   child: Scaffold(
-          //     body: GetUserCharacters(userId: user.uid.toString()) ?? [],
-          //   )
-        //)
       ),
 
     );

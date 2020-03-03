@@ -1,9 +1,9 @@
-import 'package:FARTS/roll.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // Relevant pages
 import 'vibrate.dart';
+import 'roll.dart';
 
 class RollPage extends StatefulWidget {
   @override
@@ -13,14 +13,6 @@ class RollPage extends StatefulWidget {
 class _RollPageState extends State<RollPage> {
   int _totalRollValue = 0;
   int _listItemCount = 1;
-  int _d4Count = 0;
-  int _d6Count = 0;
-  int _d10Count = 0;
-  int _d12Count = 0;
-  int _d20Count = 0;
-  int _d100Count = 0;
-  int _dnCount = 0;
-  int _d2Count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -36,34 +28,72 @@ class _RollPageState extends State<RollPage> {
         },
         child: FloatingActionButton(
           onPressed: (){
-              _addListItem();
+              setState(() {
+                _listItemCount ++;  
+              });
           },
           child: Icon(Icons.add),
         ),
       ),
       body: Column(
         children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(top: 45),
+            height: 90,
+            child: Text(_totalRollValue.toString(), style: TextStyle(fontSize: 75, color: Colors.red),),
+      ),
           Expanded(
             child: ListView.builder(
-              itemCount: this._listItemCount,
-              // Adds more list items dynamically by calling the build function.  
-              //itemBuilder: (context, index) => this._buildListTile(index)),
+              itemCount: _listItemCount,
+              // Adds more list items dynamically by calling the build function.
               itemBuilder: (BuildContext context, int index) {
-                return _buildDiceBody(index);
+                // Creates a new instance of the DiceBag() class every time _listItemCount is incremented.
+                // Provides _updateRollTotal as a callback function so the DiceBag() child can update the
+                // the total roll displayed in the parent. 
+                return new DiceBag(parentAction: _updateRollTotal);
               }
             ),
-          ),
-          Container(
-            margin: EdgeInsets.all(30),
-            child: Text('Test output: ' + _totalRollValue.toString(), style: TextStyle(fontSize: 24, color: Colors.red),),
           ),
         ],
       ),
     );
   }
 
-  _buildDiceBody(int index) {
-    return Container(
+  // This function is passed as a callback to the DiceBag() child.
+  _updateRollTotal(int totalFromChild) { 
+    setState(() {
+      _totalRollValue = totalFromChild;
+    });
+  }
+
+}
+
+
+
+// Companion Class enables each row of dice widgets to be instantiated on demand and keep track of their own dice values.
+class DiceBag extends StatefulWidget{
+  final ValueChanged<int> parentAction;
+  final String title;
+  const DiceBag({Key key, this.title, this.parentAction}) : super(key: key);
+
+  @override
+  _DiceBagState createState() => _DiceBagState();
+}
+
+class _DiceBagState extends State<DiceBag> {
+  int _totalNumDice = 0;
+  int _totalRollValue = 0;
+  int _d4Count = 0;
+  int _d6Count = 0;
+  int _d10Count = 0;
+  int _d12Count = 0;
+  int _d20Count = 0;
+  int _d100Count = 0;
+  int _dnCount = 0;
+  int _d2Count = 0;
+
+  Widget build(BuildContext context) {
+    return new Container(
       height: 80,
       padding: EdgeInsets.all(5),       
       margin: EdgeInsets.all(5),
@@ -76,22 +106,15 @@ class _RollPageState extends State<RollPage> {
             child: IconButton(
               icon: Icon(Icons.casino, size: 40.0, color: Colors.amber,),
               onPressed: () {
-                Vibrate().bigRoll();
-                print('inside icon button $_totalRollValue');
                 _rollDice();
               }
             ),
           ),
 
-        //  Container(
-        //    margin: EdgeInsets.all(8),
-        //     child: TextField(
-        //       decoration: InputDecoration(
-        //       hintText: 'Name',
-        //       ),
-        //     ),
-        //   ),
-
+         SizedBox(
+           width: 100,
+           child: TextField(
+             decoration: InputDecoration(hintText: 'Name'),),),
           Container(
             color: Colors.blue,
             margin: EdgeInsets.all(8),
@@ -103,12 +126,14 @@ class _RollPageState extends State<RollPage> {
                   onPressed: () {
                     setState(() {
                       _d4Count ++;
+                      _totalNumDice ++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
                       if (_d4Count > 0) {
                         _d4Count --;
+                        _totalNumDice --;
                       }
                     });
                   },
@@ -146,12 +171,14 @@ class _RollPageState extends State<RollPage> {
                   onPressed: () {
                     setState(() {
                       _d6Count ++;
+                      _totalNumDice ++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
                       if (_d6Count > 0) {
                         _d6Count --;
+                        _totalNumDice --;
                       }
                     });
                   },
@@ -189,16 +216,21 @@ class _RollPageState extends State<RollPage> {
                   onPressed: () {
                     setState(() {
                       _d10Count ++;
+                      _totalNumDice ++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
                       if (_d10Count > 0) {
                         _d10Count --;
+                        _totalNumDice --;
                       }
                     });
                   },
                 ),
+                // Note the ternary operator ('?') this is a shorthand 'if' statement that evalutes to
+                // "if the dice count isn't 0 show a notification bubble with the dice count. If it is 0
+                // show an empty container (aka show no notification).
                 _d10Count != 0 ? Positioned(
                   right: 11,
                   top: 11,
@@ -216,7 +248,8 @@ class _RollPageState extends State<RollPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                ) : Container()
+                ) : Container() // Here is the condition not met value for the ternary operator. Note the colon,
+                // the full syntax is <result = testCondition ? trueValue falseValue
               ],
             ),
           ),
@@ -232,12 +265,14 @@ class _RollPageState extends State<RollPage> {
                   onPressed: () {
                     setState(() {
                       _d12Count ++;
+                      _totalNumDice ++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
                       if (_d12Count > 0) {
                         _d12Count --;
+                        _totalNumDice --;
                       }
                     });
                   },
@@ -275,12 +310,14 @@ class _RollPageState extends State<RollPage> {
                   onPressed: () {
                     setState(() {
                       _d20Count ++;
+                      _totalNumDice ++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
                       if (_d20Count > 0) {
                         _d20Count --;
+                        _totalNumDice --;
                       }
                     });
                   },
@@ -314,62 +351,37 @@ class _RollPageState extends State<RollPage> {
           ),
         ],
       ),
-    );
+    ); 
   }
-
-  _addListItem() {
-    setState(() {
-      _listItemCount ++;
-    });
-  }
-
   // This is called when u press the golden die on the left of each dice row, it returns the int total pip value.
   _rollDice() {
     setState(() {
     _totalRollValue = 0;
+    // Capture d2 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 3, _d2Count, 0);
+    // Capture d4 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 5, _d4Count, 0);
+    // Capture d6 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 7, _d6Count, 0);
+    // Capture d10 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 11, _d10Count, 0);
+    // Capture d12 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 13, _d12Count, 0);
+    // Capture d20 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 21, _d20Count, 0);
+    // Capture d100 total
+    _totalRollValue += Roll().rollMultipleInRange(1, 101, _d100Count, 0);
 
-    // Return d2 total
-    for (int i = 0; i < _d2Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 3);
-    }
+    // TODO create a local variable to hold the dn face value and then pass this to the rollMultipeInRange() as a param.
 
-    // Return d4 total
-    for (int i = 0; i < _d4Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 5);
-    }
 
-    // Return d6 total
-    for (int i = 0; i < _d6Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 7);
-    }
+      // Trigger vibration 'dice roll' feedback based on how many dice are being rolled.
+      if(_totalNumDice > 0 && _totalNumDice < 5) { Vibrate().smallRoll();}
+      if(_totalNumDice >= 5 && _totalNumDice < 10) { Vibrate().bigRoll();}
+      if(_totalNumDice >= 10) { Vibrate().epicRoll();}
 
-    // Return d10 total
-    for (int i = 0; i < _d10Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 11);
-    }
-
-    // Return d12 total
-    for (int i = 0; i < _d12Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 13);
-    }
-
-    // Return d20 total
-    for (int i = 0; i < _d20Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 21);
-    }
-
-    // Return d100 total
-    for (int i = 0; i < _d100Count; i ++) {
-      _totalRollValue += Roll().rollInRange(1, 101);
-    }
-
-    // TODO create a local variable to hold the dn face value and then pass this to the Roll class as a param.
-    // Return dn total
-    // for (int i = 0; i < _dnCount; i ++) {
-    //   _totalRollValue += Roll().rollInRange(1, 5);
-    // }
-  
-    return _totalRollValue;
+    // Send _totalRollValue back to parent via provided callback function.
+    widget.parentAction(_totalRollValue);
     });
   }
 
