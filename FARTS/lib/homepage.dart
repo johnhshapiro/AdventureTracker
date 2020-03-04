@@ -47,10 +47,16 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 UserAccountsDrawerHeader(
-                  accountName: Text('User name'),
-                  accountEmail: Text('user_name@gmail.com'),
+                  accountName: Text(
+                    'User name',
+                    style: TextStyle(color: Colors.black87),
+                  ),
+                  accountEmail: Text(
+                    'user_name@gmail.com',
+                    style: TextStyle(color: Colors.black87),
+                  ),
                   currentAccountPicture: Image.asset("assets/user.png"),
-                  decoration: BoxDecoration(color: Colors.blueGrey),
+                  decoration: BoxDecoration(color: Colors.amberAccent),
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
@@ -104,8 +110,8 @@ class _HomePageState extends State<HomePage> {
             backgroundColor: Colors.transparent,
             elevation: 0.0,
             items: navBarItems,
-            unselectedItemColor: Colors.blueGrey[50],
-            selectedItemColor: Colors.blueGrey[400],
+            unselectedItemColor: Colors.amberAccent[50],
+            selectedItemColor: Colors.amberAccent[400],
             currentIndex: _selectedIndex,
             onTap: _onItemTapped),
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
