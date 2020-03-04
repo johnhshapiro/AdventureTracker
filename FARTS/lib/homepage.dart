@@ -35,9 +35,53 @@ class _HomePageState extends State<HomePage> {
     CreateNewUser(),
   ];
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
+        endDrawer: Drawer(
+            elevation: 20.0,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                UserAccountsDrawerHeader(
+                  accountName: Text('User name'),
+                  accountEmail: Text('user_name@gmail.com'),
+                  currentAccountPicture: Image.asset("assets/user.png"),
+                  decoration: BoxDecoration(color: Colors.blueGrey),
+                ),
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  onTap: () {
+                    // This line code will close drawer programatically....
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(
+                  height: 2.0,
+                ),
+                ListTile(
+                  leading: Icon(Icons.mode_edit),
+                  title: Text('mode'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Divider(
+                  height: 2.0,
+                ),
+                ListTile(
+                  leading: Icon(Icons.outlined_flag),
+                  title: Text('sign out'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            )),
         extendBodyBehindAppBar: true,
         appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -51,15 +95,17 @@ class _HomePageState extends State<HomePage> {
                     Icons.menu,
                     color: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
                 ),
               ),
             ]),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.shifting,
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
             items: navBarItems,
-            unselectedItemColor: Colors.yellowAccent[100],
-            selectedItemColor: Colors.yellowAccent[400],
+            unselectedItemColor: Colors.blueGrey[50],
+            selectedItemColor: Colors.blueGrey[400],
             currentIndex: _selectedIndex,
             onTap: _onItemTapped),
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).

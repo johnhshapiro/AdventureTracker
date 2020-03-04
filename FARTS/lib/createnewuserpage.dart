@@ -13,9 +13,9 @@ class CreateNewUser extends StatefulWidget {
 
 class _CreateNewUserState extends State<CreateNewUser> {
   final _formkey = GlobalKey<FormState>();
-  final CollectionReference userCollection = Firestore.instance.collection('users');
+  final CollectionReference userCollection =
+      Firestore.instance.collection('users');
   String _username, _email, _password, _error = '';
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
               colorBlendMode: BlendMode
                   .luminosity // Blends the background color with the background image.
               ),
-            Form(
+          Form(
             key: _formkey,
             child: Theme(
               data: ThemeData(
@@ -53,7 +53,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                         }
                         return null;
                       },
-                      onChanged: (input) => _username= input,
+                      onChanged: (input) => _username = input,
                       decoration: InputDecoration(labelText: "Username"),
                     ),
                     TextFormField(
@@ -72,10 +72,11 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     ),
                     TextFormField(
                       // Password
-                      validator: (value) =>
-                        value.length < 6 ? 'Password must be at least 6 characters': null,
-                        // TODO don't store the password value for checking password match purposes, instead create a hashfunction. 
-                        // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.,
+                      validator: (value) => value.length < 6
+                          ? 'Password must be at least 6 characters'
+                          : null,
+                      // TODO don't store the password value for checking password match purposes, instead create a hashfunction.
+                      // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.,
                       onChanged: (input) => _password = input,
                       decoration: InputDecoration(
                         labelText: "Password",
@@ -103,7 +104,9 @@ class _CreateNewUserState extends State<CreateNewUser> {
                         child: Text("Create"),
                         // TODO: Validation checks if username is taken, maybe email as well
                         onPressed: () {
-                          Scaffold.of(context).showSnackBar(SnackBar(content: Text('Checking Inputs...'),));
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content: Text('Checking Inputs...'),
+                          ));
                           createUser();
                         },
                         splashColor: Colors
@@ -111,9 +114,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       ),
                     ),
                     // TODO: Think of a better way to show the error text
-                    Text(
-                      _error
-                    ),
+                    Text(_error),
                   ],
                 ),
               ),
@@ -123,10 +124,12 @@ class _CreateNewUserState extends State<CreateNewUser> {
       ),
     );
   }
+
   Future createUser() async {
     if (_formkey.currentState.validate()) {
       try {
-        AuthResult result =  await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password);
+        AuthResult result = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(email: _email, password: _password);
         String uid = result.user.uid;
         await userCollection.document(uid).setData({
           'username': _username,
@@ -135,13 +138,11 @@ class _CreateNewUserState extends State<CreateNewUser> {
           'gmCampaigns': [null],
         });
         Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage())
-        );
-      } catch(e) {
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      } catch (e) {
         print(e.code);
         if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
-          setState(() =>_error = "A user with that email already exists");
+          setState(() => _error = "A user with that email already exists");
         }
       }
     }
