@@ -3,6 +3,7 @@ import 'package:FARTS/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 
 class AuthenticationService {
@@ -13,43 +14,19 @@ class AuthenticationService {
       try {
         AuthResult result = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
         FirebaseUser user = result.user;
-        // Stream<DocumentSnapshot> userStream = _userFromFirebaseUser(user) ?? null;
-        // DocumentSnapshot userDoc = await userStream.first.then((DocumentSnapshot snapshot) {return snapshot;}) ?? null;
-        return user;
+        return _userDataFromFirebaseUser(user);
       } catch (e) {
         print(e.message);
         return null;
       }
   }
 
-  // DocumentReference _userStreamFromFirebaseUser(FirebaseUser fbUser) {
-  //   String userId = fbUser.uid ?? null;
-  //   DocumentReference docStream = Firestore.instance.document('users/$userId');
-  //   return docStream;
-  // }
-
-  // DocumentSnapshot _getUserDocument(DocumentReference userStream)  {
-  //   return userStream.get().then((DocumentSnapshot snapshot) => snapshot.data);
-  // }
-
-
-  Stream<UserData> get userDoc {
+  Stream<User> get user {
     return _auth.onAuthStateChanged.map(_userDataFromFirebaseUser);
   }
 
-  UserData _userDataFromFirebaseUser(FirebaseUser fbuser) {
-    // DocumentReference userStream = _userStreamFromFirebaseUser(fbuser) ?? null;
-    UserData userData;
-    Firestore.instance.collection('user').document(fbuser.uid).get().then((DocumentSnapshot snapshot) => {
-      //print("hello " + snapshot.documentID),
-      print(snapshot.documentID),
-      // print(snapshot.data.keys.toString()),
-      // print(snapshot.data['email'].toString() ?? 'noemail'),
-      // print(snapshot.data['gmCampaigns'].toString() ?? 'nocampaign'),
-      // print(snapshot.data['username'].toString() ?? 'noname'),
-    });
-    // print(userData.toString());
-    return userData;
+  User _userDataFromFirebaseUser(FirebaseUser user) {
+    return user != null ? User(uid: user.uid) : null;
   }
 
     
@@ -74,12 +51,6 @@ class AuthenticationService {
   //   return userDoc;
   // }
 
-
-  Stream<FirebaseUser> get user {
-  // This stream is used to check state changes in authorization
-    return _auth.onAuthStateChanged ?? null;
-  }
-
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -98,11 +69,15 @@ class Logout extends StatefulWidget {
 class _LogoutState extends State<Logout> {
   @override
   Widget build(BuildContext context) {
+    final userData = Provider.of<UserData>(context);
     return Center(
       child: Container(
         child: MaterialButton(
-          child: Text('Sign out'),
+          child: Text('Sign Out'),
           onPressed: () {
+            print(userData.email);
+            print(userData.uid);
+            print(userData.username);
             AuthenticationService().signOut();
           })
       ),

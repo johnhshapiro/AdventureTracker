@@ -1,17 +1,22 @@
+class User {
+  final String uid;
+
+  User({this.uid});
+}
+
 class UserData {
 
-  String uid;
-  dynamic characters;
-  String email;
-  dynamic gmCampaigns;
-  String username;
+  final String uid;
+  final dynamic characters;
+  final String email;
+  final dynamic gmCampaigns;
+  final String username;
 
-  // UserData({
-  //   this.uid,
-  //   this.characters,
-  //   this.email,
-  //   this.gmCampaigns,
-  //   this.username
-  // });
-
+  UserData({
+    this.uid,
+    this.characters,
+    this.email,
+    this.gmCampaigns,
+    this.username
+  });
 }

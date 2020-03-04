@@ -1,3 +1,4 @@
+import 'package:FARTS/screens/characters/character_select.dart';
 import 'package:FARTS/viewcampaignpage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
-    LoginPage(),
+    CharacterSelect(),
     SelectModePage(),
     Campaign(),
     Logout(),

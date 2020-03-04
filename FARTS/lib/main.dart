@@ -1,6 +1,7 @@
  // import 'package:FARTS/viewcampaignpage.dart';
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/services/authentication.dart';
+import 'package:FARTS/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,27 +27,27 @@ class BoardsEdge extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
-    return StreamProvider<UserData>.value(
-      value: AuthenticationService().userDoc,
+    return StreamProvider<User>.value(
+      value: AuthenticationService().user,
           child: MaterialApp(
-          home: AuthWrapper(), // Sets AuthWrapper as homepage, which returns the homepage only if user is signed in
-          theme: ThemeData(
-            // Define the default brightness and colors.
-            brightness: Brightness.dark,
-            primaryColor: Colors.grey[900],
-            accentColor: Colors.amber,
+            home: AuthWrapper(), // Sets AuthWrapper as homepage, which returns the homepage only if user is signed in
+            theme: ThemeData(
+              // Define the default brightness and colors.
+              brightness: Brightness.dark,
+              primaryColor: Colors.grey[900],
+              accentColor: Colors.amber,
 
-            // Define default font family
-            fontFamily: 'Georgia',
+              // Define default font family
+              fontFamily: 'Georgia',
 
-            // Define the default TextTheme. Use this to specify the default
-            // text styling for headlines (headline5), titles (headline6), bodies of text (bodyText2), and more.
-            // *NOTE* if you are seeing red underline for the textTheme variables you need to update flutter/dart
-            textTheme: TextTheme(
-                headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-                title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-                body2: TextStyle(fontSize: 14.0, fontFamily: 'Georgia')),
-          )),
+              // Define the default TextTheme. Use this to specify the default
+              // text styling for headlines (headline5), titles (headline6), bodies of text (bodyText2), and more.
+              // *NOTE* if you are seeing red underline for the textTheme variables you need to update flutter/dart
+              textTheme: TextTheme(
+                  headline: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+                  title: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+                  body2: TextStyle(fontSize: 14.0, fontFamily: 'Georgia')),
+            )),
     );
   }
 }
