@@ -22,12 +22,21 @@ class _SelectModePageState extends State<SelectModePage> {
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                  Image(
-                  image: AssetImage("assets/gamemaster.jpg"),
-                  fit: BoxFit.fill,
-                  color: Colors.black12, // The number here is the opacity.
-                  colorBlendMode: BlendMode
-                      .luminosity // Blends the background color with the background image.
+                  GestureDetector(
+                    onTap: (){
+                      Vibrate().bigRoll();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HomePage()),
+                      );
+                    },
+                    child: Image(
+                    image: AssetImage("assets/gamemaster.jpg"),
+                    fit: BoxFit.fill,
+                    color: Colors.black12, // The number here is the opacity.
+                    colorBlendMode: BlendMode.luminosity,
+                     // Blends the background color with the background image.
+                    ),
                   ),
                   Form(
                     child: Column(
@@ -58,12 +67,21 @@ class _SelectModePageState extends State<SelectModePage> {
             child: Stack(
             fit: StackFit.expand,
               children: <Widget>[
-                Image(
-                image: AssetImage("assets/adventurer.jpg"),
-                fit: BoxFit.fill,
-                color: Colors.black12, // The number here is the opacity.
-                colorBlendMode: BlendMode
-                    .luminosity // Blends the background color with the background image.
+                GestureDetector(
+                  onTap: () {
+                  Vibrate().bigRoll();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                  child: Image(
+                  image: AssetImage("assets/adventurer.jpg"),
+                  fit: BoxFit.fill,
+                  color: Colors.black12, // The number here is the opacity.
+                  colorBlendMode: BlendMode
+                      .luminosity // Blends the background color with the background image.
+                  ),
                 ),
                 Form(
                   child: Container(
