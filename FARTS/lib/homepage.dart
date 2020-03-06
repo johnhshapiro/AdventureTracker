@@ -24,20 +24,14 @@ class _HomePageState extends State<HomePage> {
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
-<<<<<<< HEAD
-=======
       icon: Icon(Icons.home), title: Text('Sign Out')),
     BottomNavigationBarItem(
->>>>>>> dev
       icon: Icon(Icons.casino), title: Text('Roll')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     Campaign(),
-<<<<<<< HEAD
-=======
     Logout(),
->>>>>>> dev
     RollPage(),
   ];
 
