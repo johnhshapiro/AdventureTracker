@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>548532890197-sgs6k24qa6al5t1ecahkdkk5s0i3bd3a.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.548532890197-sgs6k24qa6al5t1ecahkdkk5s0i3bd3a</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDjjhdmHqPlJj-KESffL5P12phFtiqPoks</string>
+	<key>GCM_SENDER_ID</key>
+	<string>548532890197</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.FARTS</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-adventure-rts</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-adventure-rts.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:548532890197:ios:9e00af761bd22a7a37c2dc</string>
+	<key>DATABASE_URL</key>
+	<string>https://flutter-adventure-rts.firebaseio.com</string>
+</dict>
+</plist>

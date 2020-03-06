@@ -2,10 +2,8 @@ import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
-import './loginpage.dart';
-import './createnewuserpage.dart';
 import 'package:FARTS/rollpage.dart';
-import 'package:FARTS/viewcampaignpage.dart';
+import 'package:FARTS/campaignview/viewcampaignpage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -21,18 +19,17 @@ class _HomePageState extends State<HomePage> {
   // item though like a Widget
   final navBarItems = [
     BottomNavigationBarItem(
-        icon: Icon(Icons.announcement), title: Text('Campaign')),
-    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Sign Out')),
-    BottomNavigationBarItem(icon: Icon(Icons.casino), title: Text('Roll')),
+      icon: Icon(Icons.announcement), title: Text('Campaign')),
     BottomNavigationBarItem(
-        icon: Icon(Icons.chrome_reader_mode), title: Text('create user')),
+      icon: Icon(Icons.home), title: Text('Sign Out')),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.casino), title: Text('Roll')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     Campaign(),
     Logout(),
     RollPage(),
-    CreateNewUser(),
   ];
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -41,82 +38,34 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        endDrawer: Drawer(
-            elevation: 20.0,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text(
-                    'User name',
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  accountEmail: Text(
-                    'user_name@gmail.com',
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                  currentAccountPicture: Image.asset("assets/user.png"),
-                  decoration: BoxDecoration(color: Colors.amberAccent),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    // This line code will close drawer programatically....
-                    Navigator.pop(context);
-                  },
-                ),
-                Divider(
-                  height: 2.0,
-                ),
-                ListTile(
-                  leading: Icon(Icons.mode_edit),
-                  title: Text('mode'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Divider(
-                  height: 2.0,
-                ),
-                ListTile(
-                  leading: Icon(Icons.outlined_flag),
-                  title: Text('sign out'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            )),
+        endDrawer: _buildDrawer(),
         extendBodyBehindAppBar: true,
         appBar: AppBar(
             backgroundColor: Colors.transparent,
-            leading: Text(' '),
-            elevation: 0.0,
+            bottomOpacity: 0,
+            elevation: 0,
             actions: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(9.0),
                 child: IconButton(
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
+                  icon: Icon(Icons.menu, color: Colors.white),
                   onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
                 ),
               ),
-            ]),
+            ]
+        ),
         bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.shifting,
             backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            items: navBarItems,
             unselectedItemColor: Colors.amberAccent[50],
             selectedItemColor: Colors.amberAccent[400],
             currentIndex: _selectedIndex,
-            onTap: _onItemTapped),
+            items: navBarItems,
+            onTap: _onItemTapped,
+        ),
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
         body: IndexedStack(
-          // See how the page that is displayed is decided by the icon selected on the Navbar.
+          // See how the page that is displayed is decided by the index of the icon selected on the Navbar.
           index: _selectedIndex,
           children:
               _routeList, // This would normally be a children[] widget list but it just references the list we already made, 'routeList' which tells the indexed
@@ -129,9 +78,61 @@ class _HomePageState extends State<HomePage> {
   }
 
   // This function controls the NavBar current index.
-  void _onItemTapped(int index) {
+  _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
+  _buildDrawer() {
+    return Drawer(
+            elevation: 20.0,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                
+                UserAccountsDrawerHeader(
+                  accountName: Text('User name', style: TextStyle(color: Colors.black87)),
+                  accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
+                  currentAccountPicture: Image.asset("assets/user.png"),
+                  decoration: BoxDecoration(color: Colors.amberAccent),
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  onTap: () {
+                    // This line code will close drawer programatically....
+                    Navigator.pop(context);
+                  },
+                ),
+
+                Divider(
+                  height: 2.0,
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.mode_edit),
+                  title: Text('mode'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+
+                Divider(
+                  height: 2.0,
+                ),
+
+                ListTile(
+                  leading: Icon(Icons.outlined_flag),
+                  title: Text('sign out'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            )
+    );
+  }
+
 }
