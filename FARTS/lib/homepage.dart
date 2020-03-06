@@ -1,3 +1,4 @@
+import 'package:FARTS/loginpage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -17,18 +18,15 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   // This is a list of the NavBar icons/items, note it could also be something other than a NavBar
   // item though like a Widget
-  final navBarItems = [
+  final _navBarItems = [
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), title: Text('Campaign')),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.home), title: Text('Sign Out')),
     BottomNavigationBarItem(
       icon: Icon(Icons.casino), title: Text('Roll')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
     Campaign(),
-    Logout(),
     RollPage(),
   ];
 
@@ -40,28 +38,15 @@ class _HomePageState extends State<HomePage> {
         key: _scaffoldKey,
         endDrawer: _buildDrawer(),
         extendBodyBehindAppBar: true,
-        appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            bottomOpacity: 0,
-            elevation: 0,
-            actions: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: IconButton(
-                  icon: Icon(Icons.menu, color: Colors.white),
-                  onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
-                ),
-              ),
-            ]
-        ),
+        appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.shifting,
-            backgroundColor: Colors.transparent,
-            unselectedItemColor: Colors.amberAccent[50],
-            selectedItemColor: Colors.amberAccent[400],
-            currentIndex: _selectedIndex,
-            items: navBarItems,
-            onTap: _onItemTapped,
+          type: BottomNavigationBarType.shifting,
+          backgroundColor: Colors.transparent,
+          unselectedItemColor: Colors.amberAccent[50],
+          selectedItemColor: Colors.amberAccent[400],
+          currentIndex: _selectedIndex,
+          items: _navBarItems,
+          onTap: _onNavBarItemTapped,
         ),
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
         body: IndexedStack(
@@ -78,60 +63,80 @@ class _HomePageState extends State<HomePage> {
   }
 
   // This function controls the NavBar current index.
-  _onItemTapped(int index) {
+  _onNavBarItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
 
+  _buildAppBar() {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      bottomOpacity: 0,
+      elevation: 0,
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(9.0),
+          child: IconButton(
+            icon: Icon(Icons.menu, color: Colors.white),
+            onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+          ),
+        ),
+      ]
+    );
+  }
+
   _buildDrawer() {
     return Drawer(
-            elevation: 20.0,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                
-                UserAccountsDrawerHeader(
-                  accountName: Text('User name', style: TextStyle(color: Colors.black87)),
-                  accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
-                  currentAccountPicture: Image.asset("assets/user.png"),
-                  decoration: BoxDecoration(color: Colors.amberAccent),
-                ),
+      elevation: 20.0,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          
+          UserAccountsDrawerHeader(
+            accountName: Text('User name', style: TextStyle(color: Colors.black87)),
+            accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
+            currentAccountPicture: Image.asset("assets/user.png"),
+            decoration: BoxDecoration(color: Colors.amberAccent),
+          ),
 
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                  onTap: () {
-                    // This line code will close drawer programatically....
-                    Navigator.pop(context);
-                  },
-                ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {
+              // This line code will close drawer programatically....
+              Navigator.pop(context);
+            },
+          ),
 
-                Divider(
-                  height: 2.0,
-                ),
+          Divider(
+            height: 2.0,
+          ),
 
-                ListTile(
-                  leading: Icon(Icons.mode_edit),
-                  title: Text('mode'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                ),
+          ListTile(
+            leading: Icon(Icons.mode_edit),
+            title: Text('mode'),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
 
-                Divider(
-                  height: 2.0,
-                ),
+          Divider(
+            height: 2.0,
+          ),
 
-                ListTile(
-                  leading: Icon(Icons.outlined_flag),
-                  title: Text('sign out'),
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            )
+          ListTile(
+            leading: Icon(Icons.outlined_flag),
+            title: Text('sign out'),
+            onTap: () {
+              setState(() {
+                AuthenticationService().signOut();
+                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+              });
+            },
+          )
+        ],
+      )
     );
   }
 
