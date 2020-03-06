@@ -23,155 +23,174 @@ class _CampaignState extends State<Campaign> {
         body:StreamBuilder(
           stream: Firestore.instance.collection("campaigns").snapshots(),
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              throw Exception("FireStore DB snapshot Error, cannot access campaign collection.");
+            }
             // Shows a loading progress indicator while data is still being fetched.
             if (!snapshot.hasData) {
               return CircularProgressIndicator();
             }
-            if (snapshot.hasError) {
-              throw Exception("FireStore DB snapshot Error, cannot access campaign collection.");
-            }
-            // CustomScrollview is the actual name of the gridview layout widget.
-            return CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: EdgeInsets.all(5),
-                  // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number
-                  // of evenly spaced widgets per row.
-                  sliver: SliverGrid.extent(
-                    crossAxisSpacing: 5,
-                    mainAxisSpacing: 5,
-                    // This is the max number of pixels the widgets will expand horizontally. 
-                    maxCrossAxisExtent: 1080,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(top: 50.0),
-                        //padding: EdgeInsets.all(5.0),
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: <Widget>[
-                            
-                            Image(image: AssetImage('assets/realoldpaper.jpg'),
-                              fit: BoxFit.cover, 
-                              ),
-                            
-                            Column(
-                              children: <Widget>[
-                                Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
-                                Container(
-                                  padding: EdgeInsets.all(14.0),
-                                  child: Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.black, fontStyle: FontStyle.italic))
-                                ),
-                                Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-                                Container(
-                                  padding: EdgeInsets.all(14.0),
-                                  child: Text(_now.toString(), style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
-                                Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-                                Container(
-                                  padding: EdgeInsets.all(14.0),
-                                  child: Text("1", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)),
-                                  // TODO increment the session number dynamically
-                                Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
-                                Container(
-                                  padding: EdgeInsets.all(14.0),
-                                  child: Text("Shrek's Swamp", style: TextStyle(fontSize: 30.0, color: Colors.black, fontStyle: FontStyle.italic),)),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MapView()));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(5.0),
-                          child: FittedBox(
-                            fit: BoxFit.fitHeight,
-                            child: Image.asset('assets/samplemap.jpg'),
-                            // TODO, actually load the relevant map image form db.
-                          ),
-                        ),
-                      ),
-
-                      Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Party info", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
-                          ),
-                          _characterListview(context, snapshot),
-                          FloatingActionButton(
-                            onPressed: null,
-                            child: Icon(Icons.add, color: Colors.amber), 
-                            backgroundColor: Colors.grey[800],
-                          ),
-                        ],
-                      ),
-
-                      Column(
-                        children: <Widget>[
-                          Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
-                          Container(
-                            padding: const EdgeInsets.all(8),
-                            child: Text(snapshot.data.documents[0]['notes']),
-                          ),
-                        ],
-                      ),
-
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        child: TextField(
-                          decoration: InputDecoration(labelText: "NPCS"),
-                        ),
-                      ),
-                      Container(
-                        child: MaterialButton(
-                          color: Colors.green,
-                          child: Text("API Call", style: TextStyle(fontSize: 30.0),),
-                          onPressed: () {
-                            Vibrate().smallRoll();
-                        },),
-                      ),
-                      Container( 
-                        color: Colors.grey[800],
-                        child: MaterialButton(
-                          child: Text('Small Roll Test'),
-                          onPressed: Vibrate().smallRoll,)
-                      ),
-                      Container( 
-                        color: Colors.grey[800],
-                        child: MaterialButton(
-                          child: Text('Big Roll Test'),
-                          onPressed: Vibrate().bigRoll,)
-                      ),
-                      Container(
-                        color: Colors.grey[800],
-                        child: MaterialButton(
-                          child: Text('Epic Roll Test'),
-                          onPressed: Vibrate().epicRoll,)
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            );
+            // Gets the custom scroll vew body of the page.
+            return _getScrollView(context, snapshot);
           },
         )
     );
   }
-  void _callAPI() async { 
-    print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
+
+  // _callAPI() async { 
+  //   print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
+  // }
+
+  _getScrollView(context, snapshot) {
+    // CustomScrollview is the actual name of the gridview layout widget.
+    return CustomScrollView(
+      primary: false,
+      slivers: <Widget>[
+        SliverPadding(
+          padding: EdgeInsets.all(5),
+          // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number
+          // of evenly spaced widgets per row.
+          sliver: SliverGrid.extent(
+            crossAxisSpacing: 5,
+            mainAxisSpacing: 5,
+            // This is the max number of pixels the widgets will expand horizontally. 
+            maxCrossAxisExtent: 1080,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(top: 30.0),
+                padding: EdgeInsets.all(5.0),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: <Widget>[
+                    
+                    Image(image: AssetImage('assets/realoldpaper.jpg'),
+                      fit: BoxFit.cover, 
+                      ),
+                    
+                    Column(
+                      children: <Widget>[
+                        Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
+
+                        Container(
+                          padding: EdgeInsets.all(14.0),
+                          child: Text(snapshot.data.documents[0]['name'], 
+                                  style: TextStyle(fontSize: 30.0, 
+                                  color: Colors.black, 
+                                  fontStyle: FontStyle.italic))
+                        ),
+
+                        Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+
+                        Container(
+                          padding: EdgeInsets.all(14.0),
+                          child: Text(_now.toString(), style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)
+                        ),
+
+                        Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+
+                        Container(// TODO increment the session number dynamically
+                          padding: EdgeInsets.all(14.0),
+                          child: Text("1", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic))
+                        ),
+                    
+                        Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+
+                        Container(
+                          padding: EdgeInsets.all(14.0),
+                          child: Text(snapshot.data.documents[0]['mapName'],
+                                  style: TextStyle(fontSize: 30.0, 
+                                  color: Colors.black, 
+                                  fontStyle: FontStyle.italic))                        
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MapView()));
+                },
+                child: Container(
+                  padding: EdgeInsets.all(5.0),
+                  child: FittedBox(
+                    fit: BoxFit.fitHeight,
+                    child: Image.asset('assets/samplemap.jpg'),
+                    // TODO, actually load the relevant map image form db.
+                  ),
+                ),
+              ),
+
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Party info", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+                  ),
+                  // Returns a listview inside the container (or a loading circle if data isnt available)
+                  !snapshot.hasData ? CircularProgressIndicator : _characterListView(context, snapshot),
+
+                  // FloatingActionButton(
+                  //   onPressed: null,
+                  //   child: Icon(Icons.add, color: Colors.amber), 
+                  //   backgroundColor: Colors.grey[800],
+                  // ),
+                ],
+              ),
+
+              Column(
+                children: <Widget>[
+
+                  Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
+
+                  Container(
+                    color: Colors.grey[900],
+                    padding: const EdgeInsets.all(8),
+                    child: Text(snapshot.data.documents[0]['notes']),
+                  ),
+
+                ],
+              ),
+              
+            ],
+          ),
+        ),
+      ],
+    );
   }
-  _characterListview(context, snapshot) {
-    return Container(
+
+    _characterListView(context, snapshot) {
+    return Container(// TODO actually get the char data from the db like in the commented code below.
+      color: Colors.grey[900],
       padding: EdgeInsets.all(5),
       height: 275,
       child: ListView(children: <Widget>[
         Text('character 1'),
         Text('character 2'),
         Text('character 3'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
+        Text('character n...'),
         Text('character n...'),
         //Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.white, fontStyle: FontStyle.italic))
       ],),

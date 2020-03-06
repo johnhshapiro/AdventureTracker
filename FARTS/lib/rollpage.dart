@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Relevant pages
+// Relevant page
 import 'services/vibrate.dart';
 import 'services/roll.dart';
 
@@ -114,6 +114,7 @@ class _DiceBagState extends State<DiceBag> {
          SizedBox(
            width: 100,
            child: TextField(
+             maxLines: 2,
              decoration: InputDecoration(hintText: 'Name'),),),
           Container(
             color: Colors.blue,
