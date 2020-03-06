@@ -30,7 +30,6 @@ void main() {
         expect(find.text('Sign Out'), findsOneWidget);
         expect(find.text('Roll'), findsOneWidget);
         expect(find.text('Campaign'), findsOneWidget);
-        expect(find.text('create user'), findsOneWidget);
 
         // Make sure the Icons are on the NavBar
         expect(find.byType(Icon), findsWidgets);
@@ -45,7 +44,6 @@ void main() {
       await tester.tap(find.text("Sign Out"));
       await tester.tap(find.text("Roll"));
       await tester.tap(find.text("Campaign"));
-      await tester.tap(find.text("create user"));
       verify(mockObserver.didPush(any, any));
     });
 
