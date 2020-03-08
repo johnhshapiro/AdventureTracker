@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 
 // Relevant pages
-import 'package:FARTS/viewcampaignpage.dart';
+import 'package:FARTS/screens/campaigns/viewcampaignpage.dart';
 
 void main() {
   group('View Campaign page widget tests', () {

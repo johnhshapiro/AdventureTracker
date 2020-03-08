@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:FARTS/createnewuserpage.dart';
 import 'package:FARTS/selectmodepage.dart';
-import 'package:FARTS/campaignview/viewcampaignpage.dart';
+import 'package:FARTS/screens/campaigns/viewcampaignpage.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 

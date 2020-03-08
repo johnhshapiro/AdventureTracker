@@ -8,7 +8,7 @@ import 'package:FARTS/homepage.dart';
 import 'package:FARTS/createnewuserpage.dart';
 import 'package:FARTS/loginpage.dart';
 import 'package:FARTS/selectmodepage.dart';
-import 'package:FARTS/viewcampaignpage.dart';
+import 'package:FARTS/screens/campaigns/viewcampaignpage.dart';
 
 
 

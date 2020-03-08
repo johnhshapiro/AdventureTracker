@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 
 // Packages being tested
-import 'package:FARTS/characters/ability_scores_and_skills.dart';
+import 'package:FARTS/screens/characters/ability_scores_and_skills.dart';
 
 void main() {
     test('calculateModifier returns correct ability mods', (){
