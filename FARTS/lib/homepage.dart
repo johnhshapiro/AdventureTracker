@@ -1,12 +1,10 @@
 import 'package:FARTS/loginpage.dart';
-import 'package:FARTS/screens/characters/character_select.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/rollpage.dart';
 import 'package:FARTS/screens/campaigns/viewcampaignpage.dart';
-import 'package:FARTS/selectmodepage.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -29,8 +27,6 @@ class _HomePageState extends State<HomePage> {
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
-    CharacterSelect(),
-    SelectModePage(),
     Campaign(),
     RollPage(),
   ];
@@ -39,6 +35,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //final UserData userData = Provider.of<UserData>(context);
+
     return Scaffold(
         key: _scaffoldKey,
         endDrawer: _buildDrawer(),

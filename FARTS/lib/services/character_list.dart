@@ -3,11 +3,8 @@ import 'package:FARTS/models/character.dart';
 
 class CharacterService {
 
-  final List characterList;
-  CharacterService({ this.characterList });
-
-  // CollectionReference characterCollection =
-  //   Firestore.instance.collection('characters').where('characters', whereIn: characterList);
+  final String userId;
+  CharacterService({ this.userId });
 
   List<Character> _characterListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -32,19 +29,13 @@ class CharacterService {
   }
 
   Stream<List<Character>> get chars {
-    print(characterList);
+    print(userId);
     return Firestore
             .instance
               .collection('characters')
-                .where('id', whereIn: characterList)
+                .where('userId', isEqualTo: userId)
                   .snapshots()
                     .map(_characterListFromSnapshot);
-    // dynamic myRefsList = [];
-    // for (DocumentReference ref in characterList) {
-    //   myRefsList.add(Firestore.instance.document(ref.path)
-    //     .get().then(_characterListFromSnapshot()));
-    // return myRefsList;
-    // }
   }
 
 

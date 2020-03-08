@@ -1,17 +1,10 @@
-// import 'package:FARTS/viewcampaignpage.dart';
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/services/authentication.dart';
-import 'package:FARTS/services/database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:FARTS/models/user.dart';
 
-// import './selectmodepage.dart';
-import './loginpage.dart';
-// import './homepage.dart';
 
 void main() => runApp(BoardsEdge());
 /*Loads 'main' as a Widget, even the app itself is a Widget. '=>' AKA 'fat arrow' in Dart 

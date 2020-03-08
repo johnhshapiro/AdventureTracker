@@ -1,10 +1,9 @@
 import 'package:FARTS/screens/characters/ability_scores_and_skills.dart';
 import 'package:FARTS/models/character.dart';
-// import 'package:FARTS/characters/combat.dart';
-// import 'package:FARTS/characters/inventory.dart';
+// import 'package:FARTS/screens/characters/combat.dart';
+// import 'package:FARTS/screens/characters/inventory.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class CharacterSheetPage extends StatefulWidget {
@@ -24,14 +23,9 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    // Stream<DocumentSnapshot> getRefData(String ref) {
-    //   return Firestore.instance.document(ref).snapshots();
-      
-    // }
-    
+   
     Character char = widget.character;
-    String race = "Race placeholder"; // getRefData("race").data['name'];
+    String race = "Race placeholder";
     String classes = "Classes placeholder";
 
 
@@ -49,11 +43,6 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
             The child at index 'n' provides the content for StaggeredTile at index 'n'.
             */
             Text(char.name, style: TextStyle(fontSize: 30.0)),
-            // ListView.builder(
-            //   scrollDirection: Axis.horizontal,
-            //   itemCount: char['classes'].
-
-            // ),
             Text(classes, style: TextStyle(fontSize: 10.0)),
             Text("Class(es) and level(s)", style: TextStyle(fontSize:10.0, color: Colors.grey[600]),),
             Text(race.toString(), style: TextStyle(fontSize: 10.0)),

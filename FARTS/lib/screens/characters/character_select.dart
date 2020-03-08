@@ -1,7 +1,4 @@
 import 'package:FARTS/screens/characters/character_sheet.dart';
-import 'package:FARTS/services/database.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +6,6 @@ import 'package:FARTS/screens/characters/new_character.dart';
 import 'package:FARTS/services/character_list.dart';
 import 'package:FARTS/models/character.dart';
 import 'package:FARTS/models/user.dart';
-import 'package:FARTS/services/user_data.dart';
 
 
 class CharacterList extends StatefulWidget {
@@ -76,8 +72,9 @@ class _CharacterListState extends State<CharacterList> {
 
 
 class CharacterSelect extends StatefulWidget {
-  CharacterSelect({Key key, this.title}) : super(key: key);
+  CharacterSelect({Key key, this.title, @required this.userData}) : super(key: key);
   final String title;
+  final UserData userData;
 
   @override
   _CharacterSelectState createState() => _CharacterSelectState();
@@ -90,10 +87,8 @@ class _CharacterSelectState extends State<CharacterSelect> {
   @override
   Widget build(BuildContext context) {
 
-    final userData = Provider.of<UserData>(context);
-
     return StreamProvider<List<Character>>.value(
-      value: CharacterService(characterList: userData.characters).chars,
+      value: CharacterService(userId: widget.userData.uid).chars,
       child: Scaffold(
         body: CharacterList() ?? [],
       ),
@@ -101,5 +96,3 @@ class _CharacterSelectState extends State<CharacterSelect> {
     );
   }
 }
-
-

@@ -1,12 +1,9 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/homepage.dart';
 import 'package:FARTS/loginpage.dart';
-<<<<<<< HEAD
 import 'package:FARTS/selectmodepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-=======
 import 'package:FARTS/models/user.dart';
->>>>>>> 1c74b7fb89cf5200ac9befb5fb18130bb88d913a
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
