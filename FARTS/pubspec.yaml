@@ -1,11 +1,5 @@
 name: FARTS
-description: A new Flutter project.
-
-# The following defines the version and build number for your application.
-# A version number is three numbers separated by dots, like 1.2.43
-# followed by an optional build number separated by a +.
-# Both the version and the builder number may be overridden in flutter
-# build by specifying --build-name and --build-number, respectively.
+description: A tabletop RPG companion app!
 # In Android, build-name is used as versionName while build-number used as versionCode.
 # Read more about Android versioning at https://developer.android.com/studio/publish/versioning
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
@@ -62,10 +56,10 @@ flutter:
     - assets/loginImage.jpg
     - assets/knight.jpg
     - assets/samplemap.jpg
-    - assets/samplemap.jpg
     - assets/adventurer.jpg
     - assets/gamemaster.jpg
     - assets/realoldpaper.jpg
+    - assets/user.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

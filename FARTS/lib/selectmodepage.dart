@@ -1,10 +1,12 @@
 import 'package:FARTS/homepage.dart';
 import 'package:FARTS/screens/characters/character_select.dart';
-import 'package:FARTS/vibrate.dart';
+import 'package:FARTS/services/vibrate.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/homepage.dart';
+import 'package:FARTS/screens/characters/new_character.dart';
+import 'package:FARTS/services/vibrate.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);
@@ -74,7 +76,8 @@ class _SelectModePageState extends State<SelectModePage> {
                   Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      // TODO point this at the top level character view page (this is the tappable image, dont forget to do this for the button below also.)
+                      MaterialPageRoute(builder: (context) => CreateNewCharacter()),
                     );
                   },
                   child: Image(

@@ -1,4 +1,4 @@
- // import 'package:FARTS/viewcampaignpage.dart';
+// import 'package:FARTS/viewcampaignpage.dart';
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
