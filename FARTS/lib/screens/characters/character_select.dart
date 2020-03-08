@@ -1,4 +1,6 @@
 import 'package:FARTS/screens/characters/character_sheet.dart';
+import 'package:FARTS/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -22,6 +24,7 @@ class _CharacterListState extends State<CharacterList> {
   Widget build(BuildContext context) {
 
     final chars = Provider.of<List<Character>>(context) ?? [];
+    
 
     return Container(
 
@@ -87,11 +90,10 @@ class _CharacterSelectState extends State<CharacterSelect> {
   @override
   Widget build(BuildContext context) {
 
-    final user = Provider.of<FirebaseUser>(context);
-    print("1: " + user.toString());
+    final userData = Provider.of<UserData>(context);
 
     return StreamProvider<List<Character>>.value(
-      value: CharacterService().chars,
+      value: CharacterService(characterList: userData.characters).chars,
       child: Scaffold(
         body: CharacterList() ?? [],
       ),

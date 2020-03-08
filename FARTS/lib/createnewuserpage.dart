@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meta/meta.dart';
 
 import './homepage.dart';
 
@@ -102,7 +103,6 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       builder: (context) => MaterialButton(
                         color: Colors.grey[900],
                         child: Text("Create"),
-                        // TODO: Validation checks if username is taken, maybe email as well
                         onPressed: () {
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('Checking Inputs...'),

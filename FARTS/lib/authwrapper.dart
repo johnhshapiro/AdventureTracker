@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import 'package:FARTS/selectmodepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+=======
+import 'package:FARTS/services/database.dart';
+>>>>>>> 1c74b7fb89cf5200ac9befb5fb18130bb88d913a
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:FARTS/models/user.dart';
@@ -11,13 +15,18 @@ class AuthWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // This user info can be used to access user specific data
-    final user = Provider.of<UserData>(context);
+    final user = Provider.of<User>(context);
+    if (user != null) {
+      return StreamProvider<UserData>.value(
+        value: DatabaseService(uid: user.uid).userData,
+        child: showCorrectPage(user)); 
+    }
 
     // return either loginpage or homepage, depending on whether user is signed in
     return showCorrectPage(user);
   }
 
-  Widget showCorrectPage(UserData user) {
+  Widget showCorrectPage(User user) {
     if (user == null) {
       return LoginPage();
     } else {

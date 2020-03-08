@@ -9,25 +9,6 @@ import 'package:FARTS/campaignview/viewcampaignpage.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
-
-  group('CREATE NEW USER PAGE widget tests', () {
-    testWidgets('Create new user button is present and triggers navigation', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: CreateNewUser(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-
-      expect(find.text('Create'), findsOneWidget);
-      await tester.tap(find.text('Create'));
-      await tester.pumpAndSettle();
-
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(CreateNewUser), findsOneWidget);
-    });
-  });
   
   group('SELECT MODE PAGE widget tests', () {
     testWidgets('game master mode button is present', (WidgetTester tester) async {

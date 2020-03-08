@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:FARTS/models/character.dart';
-import 'package:FARTS/services/user_data.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 
 class CharacterService {
 
-  // final List characterList;
-  // CharacterService({ this.characterList });
+  final List characterList;
+  CharacterService({ this.characterList });
 
-  final CollectionReference characterCollection = Firestore.instance.collection('characters');
+  // CollectionReference characterCollection =
+  //   Firestore.instance.collection('characters').where('characters', whereIn: characterList);
 
   List<Character> _characterListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.documents.map((doc) {
@@ -34,7 +32,19 @@ class CharacterService {
   }
 
   Stream<List<Character>> get chars {
-    return characterCollection.snapshots().map(_characterListFromSnapshot);
+    print(characterList);
+    return Firestore
+            .instance
+              .collection('characters')
+                .where('id', whereIn: characterList)
+                  .snapshots()
+                    .map(_characterListFromSnapshot);
+    // dynamic myRefsList = [];
+    // for (DocumentReference ref in characterList) {
+    //   myRefsList.add(Firestore.instance.document(ref.path)
+    //     .get().then(_characterListFromSnapshot()));
+    // return myRefsList;
+    // }
   }
 
 
