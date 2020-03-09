@@ -37,9 +37,16 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  // _callAPI() async { 
-  //   print(await http.read('http://dnd5eapi.co/api/spells/acid-arrow/'));
-  // }
+  Future _getMap(context, snapshot) async {
+    DocumentReference documentReference = snapshot.data.documents[0]['maps'];
+    var data;
+    documentReference.get().then((datasnapshot) {
+      data = datasnapshot.data['imageAddress'.toString()]; 
+    });
+
+    print(data);
+    return data;
+  }
 
   _getScrollView(context, snapshot) {
     // CustomScrollview is the actual name of the gridview layout widget.
@@ -110,14 +117,15 @@ class _CampaignState extends State<Campaign> {
 
               GestureDetector(
                 onTap: () {
+
                   Navigator.push(context, MaterialPageRoute(builder: (context) => MapView()));
                 },
                 child: Container(
                   padding: EdgeInsets.all(5.0),
                   child: FittedBox(
                     fit: BoxFit.fitHeight,
-                    child: Image.asset('assets/samplemap.jpg'),
-                    // TODO, actually load the relevant map image form db.
+                    //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
+                    child: Image.network("https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519".toString()),
                   ),
                 ),
               ),

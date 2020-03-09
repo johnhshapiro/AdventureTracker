@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// Relevant page
+// Relevant pages
 import 'services/vibrate.dart';
 import 'services/roll.dart';
 
@@ -38,9 +38,9 @@ class _RollPageState extends State<RollPage> {
       body: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 45),
+            margin: EdgeInsets.only(top: 15),
             height: 90,
-            child: Text(_totalRollValue.toString(), style: TextStyle(fontSize: 75, color: Colors.red),),
+            child: Text(_totalRollValue.toString(), style: TextStyle(fontSize: 95, color: Colors.red),),
           ),
           Expanded(
             child: ListView.builder(
@@ -50,7 +50,7 @@ class _RollPageState extends State<RollPage> {
                 // Creates a new instance of the DiceBag() class every time _listItemCount is incremented.
                 // Provides _updateRollTotal as a callback function so the DiceBag() child can update the
                 // the total roll displayed in the parent. 
-                return new DiceBag(parentAction: _updateRollTotal);
+                return DiceBag(parentAction: _updateRollTotal);
               }
             ),
           ),
@@ -67,7 +67,6 @@ class _RollPageState extends State<RollPage> {
   }
 
 }
-
 
 
 // Companion Class enables each row of dice widgets to be instantiated on demand and keep track of their own dice values.
@@ -93,7 +92,7 @@ class _DiceBagState extends State<DiceBag> {
   int _d2Count = 0;
 
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       height: 80,
       padding: EdgeInsets.all(5),       
       margin: EdgeInsets.all(5),
@@ -112,9 +111,9 @@ class _DiceBagState extends State<DiceBag> {
           ),
 
          SizedBox(
-           width: 100,
+           width: 110,
            child: TextField(
-             maxLines: 2,
+             maxLines: 3,
              decoration: InputDecoration(hintText: 'Name'),),),
           Container(
             color: Colors.blue,
@@ -140,8 +139,8 @@ class _DiceBagState extends State<DiceBag> {
                   },
                 ),
                 _d4Count != 0 ? Positioned(
-                  right: 11,
-                  top: 11,
+                  right: 5,
+                  top: 5,
                   child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
@@ -186,8 +185,8 @@ class _DiceBagState extends State<DiceBag> {
                   },
                 ),
                 _d6Count != 0 ? Positioned(
-                  right: 11,
-                  top: 11,
+                  right: 5,
+                  top: 5,
                   child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
@@ -208,12 +207,12 @@ class _DiceBagState extends State<DiceBag> {
           ),
 
           Container(
-            color: Colors.orange,
+            color: Colors.yellow,
             margin: EdgeInsets.all(8),
             child: Stack(
               children: <Widget>[
                 MaterialButton(
-                  splashColor: Colors.orange,
+                  splashColor: Colors.yellow,
                   child: Text("d10", style: TextStyle(fontSize: 24, color: Colors.black),),
                   onPressed: () {
                     setState(() {
@@ -234,8 +233,8 @@ class _DiceBagState extends State<DiceBag> {
                 // "if the dice count isn't 0 show a notification bubble with the dice count. If it is 0
                 // show an empty container (aka show no notification).
                 _d10Count != 0 ? Positioned(
-                  right: 11,
-                  top: 11,
+                  right: 5,
+                  top: 5,
                   child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
@@ -257,12 +256,12 @@ class _DiceBagState extends State<DiceBag> {
           ),
 
           Container(
-            color: Colors.yellow,
+            color: Colors.orange,
             margin: EdgeInsets.all(8),
             child: Stack(
               children: <Widget>[
                 MaterialButton(
-                  splashColor: Colors.yellow,
+                  splashColor: Colors.orange,
                   child: Text("d12", style: TextStyle(fontSize: 24, color: Colors.black),),
                   onPressed: () {
                     setState(() {
@@ -280,8 +279,8 @@ class _DiceBagState extends State<DiceBag> {
                   },
                 ),
                 _d12Count != 0 ? Positioned(
-                  right: 11,
-                  top: 11,
+                  right: 5,
+                  top: 5,
                   child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
@@ -325,8 +324,8 @@ class _DiceBagState extends State<DiceBag> {
                   },
                 ),
                 _d20Count != 0 ? Positioned(
-                  right: 11,
-                  top: 11,
+                  right: 5,
+                  top: 5,
                   child: Container(
                     padding: EdgeInsets.all(2),
                     decoration: new BoxDecoration(
@@ -338,6 +337,51 @@ class _DiceBagState extends State<DiceBag> {
                       minHeight: 14,
                     ),
                     child: Text('$_d20Count', style: TextStyle(color: Colors.white, fontSize: 8),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ) : Container()
+              ],
+            ),
+          ),
+
+          Container(
+            color: Colors.red[800],
+            margin: EdgeInsets.all(8),
+            child: Stack(
+              children: <Widget>[
+                MaterialButton(
+                  splashColor: Colors.purple,
+                  child: Text("d100", style: TextStyle(fontSize: 24, color: Colors.black),),
+                  onPressed: () {
+                    setState(() {
+                      _d100Count ++;
+                      _totalNumDice ++;
+                    });
+                  },
+                  onLongPress: () {
+                    setState(() {
+                      if (_d100Count > 0) {
+                        _d100Count --;
+                        _totalNumDice --;
+                      }
+                    });
+                  },
+                ),
+                _d100Count != 0 ? Positioned(
+                  right: 5,
+                  top: 5,
+                  child: Container(
+                    padding: EdgeInsets.all(2),
+                    decoration: new BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    constraints: BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text('$_d100Count', style: TextStyle(color: Colors.white, fontSize: 8),
                       textAlign: TextAlign.center,
                     ),
                   ),

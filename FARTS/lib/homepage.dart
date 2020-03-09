@@ -41,9 +41,8 @@ class _HomePageState extends State<HomePage> {
         appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          backgroundColor: Colors.transparent,
-          unselectedItemColor: Colors.amberAccent[50],
-          selectedItemColor: Colors.amberAccent[400],
+          unselectedItemColor: Colors.amberAccent[50],// This and the next line arent actually doing anything
+          selectedItemColor: Colors.amberAccent[400],// just so you know, you can remove them.
           currentIndex: _selectedIndex,
           items: _navBarItems,
           onTap: _onNavBarItemTapped,
