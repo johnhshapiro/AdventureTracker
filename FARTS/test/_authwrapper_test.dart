@@ -26,18 +26,18 @@ void main() {
       verify(mockObserver.didPush(any, any));
       expect(find.byType(LoginPage), findsOneWidget);
     });
-    testWidgets('Application loads homepage when user is not null',
-        (WidgetTester tester) async {
-      final mockUser = new MockUser();
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: AuthWrapper().showCorrectPage(mockUser),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-      verify(mockObserver.didPush(any, any));
-      expect(find.byType(SelectModePage), findsOneWidget);
-    });
+    // testWidgets('Application loads homepage when user is not null',
+    //     (WidgetTester tester) async {
+    //   final mockUser = new MockUser();
+    //   final mockObserver = MockNavigatorObserver();
+    //   await tester.pumpWidget(
+    //     MaterialApp(
+    //       home: AuthWrapper().showCorrectPage(mockUser),
+    //       navigatorObservers: [mockObserver],
+    //     ),
+    //   );
+    //   verify(mockObserver.didPush(any, any));
+    //   expect(find.byType(SelectModePage), findsOneWidget);
+    // });
   });
 }

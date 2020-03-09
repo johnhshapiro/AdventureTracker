@@ -18,8 +18,8 @@ void main() {
     });
 
     testWidgets('View Campaign Text is present', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: Scaffold(body: Campaign(),),);
-      await tester.pumpWidget(app);
+      //MaterialApp app = MaterialApp(home: Scaffold(body: Campaign()));
+      //await tester.pumpWidget(app);
 
       // Make sure all the text is showing correctly.
     });
