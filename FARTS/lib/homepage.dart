@@ -1,3 +1,4 @@
+import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/loginpage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +131,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               setState(() {
                 AuthenticationService().signOut();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AuthWrapper()));
               });
             },
           )
