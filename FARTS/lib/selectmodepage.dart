@@ -6,6 +6,7 @@ import 'package:FARTS/characters/character_sheet.dart';
 import 'package:FARTS/characters/new_character.dart';
 import 'package:FARTS/services/vibrate.dart';
 import 'package:FARTS/characters/character_select.dart';
+import 'package:FARTS/gamemaster_view.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);
@@ -30,7 +31,7 @@ class _SelectModePageState extends State<SelectModePage> {
                       Vibrate().bigRoll();
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => GameMaster()),
                       );
                     },
                     child: Image(
@@ -55,7 +56,7 @@ class _SelectModePageState extends State<SelectModePage> {
                             Vibrate().bigRoll();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
+                              MaterialPageRoute(builder: (context) => GameMaster()),
                             );
                           },
                       ),
