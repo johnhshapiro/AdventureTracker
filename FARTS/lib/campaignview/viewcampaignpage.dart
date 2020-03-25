@@ -15,25 +15,28 @@ class Campaign extends StatefulWidget {
 class _CampaignState extends State<Campaign> {
   static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
   String _now = dateFormat.format(DateTime.now());
-  
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-        body:StreamBuilder(
-          stream: Firestore.instance.collection("campaigns").snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              throw Exception("FireStore DB snapshot Error, cannot access campaign collection.");
-            }
-            // Shows a loading progress indicator while data is still being fetched.
-            if (!snapshot.hasData) {
-              return CircularProgressIndicator();
-            }
-            // Gets the custom scroll vew body of the page.
-            return _getScrollView(context, snapshot);
-          },
-        )
+    return SafeArea(
+      top: false,
+      child: Scaffold(
+          backgroundColor: Colors.black,
+          body: StreamBuilder(
+            stream: Firestore.instance.collection("campaigns").snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                throw Exception(
+                    "FireStore DB snapshot Error, cannot access campaign collection.");
+              }
+              // Shows a loading progress indicator while data is still being fetched.
+              if (!snapshot.hasData) {
+                return CircularProgressIndicator();
+              }
+              // Gets the custom scroll vew body of the page.
+              return _getScrollView(context, snapshot);
+            },
+          )),
     );
   }
 
@@ -41,7 +44,7 @@ class _CampaignState extends State<Campaign> {
     DocumentReference documentReference = snapshot.data.documents[0]['maps'];
     var data;
     documentReference.get().then((datasnapshot) {
-      data = datasnapshot.data['imageAddress'.toString()]; 
+      data = datasnapshot.data['imageAddress'.toString()];
     });
 
     print(data);
@@ -60,7 +63,7 @@ class _CampaignState extends State<Campaign> {
           sliver: SliverGrid.extent(
             crossAxisSpacing: 5,
             mainAxisSpacing: 5,
-            // This is the max number of pixels the widgets will expand horizontally. 
+            // This is the max number of pixels the widgets will expand horizontally.
             maxCrossAxisExtent: 1080,
             children: <Widget>[
               Container(
@@ -69,98 +72,111 @@ class _CampaignState extends State<Campaign> {
                 child: Stack(
                   fit: StackFit.expand,
                   children: <Widget>[
-                    
-                    Image(image: AssetImage('assets/realoldpaper.jpg'),
-                      fit: BoxFit.cover, 
-                      ),
-                    
+                    Image(
+                      image: AssetImage('assets/realoldpaper.jpg'),
+                      fit: BoxFit.cover,
+                    ),
                     Column(
                       children: <Widget>[
-                        Text("Campaign", style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),),
-
+                        Text(
+                          "Campaign",
+                          style: TextStyle(
+                              fontSize: 16.0, color: Colors.grey[900]),
+                        ),
                         Container(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(snapshot.data.documents[0]['name'], 
-                                  style: TextStyle(fontSize: 30.0, 
-                                  color: Colors.black, 
-                                  fontStyle: FontStyle.italic))
-                        ),
-
-                        Text("Time/Date", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-
+                            padding: EdgeInsets.all(14.0),
+                            child: Text(snapshot.data.documents[0]['name'],
+                                style: TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.black,
+                                    fontStyle: FontStyle.italic))),
+                        Text("Time/Date",
+                            style: TextStyle(
+                                fontSize: 16.0, color: Colors.grey[900])),
                         Container(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(_now.toString(), style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic),)
-                        ),
-
-                        Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-
-                        Container(// TODO increment the session number dynamically
-                          padding: EdgeInsets.all(14.0),
-                          child: Text("1", style: TextStyle(fontSize: 26.0, color: Colors.black, fontStyle: FontStyle.italic))
-                        ),
-                    
-                        Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-
+                            padding: EdgeInsets.all(14.0),
+                            child: Text(
+                              _now.toString(),
+                              style: TextStyle(
+                                  fontSize: 26.0,
+                                  color: Colors.black,
+                                  fontStyle: FontStyle.italic),
+                            )),
+                        Text("Session Number",
+                            style: TextStyle(
+                                fontSize: 16.0, color: Colors.grey[900])),
                         Container(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(snapshot.data.documents[0]['mapName'],
-                                  style: TextStyle(fontSize: 30.0, 
-                                  color: Colors.black, 
-                                  fontStyle: FontStyle.italic))                        
-                        ),
+                            // TODO increment the session number dynamically
+                            padding: EdgeInsets.all(14.0),
+                            child: Text("1",
+                                style: TextStyle(
+                                    fontSize: 26.0,
+                                    color: Colors.black,
+                                    fontStyle: FontStyle.italic))),
+                        Text("Map",
+                            style: TextStyle(
+                                fontSize: 16.0, color: Colors.grey[900])),
+                        Container(
+                            padding: EdgeInsets.all(14.0),
+                            child: Text(snapshot.data.documents[0]['mapName'],
+                                style: TextStyle(
+                                    fontSize: 30.0,
+                                    color: Colors.black,
+                                    fontStyle: FontStyle.italic))),
                       ],
                     ),
                   ],
                 ),
               ),
-
               GestureDetector(
                 onTap: () {
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => MapView()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MapView()));
                 },
                 child: Container(
                   padding: EdgeInsets.all(5.0),
                   child: FittedBox(
                     fit: BoxFit.fitHeight,
                     //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
-                    child: Image.network("https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519".toString()),
+                    child: Image.network(
+                        "https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519"
+                            .toString()),
                   ),
                 ),
               ),
-
               Column(
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Party info", style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),),
+                    child: Text(
+                      "Party info",
+                      style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
+                    ),
                   ),
                   // Returns a listview inside the container (or a loading circle if data isnt available)
-                  !snapshot.hasData ? CircularProgressIndicator : _characterListView(context, snapshot),
+                  !snapshot.hasData
+                      ? CircularProgressIndicator
+                      : _characterListView(context, snapshot),
 
                   // FloatingActionButton(
                   //   onPressed: null,
-                  //   child: Icon(Icons.add, color: Colors.amber), 
+                  //   child: Icon(Icons.add, color: Colors.amber),
                   //   backgroundColor: Colors.grey[800],
                   // ),
                 ],
               ),
-
               Column(
                 children: <Widget>[
-
-                  Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
-
+                  Text("Notes",
+                      style:
+                          TextStyle(fontSize: 20.0, color: Colors.grey[600])),
                   Container(
                     color: Colors.grey[900],
                     padding: const EdgeInsets.all(8),
                     child: Text(snapshot.data.documents[0]['notes']),
                   ),
-
                 ],
               ),
-              
             ],
           ),
         ),
@@ -168,42 +184,43 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-    _characterListView(context, snapshot) {
-    return Container(// TODO actually get the char data from the db like in the commented code below.
+  _characterListView(context, snapshot) {
+    return Container(
+      // TODO actually get the char data from the db like in the commented code below.
       color: Colors.grey[900],
       padding: EdgeInsets.all(5),
       height: 275,
-      child: ListView(children: <Widget>[
-        Text('character 1'),
-        Text('character 2'),
-        Text('character 3'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        Text('character n...'),
-        //Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.white, fontStyle: FontStyle.italic))
-      ],),
+      child: ListView(
+        children: <Widget>[
+          Text('character 1'),
+          Text('character 2'),
+          Text('character 3'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          Text('character n...'),
+          //Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.white, fontStyle: FontStyle.italic))
+        ],
+      ),
     );
   }
-
-} 
-
+}
