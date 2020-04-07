@@ -21,9 +21,8 @@ class _HomePageState extends State<HomePage> {
   // item though like a Widget
   final _navBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.announcement), title: Text('Campaign')),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.casino), title: Text('Roll')),
+        icon: Icon(Icons.announcement), title: Text('Campaign')),
+    BottomNavigationBarItem(icon: Icon(Icons.casino), title: Text('Roll')),
   ];
   // This is a list of the routes available to the NavBar.
   final _routeList = [
@@ -35,15 +34,20 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Scaffold(
         key: _scaffoldKey,
         endDrawer: _buildDrawer(),
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          unselectedItemColor: Colors.amberAccent[50],// This and the next line arent actually doing anything
-          selectedItemColor: Colors.amberAccent[400],// just so you know, you can remove them.
+          unselectedItemColor: Colors.amberAccent[
+              50], // This and the next line arent actually doing anything
+          selectedItemColor:
+              Colors.amberAccent[400], // just so you know, you can remove them.
           currentIndex: _selectedIndex,
           items: _navBarItems,
           onTap: _onNavBarItemTapped,
@@ -59,7 +63,9 @@ class _HomePageState extends State<HomePage> {
           // So after creating a new page, you can navigate to it by adding two elements: 1) An icon and a text name of the page in the 'navbarItems' list
           // which just displays items on the NavBar and 2) the name of the page class ('HomePage', 'LoginPage' etc...) in the 'routeList' list.
           // Note the index of these items in each list must match if you want the Navbar button to correspond to the correct page.
-        ));
+        ),
+      ),
+    );
   }
 
   // This function controls the NavBar current index.
@@ -71,73 +77,67 @@ class _HomePageState extends State<HomePage> {
 
   _buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      bottomOpacity: 0,
-      elevation: 0,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(9.0),
-          child: IconButton(
-            icon: Icon(Icons.menu, color: Colors.white),
-            onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+            ),
           ),
-        ),
-      ]
-    );
+        ]);
   }
 
   _buildDrawer() {
     return Drawer(
-      elevation: 20.0,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          
-          UserAccountsDrawerHeader(
-            accountName: Text('User name', style: TextStyle(color: Colors.black87)),
-            accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
-            currentAccountPicture: Image.asset("assets/user.png"),
-            decoration: BoxDecoration(color: Colors.amberAccent),
-          ),
-
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {
-              // This line code will close drawer programatically....
-              Navigator.pop(context);
-            },
-          ),
-
-          Divider(
-            height: 2.0,
-          ),
-
-          ListTile(
-            leading: Icon(Icons.mode_edit),
-            title: Text('mode'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-
-          Divider(
-            height: 2.0,
-          ),
-
-          ListTile(
-            leading: Icon(Icons.outlined_flag),
-            title: Text('sign out'),
-            onTap: () {
-              setState(() {
-                AuthenticationService().signOut();
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AuthWrapper()));
-              });
-            },
-          )
-        ],
-      )
-    );
+        elevation: 20.0,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName:
+                  Text('User name', style: TextStyle(color: Colors.black87)),
+              accountEmail: Text('user_name@gmail.com',
+                  style: TextStyle(color: Colors.black87)),
+              currentAccountPicture: Image.asset("assets/user.png"),
+              decoration: BoxDecoration(color: Colors.amberAccent),
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                // This line code will close drawer programatically....
+                Navigator.pop(context);
+              },
+            ),
+            Divider(
+              height: 2.0,
+            ),
+            ListTile(
+              leading: Icon(Icons.mode_edit),
+              title: Text('mode'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            Divider(
+              height: 2.0,
+            ),
+            ListTile(
+              leading: Icon(Icons.outlined_flag),
+              title: Text('sign out'),
+              onTap: () {
+                setState(() {
+                  AuthenticationService().signOut();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AuthWrapper()));
+                });
+              },
+            )
+          ],
+        ));
   }
-
 }
