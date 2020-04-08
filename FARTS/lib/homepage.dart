@@ -1,5 +1,5 @@
 import 'package:FARTS/authwrapper.dart';
-import 'package:FARTS/loginpage.dart';
+import 'package:FARTS/campaignview/viewmap.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -15,22 +15,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // This var keeps track fo the bottom NavBar's current index selection.
-  int _selectedIndex = 0;
-  // This is a list of the NavBar icons/items, note it could also be something other than a NavBar
-  // item though like a Widget
-  final _navBarItems = [
+  int _navBarItemSelected = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final _campaignNavBarItems = [
     BottomNavigationBarItem(
-        icon: Icon(Icons.announcement), title: Text('Campaign')),
-    BottomNavigationBarItem(icon: Icon(Icons.casino), title: Text('Roll')),
+      icon: Icon(Icons.announcement), 
+      title: Text('Campaign')
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.map),
+      title: Text('Map')
+    ),
   ];
   // This is a list of the routes available to the NavBar.
-  final _routeList = [
+  final _campaignRouteList = [
     Campaign(),
-    RollPage(),
+    MapView(),
   ];
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -43,21 +44,18 @@ class _HomePageState extends State<HomePage> {
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
-          unselectedItemColor: Colors.amberAccent[
-              50], // This and the next line arent actually doing anything
-          selectedItemColor:
-              Colors.amberAccent[400], // just so you know, you can remove them.
-          currentIndex: _selectedIndex,
-          items: _navBarItems,
+          type: BottomNavigationBarType.shifting, //changed shifting to fixed to display navbar item text when not selected.
+          selectedItemColor: Colors.amberAccent[400], 
+          currentIndex: _navBarItemSelected,
+          items: _campaignNavBarItems,
           onTap: _onNavBarItemTapped,
         ),
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
         body: IndexedStack(
           // See how the page that is displayed is decided by the index of the icon selected on the Navbar.
-          index: _selectedIndex,
+          index:_navBarItemSelected,
           children:
-              _routeList, // This would normally be a children[] widget list but it just references the list we already made, 'routeList' which tells the indexed
+              _campaignRouteList, // This would normally be a children[] widget list but it just references the list we already made, 'routeList' which tells the indexed
           // stack which widget (in this case a page) to display based on the index of the button currently selected on the bottom nav bar... So if your navabr is on the first
           // button (index 0) it will pass this value to the IndexedStack's 'index:' thereby displaying the page at that index in the 'routeList' page list.
           // So after creating a new page, you can navigate to it by adding two elements: 1) An icon and a text name of the page in the 'navbarItems' list
@@ -71,7 +69,7 @@ class _HomePageState extends State<HomePage> {
   // This function controls the NavBar current index.
   _onNavBarItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+     _navBarItemSelected = index;
     });
   }
 
@@ -117,6 +115,19 @@ class _HomePageState extends State<HomePage> {
               height: 2.0,
             ),
             ListTile(
+              leading: Icon(Icons.outlined_flag),
+              title: Text('sign out'),
+              onTap: () {
+                setState(() {
+                  AuthenticationService().signOut();
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthWrapper()));
+                });
+              },
+            ),
+            Divider(
+              height: 2.0,
+            ),
+            ListTile(
               leading: Icon(Icons.mode_edit),
               title: Text('mode'),
               onTap: () {
@@ -127,13 +138,12 @@ class _HomePageState extends State<HomePage> {
               height: 2.0,
             ),
             ListTile(
-              leading: Icon(Icons.outlined_flag),
-              title: Text('sign out'),
+              leading: Icon(Icons.casino),
+              title: Text('Dice Bag'),
               onTap: () {
                 setState(() {
                   AuthenticationService().signOut();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AuthWrapper()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => RollPage()));
                 });
               },
             )

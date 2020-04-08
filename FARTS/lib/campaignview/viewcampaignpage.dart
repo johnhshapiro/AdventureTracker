@@ -21,7 +21,7 @@ class _CampaignState extends State<Campaign> {
     return SafeArea(
       top: false,
       child: Scaffold(
-          backgroundColor: Colors.black,
+          //backgroundColor: Colors.black,
           body: StreamBuilder(
             stream: Firestore.instance.collection("campaigns").snapshots(),
             builder: (context, snapshot) {
@@ -40,16 +40,16 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  Future _getMap(context, snapshot) async {
-    DocumentReference documentReference = snapshot.data.documents[0]['maps'];
-    var data;
-    documentReference.get().then((datasnapshot) {
-      data = datasnapshot.data['imageAddress'.toString()];
-    });
+  // Future _getMap(context, snapshot) async {
+  //   DocumentReference documentReference = snapshot.data.documents[0]['maps'];
+  //   var data;
+  //   documentReference.get().then((datasnapshot) {
+  //     data = datasnapshot.data['imageAddress'.toString()];
+  //   });
 
-    print(data);
-    return data;
-  }
+  //   print(data);
+  //   return data;
+  // }
 
   _getScrollView(context, snapshot) {
     // CustomScrollview is the actual name of the gridview layout widget.
@@ -128,22 +128,22 @@ class _CampaignState extends State<Campaign> {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MapView()));
-                },
-                child: Container(
-                  padding: EdgeInsets.all(5.0),
-                  child: FittedBox(
-                    fit: BoxFit.fitHeight,
-                    //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
-                    child: Image.network(
-                        "https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519"
-                            .toString()),
-                  ),
-                ),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(context,
+              //         MaterialPageRoute(builder: (context) => MapView()));
+              //   },
+              //   child: Container(
+              //     padding: EdgeInsets.all(5.0),
+              //     child: FittedBox(
+              //       fit: BoxFit.fitHeight,
+              //       //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
+              //       child: Image.network(
+              //           "https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519"
+              //               .toString()),
+              //     ),
+              //   ),
+              // ),
               Column(
                 children: <Widget>[
                   Padding(

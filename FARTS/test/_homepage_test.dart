@@ -27,7 +27,7 @@ void main() {
         await tester.pumpWidget(app);
 
         // Make sure all the NavBar text is present and correct.
-        expect(find.text('Roll'), findsOneWidget);
+        expect(find.text('Map'), findsOneWidget);
         expect(find.text('Campaign'), findsOneWidget);
 
         // Make sure the Icons are on the NavBar
@@ -40,7 +40,7 @@ void main() {
       await tester.pumpWidget(app);
 
       // I'm 70% sure this is testing navigation correctly? TODO become 1000% sure
-      await tester.tap(find.text("Roll"));
+      await tester.tap(find.text("Map"));
       await tester.tap(find.text("Campaign"));
       verify(mockObserver.didPush(any, any));
     });
