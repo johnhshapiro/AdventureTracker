@@ -1,11 +1,11 @@
 import 'package:FARTS/authwrapper.dart';
-import 'package:FARTS/campaignview/viewmap.dart';
+import 'package:FARTS/campaignview/map_view.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/rollpage.dart';
-import 'package:FARTS/campaignview/viewcampaignpage.dart';
+import 'package:FARTS/campaignview/campaign_view.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);

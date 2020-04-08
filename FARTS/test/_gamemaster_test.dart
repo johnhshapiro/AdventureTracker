@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 
 // Relevant pages.
-import 'package:FARTS/campaignview/gamemaster_view.dart';
+import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 
 void main() {
   group('View Gamemaster page widget tests', () {

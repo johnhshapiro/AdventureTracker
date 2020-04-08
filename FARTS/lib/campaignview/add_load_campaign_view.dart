@@ -1,5 +1,5 @@
 
-import 'package:FARTS/campaignview/viewcampaignpage.dart';
+import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:FARTS/characters/character_select.dart';
 import 'package:FARTS/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
