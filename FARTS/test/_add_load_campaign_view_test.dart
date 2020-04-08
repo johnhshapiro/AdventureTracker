@@ -5,9 +5,9 @@ import "package:flutter_test/flutter_test.dart";
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 
 void main() {
-  group('View Gamemaster page widget tests', () {
+  group('add_load_campaign_view page widget tests', () {
 
-    testWidgets('View gamemaster page widgets are present', (WidgetTester tester) async {
+    testWidgets('Page widgets are present', (WidgetTester tester) async {
       MaterialApp app = MaterialApp(home: GameMaster());
       await tester.pumpWidget(app);
   

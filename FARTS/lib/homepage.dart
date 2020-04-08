@@ -1,5 +1,6 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/campaignview/map_view.dart';
+import 'package:FARTS/campaignview/party_view.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -18,19 +19,27 @@ class _HomePageState extends State<HomePage> {
   int _navBarItemSelected = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _campaignNavBarItems = [
+
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement), 
       title: Text('Campaign')
     ),
+
     BottomNavigationBarItem(
       icon: Icon(Icons.map),
       title: Text('Map')
+    ),
+
+    BottomNavigationBarItem(
+      icon: Icon(Icons.group),
+      title: Text('Party')
     ),
   ];
   // This is a list of the routes available to the NavBar.
   final _campaignRouteList = [
     Campaign(),
     MapView(),
+    PartyView()
   ];
 
   @override
