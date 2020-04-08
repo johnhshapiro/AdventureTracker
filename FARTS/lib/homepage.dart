@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting, //changed shifting to fixed to display navbar item text when not selected.
+          type: BottomNavigationBarType.shifting, //change shifting to fixed to display navbar item text when not selected.
           selectedItemColor: Colors.amberAccent[400], 
           currentIndex: _navBarItemSelected,
           items: _campaignNavBarItems,

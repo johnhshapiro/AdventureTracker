@@ -35,7 +35,7 @@ class _GameMasterState extends State<GameMaster> {
               
               if (!snapshot.hasData) return CircularProgressIndicator();
               
-              //returns listview of campaign collection from Firebase
+              //returns listview of campaign collection items from Firestore
               return new ListView(
                 children: snapshot.data.documents.map((DocumentSnapshot document){
                   return new Card(
