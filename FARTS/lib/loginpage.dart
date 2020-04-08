@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: _scaffoldKey,
       body: Stack(
         // Stack stacks multiple children widgets (Image, and Column which in turn has many children itself) in a space.
@@ -95,18 +96,20 @@ class _LoginPageState extends State<LoginPage> {
                         Builder(
                           builder: (context) {
                             var materialButton = MaterialButton(
-                            color: Colors.grey[900],
-                            child: Text("Sign In"),
-                            onPressed: () async {
-                              HapticFeedback.heavyImpact();
-                              _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Signing in'),));
-                              if (_formKey.currentState.validate()) {
-                                await _auth.signIn(_email, _password);
-                              }
-                            },
-                            splashColor: Colors
-                                .amber, //Creates the color splash when u press the button. By u do u mean me?
-                          );
+                              color: Colors.grey[900],
+                              child: Text("Sign In"),
+                              onPressed: () async {
+                                HapticFeedback.heavyImpact();
+                                _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                  content: Text('Signing in'),
+                                ));
+                                if (_formKey.currentState.validate()) {
+                                  await _auth.signIn(_email, _password);
+                                }
+                              },
+                              splashColor: Colors
+                                  .amber, //Creates the color splash when u press the button. By u do u mean me?
+                            );
                             return materialButton;
                           },
                         ),
@@ -130,9 +133,8 @@ class _LoginPageState extends State<LoginPage> {
                             HapticFeedback.heavyImpact();
                             Navigator.push(
                               context,
-                                MaterialPageRoute(
-                                  builder: (context) => SelectModePage()
-                                ),
+                              MaterialPageRoute(
+                                  builder: (context) => SelectModePage()),
                             );
                           },
                         ),
