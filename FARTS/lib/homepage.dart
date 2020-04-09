@@ -19,28 +19,13 @@ class _HomePageState extends State<HomePage> {
   int _navBarItemSelected = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final _campaignNavBarItems = [
-
     BottomNavigationBarItem(
-      icon: Icon(Icons.announcement), 
-      title: Text('Campaign')
-    ),
-
-    BottomNavigationBarItem(
-      icon: Icon(Icons.map),
-      title: Text('Map')
-    ),
-
-    BottomNavigationBarItem(
-      icon: Icon(Icons.group),
-      title: Text('Party')
-    ),
+        icon: Icon(Icons.announcement), title: Text('Campaign')),
+    BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('Map')),
+    BottomNavigationBarItem(icon: Icon(Icons.group), title: Text('Party')),
   ];
   // This is a list of the routes available to the NavBar.
-  final _campaignRouteList = [
-    Campaign(),
-    MapView(),
-    PartyView()
-  ];
+  final _campaignRouteList = [Campaign(), MapView(), PartyView()];
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +38,9 @@ class _HomePageState extends State<HomePage> {
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting, //change shifting to fixed to display navbar item text when not selected.
-          selectedItemColor: Colors.amberAccent[400], 
+          type: BottomNavigationBarType
+              .shifting, //change shifting to fixed to display navbar item text when not selected.
+          selectedItemColor: Colors.amberAccent[400],
           currentIndex: _navBarItemSelected,
           items: _campaignNavBarItems,
           onTap: _onNavBarItemTapped,
@@ -62,7 +48,7 @@ class _HomePageState extends State<HomePage> {
         // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
         body: IndexedStack(
           // See how the page that is displayed is decided by the index of the icon selected on the Navbar.
-          index:_navBarItemSelected,
+          index: _navBarItemSelected,
           children:
               _campaignRouteList, // This would normally be a children[] widget list but it just references the list we already made, 'routeList' which tells the indexed
           // stack which widget (in this case a page) to display based on the index of the button currently selected on the bottom nav bar... So if your navabr is on the first
@@ -78,7 +64,7 @@ class _HomePageState extends State<HomePage> {
   // This function controls the NavBar current index.
   _onNavBarItemTapped(int index) {
     setState(() {
-     _navBarItemSelected = index;
+      _navBarItemSelected = index;
     });
   }
 
@@ -129,7 +115,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 setState(() {
                   AuthenticationService().signOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AuthWrapper()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AuthWrapper()));
                 });
               },
             ),
@@ -152,7 +139,8 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 setState(() {
                   AuthenticationService().signOut();
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => RollPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RollPage()));
                 });
               },
             )
