@@ -7,7 +7,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-// import './selectmodepage.dart';
 import './loginpage.dart';
 // import './homepage.dart';
 

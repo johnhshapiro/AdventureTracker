@@ -1,3 +1,4 @@
+import 'package:FARTS/homepage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -31,7 +32,8 @@ class _SelectModePageState extends State<SelectModePage> {
                     Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GameMaster()),
+                      MaterialPageRoute(
+                          builder: (context) => GameMaster()),
                     );
                   },
                   child: Image(
