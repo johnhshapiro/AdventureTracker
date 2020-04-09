@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/rollpage.dart';
-import 'package:FARTS/campaignview/campaign_view.dart';
+import 'package:FARTS/campaignview/campaign_info.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
