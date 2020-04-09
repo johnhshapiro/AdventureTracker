@@ -1,4 +1,5 @@
 
+import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:FARTS/homepage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,7 +42,7 @@ class _GameMasterState extends State<GameMaster> {
                   child: ListTile(
                   title: new Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => CampaignView()));
                   },
                 )
                 );

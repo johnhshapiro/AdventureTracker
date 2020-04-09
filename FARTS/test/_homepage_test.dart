@@ -11,7 +11,7 @@ void main() {
 
     testWidgets('Contain root widget, indexed stack, bottom navbar.', (WidgetTester tester) async {
       // Create an instance of the HomePage widget and pump it.
-      MaterialApp app = MaterialApp(home: HomePage());
+      //MaterialApp app = MaterialApp(home: HomePage());
       //await tester.pumpWidget(app);
 
       // Make sure these widgets are present.
@@ -34,7 +34,7 @@ void main() {
 
     testWidgets('NavBar navigation tests', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
-      MaterialApp app = MaterialApp(home: HomePage(), navigatorObservers: [mockObserver]);
+      //MaterialApp app = MaterialApp(home: HomePage(), navigatorObservers: [mockObserver]);
       //await tester.pumpWidget(app);
 
       //await tester.tap(find.text("Map"));

@@ -1,3 +1,4 @@
+import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -54,7 +55,7 @@ class _MapViewState extends State<MapView> {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => CampaignView()));
                 },
                 child: Image.asset('assets/samplemap.jpg')
               ),

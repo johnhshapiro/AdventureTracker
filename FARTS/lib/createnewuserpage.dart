@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 
 import './homepage.dart';
+import 'package:FARTS/selectmodepage.dart';
 
 class CreateNewUser extends StatefulWidget {
   @override
@@ -138,7 +139,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
           'gmCampaigns': [null],
         });
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => SelectModePage()));
       } catch (e) {
         print(e.code);
         if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
