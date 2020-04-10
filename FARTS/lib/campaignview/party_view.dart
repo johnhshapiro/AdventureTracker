@@ -10,27 +10,46 @@ class _PartyViewState extends State <PartyView> {
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(  
-      body: StreamBuilder(
-        stream: Firestore.instance.collection('campaigns').snapshots(),
-        builder: (context, snapshot) {
+    return Scaffold(
+      body: Container(
+        child: StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('campaigns').snapshots(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
 
-          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            if (snapshot.hasError) throw Exception("Unable to get party data from firestore: ${snapshot.error}");
+
+            if (!snapshot.hasData) CircularProgressIndicator();
             
-          if (!snapshot.hasData) return CircularProgressIndicator();
+            //_getPartyView(context, snapshot);
+            return ListView(
+              children: snapshot.data.documents.map((DocumentSnapshot document){
 
-          return ListView.builder(
-            itemCount: snapshot.data.documents[0]['part_test'].length,
-            itemBuilder: (context, index){
-              return ListTile(
-                title: Text(snapshot.data.documents[0]['party_test'][index]),
-              );
-            }
-          );
-
-        }
-      ) ,
+                return Card(
+                  child: ListTile(
+                    //title: Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
+                  ),
+                );
+              }).toList(),
+            );
+            
+          },
+        ),
+      ),
     );
   }
+
+  // _getPartyView(context, snapshot) {
+  //   return ListView(
+  //     children: snapshot.data.documents.map((DocumentSnapshot document){
+
+  //       return Card(
+  //         child: ListTile(
+  //           title: Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
+  //         ),
+  //       );
+
+  //     }).toList(),
+  //   );
+  // }
 
 }

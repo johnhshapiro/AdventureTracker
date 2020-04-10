@@ -1,5 +1,5 @@
 import 'package:FARTS/authwrapper.dart';
-import 'package:FARTS/custom_scaffold.dart';
+import 'package:FARTS/services/appbar.dart';
 import 'package:FARTS/campaignview/map_view.dart';
 import 'package:FARTS/campaignview/party_view.dart';
 import 'package:FARTS/services/authentication.dart';
@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 // Relevant pages.
 import 'package:FARTS/rollpage.dart';
 import 'package:FARTS/campaignview/campaign_info.dart';
+import 'package:FARTS/services/appbar.dart';
 
 class CampaignView extends StatefulWidget {
   CampaignView({Key key, this.title}) : super(key: key);
@@ -30,18 +31,25 @@ class _CampaignViewState extends State<CampaignView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(bottomNavigationBar: _buildBottomNavigationBar(), body: _buildIndexedStack());
-  }
-
-  // This function controls the NavBar current index.
-  _onNavBarItemTapped(int index) {
-    setState(() {
-      _navBarItemSelected = index;
-    });
-  }
-
-  _buildIndexedStack() {
-    return IndexedStack(
+    final BuildAppBar barBuilder = BuildAppBar(context: context, scaffoldKey: _scaffoldKey);
+    return MediaQuery.removePadding(
+      context: context,
+      removeTop: true,
+      child: Scaffold(
+        key: _scaffoldKey,
+        endDrawer: barBuilder.buildDrawer(),
+        extendBodyBehindAppBar: true,
+        appBar: barBuilder.buildAppBar(),
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType
+              .shifting, //change shifting to fixed to display navbar item text when not selected.
+          selectedItemColor: Colors.amberAccent[400],
+          currentIndex: _navBarItemSelected,
+          items: _campaignNavBarItems,
+          onTap: _onNavBarItemTapped,
+        ),
+        // Unlike a stack, an indexed stack only displays one of its children widgets at a time (in this case a page widget from the routeList page list).
+        body: IndexedStack(
           // See how the page that is displayed is decided by the index of the icon selected on the Navbar.
           index: _navBarItemSelected,
           children:
@@ -51,17 +59,15 @@ class _CampaignViewState extends State<CampaignView> {
           // So after creating a new page, you can navigate to it by adding two elements: 1) An icon and a text name of the page in the 'navbarItems' list
           // which just displays items on the NavBar and 2) the name of the page class ('CampaignView', 'LoginPage' etc...) in the 'routeList' list.
           // Note the index of these items in each list must match if you want the Navbar button to correspond to the correct page.
-        );
+        ),
+      ),
+    );
   }
 
-  _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType
-          .shifting, //change shifting to fixed to display navbar item text when not selected.
-      selectedItemColor: Colors.amberAccent[400],
-      currentIndex: _navBarItemSelected,
-      items: _campaignNavBarItems,
-      onTap: _onNavBarItemTapped,
-    );
+  // This function controls the NavBar current index.
+  _onNavBarItemTapped(int index) {
+    setState(() {
+      _navBarItemSelected = index;
+    });
   }
 }

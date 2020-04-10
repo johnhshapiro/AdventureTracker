@@ -1,6 +1,5 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/services/authentication.dart';
-import 'package:FARTS/rollpage.dart';
 import 'package:flutter/material.dart';
 
 // void main() {
@@ -11,20 +10,20 @@ import 'package:flutter/material.dart';
 class CustomScaffold extends StatefulWidget {
   final Widget bottomNavigationBar;
   final Widget body;
-  //final Widget floatingActionButton;
+  final Widget floatingActionButton;
   CustomScaffold(
-      {this.bottomNavigationBar, this.body, /*this.floatingActionButton*/});
+      {this.bottomNavigationBar, this.body, this.floatingActionButton});
   @override
   _CustomScaffoldState createState() =>
-      _CustomScaffoldState(bottomNavigationBar, body, /*floatingActionButton*/);
+      _CustomScaffoldState(bottomNavigationBar, body, floatingActionButton);
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
   final Widget bottomNavigationBar;
   final Widget body;
-  //final Widget floatingActionButton;
+  final Widget floatingActionButton;
   _CustomScaffoldState(
-      this.bottomNavigationBar, this.body, /*this.floatingActionButton*/);
+      this.bottomNavigationBar, this.body, this.floatingActionButton);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -41,7 +40,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         appBar: _buildAppBar(),
         bottomNavigationBar: bottomNavigationBar,
         body: body,
-        //floatingActionButton: floatingActionButton,
+        floatingActionButton: floatingActionButton,
       ),
     );
   }
@@ -96,16 +95,6 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ),
             Divider(
               height: 2.0,
-            ),
-            ListTile(
-              leading: Icon(Icons.casino),
-              title: Text('Dice Bag'),
-              onTap: () {
-                setState(() {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RollPage()));
-                });
-              },
             ),
             ListTile(
               leading: Icon(Icons.outlined_flag),
