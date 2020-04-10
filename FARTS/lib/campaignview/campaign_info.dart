@@ -24,15 +24,11 @@ class _CampaignState extends State<Campaign> {
           body: StreamBuilder(
             stream: Firestore.instance.collection("campaigns").snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                throw Exception(
-                    "FireStore DB snapshot Error, cannot access campaign collection.");
-              }
-              // Shows a loading progress indicator while data is still being fetched.
-              if (!snapshot.hasData) {
-                return CircularProgressIndicator();
-              }
-              // Gets the custom scroll vew body of the page.
+
+              if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+
+              if (!snapshot.hasData) { return CircularProgressIndicator();}
+
               return _getScrollView(context, snapshot);
             },
           )),
