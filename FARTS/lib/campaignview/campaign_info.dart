@@ -12,49 +12,47 @@ class Campaign extends StatefulWidget {
 }
 
 class _CampaignState extends State<Campaign> {
+  var _campaignStream = Firestore.instance.collection("campaigns").snapshots();
   static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
   String _now = dateFormat.format(DateTime.now());
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+  super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
       child: Scaffold(
-          //backgroundColor: Colors.black,
           body: StreamBuilder(
-            stream: Firestore.instance.collection("campaigns").snapshots(),
+            stream: _campaignStream,
             builder: (context, snapshot) {
 
-              if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+              if (snapshot.hasError) return Text('Error: ${snapshot.error}');
 
-              if (!snapshot.hasData) { return CircularProgressIndicator();}
+              if (!snapshot.hasData) return CircularProgressIndicator();
 
               return _getScrollView(context, snapshot);
-            },
-          )),
+            }
+          ))
     );
   }
 
-  // Future _getMap(context, snapshot) async {
-  //   DocumentReference documentReference = snapshot.data.documents[0]['maps'];
-  //   var data;
-  //   documentReference.get().then((datasnapshot) {
-  //     data = datasnapshot.data['imageAddress'.toString()];
-  //   });
-
-  //   print(data);
-  //   return data;
-  // }
-
   _getScrollView(context, snapshot) {
-    // CustomScrollview is the actual name of the gridview layout widget.
+    // CustomScrollview is the actual name of the *gridview* layout widget.
     return CustomScrollView(
       primary: false,
       slivers: <Widget>[
         SliverPadding(
           padding: EdgeInsets.all(5),
-          // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number
-          // of evenly spaced widgets per row.
+          // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number of evenly spaced widgets per row.
           sliver: SliverGrid.extent(
             crossAxisSpacing: 5,
             mainAxisSpacing: 5,
@@ -62,96 +60,10 @@ class _CampaignState extends State<Campaign> {
             maxCrossAxisExtent: 1080,
             children: <Widget>[
 
-              Container(
-                margin: EdgeInsets.only(top: 30.0),
-                padding: EdgeInsets.all(5.0),
+              _campaignHeader(context, snapshot),
 
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
+              _campaignNotes(context, snapshot),
 
-                    Image(
-                      image: AssetImage('assets/realoldpaper.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                    
-                    Column(
-                      children: <Widget>[
-
-                        Text(
-                          "Campaign",
-                            style: TextStyle(
-                            fontSize: 16.0, 
-                            color: Colors.grey[900]),
-                        ),
-
-                        Container(
-                            padding: EdgeInsets.all(14.0),
-                            child: Text(snapshot.data.documents[0]['name'],
-                                style: TextStyle(
-                                    fontSize: 30.0,
-                                    color: Colors.black,
-                                    fontStyle: FontStyle.italic))
-                        ),
-
-                        Text("Time/Date",
-                            style: TextStyle(
-                              fontSize: 16.0, 
-                              color: Colors.grey[900])
-                        ),
-
-                        Container(
-                            padding: EdgeInsets.all(14.0),
-                            child: Text(_now.toString(), 
-                              style: TextStyle(
-                                fontSize: 26.0,
-                                color: Colors.black,
-                                fontStyle: FontStyle.italic),
-                            ),
-                        ),
-
-                        Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-
-                        Container(
-                            // TODO increment the session number dynamically
-                            padding: EdgeInsets.all(14.0),
-                            child: Text("1",
-                              style: TextStyle(
-                                fontSize: 26.0, 
-                                color: Colors.black, 
-                                fontStyle: FontStyle.italic))
-                        ),
-
-                        Text("Map",style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-                                
-                        Container(
-                            padding: EdgeInsets.all(14.0),
-                            child: Text(snapshot.data.documents[0]['mapName'],
-                              style: TextStyle(
-                                fontSize: 30.0,
-                                color: Colors.black,
-                                fontStyle: FontStyle.italic)),
-                        ),
-
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              Column(
-                children: <Widget>[
-
-                  Text("Notes",style: TextStyle(fontSize: 20.0, color: Colors.grey[600])),
-
-                  Container(
-                    color: Colors.grey[900],
-                    padding: const EdgeInsets.all(8),
-                    child: Text(snapshot.data.documents[0]['notes']),
-                  ),
-
-                ],
-              ),
             ],
           ),
         ),
@@ -159,18 +71,99 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  _characterListView(context, snapshot) {
+  _campaignHeader(context, snapshot) {
     return Container(
-      // TODO actually get the char data from the db like in the commented code below.
-      color: Colors.grey[900],
-      padding: EdgeInsets.all(5),
-      height: 275,
-      child: ListView(
+      margin: EdgeInsets.only(top: 30.0),
+      padding: EdgeInsets.all(5.0),
+
+      child: Stack(
+        fit: StackFit.expand,
         children: <Widget>[
-          ListTile(),
-          //Text(snapshot.data.documents[0]['name'], style: TextStyle(fontSize: 30.0, color: Colors.white, fontStyle: FontStyle.italic))
+
+          Image(
+            image: AssetImage('assets/realoldpaper.jpg'),
+            fit: BoxFit.cover,
+          ),
+          
+          Column(
+            children: <Widget>[
+
+              Text(
+                "Campaign",
+                  style: TextStyle(
+                  fontSize: 16.0, 
+                  color: Colors.grey[900]),
+              ),
+
+              Container(
+                  padding: EdgeInsets.all(14.0),
+                  child: Text(snapshot.data.documents[0]['name'],
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic))
+              ),
+
+              Text("Time/Date",
+                  style: TextStyle(
+                    fontSize: 16.0, 
+                    color: Colors.grey[900])
+              ),
+
+              Container(
+                  padding: EdgeInsets.all(14.0),
+                  child: Text(_now.toString(), 
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic),
+                  ),
+              ),
+
+              Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+
+              Container(
+                  // TODO increment the session number dynamically
+                  padding: EdgeInsets.all(14.0),
+                  child: Text("1",
+                    style: TextStyle(
+                      fontSize: 26.0, 
+                      color: Colors.black, 
+                      fontStyle: FontStyle.italic))
+              ),
+
+              Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+                      
+              Container(
+                  padding: EdgeInsets.all(14.0),
+                  child: Text(snapshot.data.documents[0]['mapName'],
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic)),
+              ),
+
+            ],
+          ),
         ],
       ),
     );
   }
+
+  _campaignNotes(context, snapshot) {
+
+    return Column(
+      children: <Widget>[
+
+        Text("Notes",style: TextStyle(fontSize: 20.0)),
+
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: Text(snapshot.data.documents[0]['notes']),
+        ),
+
+      ],
+    );
+  }
+
 }
