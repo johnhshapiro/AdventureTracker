@@ -63,7 +63,7 @@ class _MapViewState extends State<MapView> {
               Positioned(
                 bottom: 5,
                 left: 5,
-                child: Text(snapshot.data.documents[0]['mapName'],
+                child: Text(snapshot.data.documents[0]['map_name'],
                         style: TextStyle(fontSize: 30.0, 
                         color: Colors.black, 
                         fontStyle: FontStyle.italic))

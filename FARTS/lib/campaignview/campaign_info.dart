@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:http/http.dart' as http;
@@ -12,18 +14,29 @@ class Campaign extends StatefulWidget {
 }
 
 class _CampaignState extends State<Campaign> {
-  var _campaignStream = Firestore.instance.collection("campaigns").snapshots();
+
+  Stream<QuerySnapshot> _campaignStream;
   static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
   String _now = dateFormat.format(DateTime.now());
+
+  bool _isEditingText = false;
+  TextEditingController _editingController;
+  //String _initialText = "CampaiNotes";
+
+  final CollectionReference _campaignCollection = Firestore.instance.collection('campaigns');
 
   @override
   void initState() {
     super.initState();
+    _campaignStream = Firestore.instance.collection("campaigns").snapshots();
+    // you can add initial text to the tex controler as a paramters <text: "intitial text">
+    _editingController = TextEditingController();
   }
 
   @override
   void dispose() {
-  super.dispose();
+    _editingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -136,7 +149,7 @@ class _CampaignState extends State<Campaign> {
                       
               Container(
                   padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['mapName'],
+                  child: Text(snapshot.data.documents[0]['map_name'],
                     style: TextStyle(
                       fontSize: 30.0,
                       color: Colors.black,
@@ -155,15 +168,53 @@ class _CampaignState extends State<Campaign> {
     return Column(
       children: <Widget>[
 
-        Text("Notes",style: TextStyle(fontSize: 20.0)),
+        Text("Notes", style: TextStyle(fontSize: 20.0)),
 
-        Container(
-          padding: const EdgeInsets.all(8),
-          child: Text(snapshot.data.documents[0]['notes']),
-        ),
+        _editNotes(context, snapshot),
 
       ],
     );
+  }
+
+  _editNotes(context, snapshot) {
+
+    if (_isEditingText)
+
+      return Card(
+        child: TextField(
+          onSubmitted: (newValue){
+            setState(() {
+              //_initialText = newValue;
+              _updateNotes(context, snapshot, newValue);
+              _isEditingText = false;
+            });
+          },
+          autofocus: true,
+          controller: _editingController,
+        ),
+      );
+    
+
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _isEditingText = true;
+        });
+      },
+      child: Text(snapshot.data.documents[0]['notes'])
+    );
+  }
+
+  Future _updateNotes(context, snapshot, newValue) async {
+    try {
+      await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").updateData({
+      //await snapshot.data.documents[0].setData({
+        'notes' : "$newValue"
+      });
+    } catch (e) {
+      print(e.code);
+    }
+  
   }
 
 }

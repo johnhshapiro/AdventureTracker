@@ -15,7 +15,7 @@ class _PartyViewState extends State <PartyView> {
         stream: Firestore.instance.collection('campaigns').snapshots(),
         builder: (context, snapshot) {
 
-          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
             
           if (!snapshot.hasData) return CircularProgressIndicator();
 
@@ -26,6 +26,7 @@ class _PartyViewState extends State <PartyView> {
               return Card(
                 child: ListTile(
                   title: Text(snapshot.data.documents[0]['party_test'][index]),
+                  onTap: () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
                 ),
               );
 
