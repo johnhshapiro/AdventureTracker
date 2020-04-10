@@ -9,26 +9,30 @@ import 'package:flutter/material.dart';
 // }
 
 class CustomScaffold extends StatefulWidget {
-  final Widget bottomNavigationBar;
-  final Widget body;
+  final routeList;
+  final navBarItems;
+
   //final Widget floatingActionButton;
   CustomScaffold(
-      {this.bottomNavigationBar, this.body, /*this.floatingActionButton*/});
+      {this.routeList, this.navBarItems/*this.floatingActionButton*/});
   @override
   _CustomScaffoldState createState() =>
-      _CustomScaffoldState(bottomNavigationBar, body, /*floatingActionButton*/);
+      _CustomScaffoldState(this.routeList, this.navBarItems/*floatingActionButton*/);
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
-  final Widget bottomNavigationBar;
-  final Widget body;
+  final routeList;
+  final navBarItems;
+  int navBarItemSelected=0;
   //final Widget floatingActionButton;
   _CustomScaffoldState(
-      this.bottomNavigationBar, this.body, /*this.floatingActionButton*/);
+      this.routeList, this.navBarItems/*this.floatingActionButton*/);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final navBar = _buildBottomNavigationBar();
+    final routeStack = _buildIndexedStack();
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -39,11 +43,35 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         endDrawer: _buildDrawer(),
         extendBodyBehindAppBar: true,
         appBar: _buildAppBar(),
-        bottomNavigationBar: bottomNavigationBar,
-        body: body,
+        bottomNavigationBar: navBar,
+        body: routeStack,
         //floatingActionButton: floatingActionButton,
       ),
     );
+  }
+
+    _buildIndexedStack() {
+    return IndexedStack(
+          index: navBarItemSelected,
+          children: routeList,
+        );
+  }
+  
+  _buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType
+          .shifting, //change shifting to fixed to display navbar item text when not selected.
+      selectedItemColor: Colors.amberAccent[400],
+      currentIndex: navBarItemSelected,
+      items: navBarItems,
+      onTap: _onNavBarItemTapped,
+    );
+  }
+
+  _onNavBarItemTapped(int index) {
+    setState(() {
+      navBarItemSelected = index;
+    });
   }
 
   _buildAppBar() {

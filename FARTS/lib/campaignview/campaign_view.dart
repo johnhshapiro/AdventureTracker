@@ -30,7 +30,7 @@ class _CampaignViewState extends State<CampaignView> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(bottomNavigationBar: _buildBottomNavigationBar(), body: _buildIndexedStack());
+    return CustomScaffold(routeList: _campaignRouteList, navBarItems: _campaignNavBarItems);
   }
 
   // This function controls the NavBar current index.
