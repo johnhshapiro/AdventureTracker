@@ -10,46 +10,31 @@ class _PartyViewState extends State <PartyView> {
 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      body: Container(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('campaigns').snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+    return Scaffold(  
+      body: StreamBuilder(
+        stream: Firestore.instance.collection('campaigns').snapshots(),
+        builder: (context, snapshot) {
 
-            if (snapshot.hasError) throw Exception("Unable to get party data from firestore: ${snapshot.error}");
-
-            if (!snapshot.hasData) CircularProgressIndicator();
+          if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
             
-            //_getPartyView(context, snapshot);
-            return ListView(
-              children: snapshot.data.documents.map((DocumentSnapshot document){
+          if (!snapshot.hasData) return CircularProgressIndicator();
 
-                return Card(
-                  child: ListTile(
-                    //title: Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
-                  ),
-                );
-              }).toList(),
-            );
-            
-          },
-        ),
-      ),
+          return ListView.builder(
+            itemCount: snapshot.data.documents[0]['party_test'].length,
+            itemBuilder: (context, index){
+
+              return Card(
+                child: ListTile(
+                  title: Text(snapshot.data.documents[0]['party_test'][index]),
+                ),
+              );
+
+            }
+          );
+
+        }
+      ) ,
     );
   }
-
-  // _getPartyView(context, snapshot) {
-  //   return ListView(
-  //     children: snapshot.data.documents.map((DocumentSnapshot document){
-
-  //       return Card(
-  //         child: ListTile(
-  //           title: Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
-  //         ),
-  //       );
-
-  //     }).toList(),
-  //   );
-  // }
 
 }
