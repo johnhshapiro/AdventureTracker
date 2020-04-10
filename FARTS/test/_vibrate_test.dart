@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // Relevant pages
-import 'package:FARTS/vibrate.dart';
+import 'package:FARTS/services/vibrate.dart';
 
 void main() {
   
