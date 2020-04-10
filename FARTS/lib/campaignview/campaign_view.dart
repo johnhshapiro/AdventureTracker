@@ -64,20 +64,4 @@ class _CampaignViewState extends State<CampaignView> {
       onTap: _onNavBarItemTapped,
     );
   }
-
-    _buildAppBar() {
-    return AppBar(
-        backgroundColor: Colors.transparent,
-        bottomOpacity: 0,
-        elevation: 0,
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(9.0),
-            child: IconButton(
-              icon: Icon(Icons.menu, color: Colors.white),
-              onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
-            ),
-          ),
-        ]);
-  }
 }
