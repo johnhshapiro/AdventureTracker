@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
 // Relevant pages.
@@ -16,7 +14,7 @@ class Campaign extends StatefulWidget {
 class _CampaignState extends State<Campaign> {
 
   Stream<QuerySnapshot> _campaignStream;
-  static DateFormat dateFormat = DateFormat("h:mm MM-dd-yy");
+  static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
 
   bool _isEditingText = false;
@@ -24,6 +22,8 @@ class _CampaignState extends State<Campaign> {
   //String _initialText = "CampaiNotes";
 
   final CollectionReference _campaignCollection = Firestore.instance.collection('campaigns');
+  //DocumentReference initText = Firestore.instance.document('campaigns/CcQAZ4zjpWYozjVs8lPD/notes');
+  
 
   @override
   void initState() {
@@ -32,7 +32,6 @@ class _CampaignState extends State<Campaign> {
     // you can add initial text to the tex controler as a paramters <text: "intitial text">
     _editingController = TextEditingController();
   }
-
   @override
   void dispose() {
     _editingController.dispose();
@@ -51,6 +50,9 @@ class _CampaignState extends State<Campaign> {
               if (snapshot.hasError) return Text('Error: ${snapshot.error}');
 
               if (!snapshot.hasData) return CircularProgressIndicator();
+
+              // this initilzes the notes with the db value.
+              _editingController.text = snapshot.data.documents[0]['notes'];
 
               return _getScrollView(context, snapshot);
             }
@@ -168,7 +170,9 @@ class _CampaignState extends State<Campaign> {
     return Column(
       children: <Widget>[
 
-        Text("Notes", style: TextStyle(fontSize: 20.0)),
+        Container(
+          padding: EdgeInsets.all(14.0),
+          child: Text("Notes", style: TextStyle(fontSize: 20.0))),
 
         _editNotes(context, snapshot),
 
@@ -185,7 +189,7 @@ class _CampaignState extends State<Campaign> {
           onSubmitted: (newValue){
             setState(() {
               //_initialText = newValue;
-              _updateNotes(context, snapshot, newValue);
+              _updateNotes(context, newValue);
               _isEditingText = false;
             });
           },
@@ -205,12 +209,21 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  Future _updateNotes(context, snapshot, newValue) async {
+  Future _updateNotes(context, newValue) async {
     try {
+      //String id = await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").documentID;
       await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").updateData({
-      //await snapshot.data.documents[0].setData({
         'notes' : "$newValue"
       });
+    } catch (e) {
+      print(e.code);
+    }
+  
+  }
+
+  Future _initialText() async {
+    try {
+      //String id = await _campaignCollection.document(";
     } catch (e) {
       print(e.code);
     }
