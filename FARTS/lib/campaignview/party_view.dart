@@ -20,7 +20,7 @@ class _PartyViewState extends State <PartyView> {
           if (!snapshot.hasData) return CircularProgressIndicator();
 
           return ListView.builder(
-            itemCount: snapshot.data.documents[0]['part_test'].length,
+            itemCount: snapshot.data.documents[0]['party_test'].length,
             itemBuilder: (context, index){
               return ListTile(
                 title: Text(snapshot.data.documents[0]['party_test'][index]),
