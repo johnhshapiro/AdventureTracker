@@ -55,7 +55,7 @@ class _CampaignViewState extends State<CampaignView> {
   }
 
   _buildBottomNavigationBar() {
-    BottomNavigationBar(
+    return BottomNavigationBar(
       type: BottomNavigationBarType
           .shifting, //change shifting to fixed to display navbar item text when not selected.
       selectedItemColor: Colors.amberAccent[400],
