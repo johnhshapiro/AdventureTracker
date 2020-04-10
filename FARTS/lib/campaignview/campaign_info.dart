@@ -170,9 +170,7 @@ class _CampaignState extends State<Campaign> {
     return Column(
       children: <Widget>[
 
-        Container(
-          padding: EdgeInsets.all(14.0),
-          child: Text("Notes", style: TextStyle(fontSize: 20.0))),
+        Text("Notes", style: TextStyle(fontSize: 20.0)),
 
         _editNotes(context, snapshot),
 
@@ -186,9 +184,9 @@ class _CampaignState extends State<Campaign> {
 
       return Card(
         child: TextField(
+          maxLines: null,
           onSubmitted: (newValue){
             setState(() {
-              //_initialText = newValue;
               _updateNotes(context, newValue);
               _isEditingText = false;
             });
@@ -198,7 +196,6 @@ class _CampaignState extends State<Campaign> {
         ),
       );
     
-
     return InkWell(
       onTap: () {
         setState(() {
@@ -211,23 +208,12 @@ class _CampaignState extends State<Campaign> {
 
   Future _updateNotes(context, newValue) async {
     try {
-      //String id = await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").documentID;
       await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").updateData({
         'notes' : "$newValue"
       });
     } catch (e) {
       print(e.code);
     }
-  
-  }
-
-  Future _initialText() async {
-    try {
-      //String id = await _campaignCollection.document(";
-    } catch (e) {
-      print(e.code);
-    }
-  
   }
 
 }
