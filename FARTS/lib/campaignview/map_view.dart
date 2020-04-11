@@ -46,7 +46,8 @@ class _MapViewState extends State<MapView> {
     );
   }
 
-    _mapViewBody(context, AsyncSnapshot snapshot) => Column(
+    _mapViewBody(context, AsyncSnapshot snapshot) {
+      return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -71,5 +72,6 @@ class _MapViewState extends State<MapView> {
           ),
         ],
       );
+    }
 
 }

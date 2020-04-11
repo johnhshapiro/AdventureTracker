@@ -24,8 +24,10 @@ class _PartyViewState extends State <PartyView> {
             itemBuilder: (context, index){
 
               return Card(
+                color: Colors.grey[500],
                 child: ListTile(
-                  title: Text(snapshot.data.documents[0]['party_test'][index]),
+                  title: Text(snapshot.data.documents[0]['party_test'][index], 
+                  style: TextStyle(color: Colors.black)),
                   onTap: () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
                 ),
               );

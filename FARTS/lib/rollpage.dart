@@ -17,11 +17,10 @@ class _RollPageState extends State<RollPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(body: buildBody(context),);
+    return CustomScaffold(body: _diceBagBody(context));
   }
   
-  //@override
-  Widget buildBody(BuildContext context) {
+  Widget _diceBagBody(BuildContext context) {
     return new Scaffold(
       // Wrapping the FAB in gesture detector allows it to listen to long taps as well as taps.
       floatingActionButton: GestureDetector(
