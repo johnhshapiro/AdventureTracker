@@ -35,11 +35,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       child: Scaffold(
         primary: true,
         resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
         key: _scaffoldKey,
 
         endDrawer: _buildDrawer(),
-
-        extendBodyBehindAppBar: true,
 
         appBar: _buildAppBar(),
 
@@ -148,9 +147,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               title: Text('Dice Bag'),
               onTap: () {
                 setState(() {
-                  AuthenticationService().signOut();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RollPage()));
+                  Navigator.pop(context);
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RollPage()));
                 });
               },
             ),

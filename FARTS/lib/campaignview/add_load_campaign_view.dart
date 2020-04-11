@@ -22,8 +22,6 @@ class _GameMasterState extends State<GameMaster> {
     //binding collection to ListView. source: https://pub.dev/packages/cloud_firestore
     
     return Scaffold(
-      //appBar: AppBar(title: Text('Campaigns')), // I dont think we need this AppBar
-      //backgroundColor: Colors.grey[800],
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(10.0),
@@ -31,14 +29,13 @@ class _GameMasterState extends State<GameMaster> {
           stream: Firestore.instance.collection('campaigns').snapshots(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
             
-            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            if (snapshot.hasError) return new Text('Campaign snapshot error ${snapshot.error}');
             
             if (!snapshot.hasData) return CircularProgressIndicator();
             
-            //returns listview of campaign collection items from Firestore
-            return new ListView(
+            return ListView(
               children: snapshot.data.documents.map((DocumentSnapshot document){
-                return new Card(
+                return Card(
                   color: Colors.grey[500],
                   child: ListTile(
                   title: new Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
@@ -51,7 +48,7 @@ class _GameMasterState extends State<GameMaster> {
               ).toList(),
               
             );
-            }),)
+            }))
       ),
       
       floatingActionButton: FloatingActionButton.extended(
