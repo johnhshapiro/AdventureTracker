@@ -1,37 +1,33 @@
 import 'package:FARTS/authwrapper.dart';
+import 'package:FARTS/rollpage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
-
-// void main() {
-//   runApp(BoardsEdge());
-//   SystemChrome.setEnabledSystemUIOverlays([]);
-// }
 
 class CustomScaffold extends StatefulWidget {
   final routeList;
   final navBarItems;
+  final body;
 
-  //final Widget floatingActionButton;
-  CustomScaffold(
-      {this.routeList, this.navBarItems/*this.floatingActionButton*/});
+  CustomScaffold({this.routeList, this.navBarItems, this.body});
+
   @override
   _CustomScaffoldState createState() =>
-      _CustomScaffoldState(this.routeList, this.navBarItems/*floatingActionButton*/);
+      _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
+  final body;
   final routeList;
   final navBarItems;
-  int navBarItemSelected=0;
-  //final Widget floatingActionButton;
-  _CustomScaffoldState(
-      this.routeList, this.navBarItems/*this.floatingActionButton*/);
+  int navBarItemSelected = 0;
+
+  _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
+
+  // This can and should be changed to a regular key, global keys are very expensive.
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    final navBar = _buildBottomNavigationBar();
-    final routeStack = _buildIndexedStack();
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -39,12 +35,19 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         primary: true,
         resizeToAvoidBottomInset: false,
         key: _scaffoldKey,
+
         endDrawer: _buildDrawer(),
+
         extendBodyBehindAppBar: true,
+
         appBar: _buildAppBar(),
-        bottomNavigationBar: navBar,
-        body: routeStack,
-        //floatingActionButton: floatingActionButton,
+
+        // Wont show the navbar if routeList and navBarItems paramters are null
+        bottomNavigationBar: (routeList != null && navBarItems != null && body == null) ? _buildBottomNavigationBar() : null,
+
+        // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
+        body: body != null ? body : _buildIndexedStack()
+        
       ),
     );
   }
@@ -96,13 +99,12 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName:
-                  Text('User name', style: TextStyle(color: Colors.black87)),
-              accountEmail: Text('user_name@gmail.com',
-                  style: TextStyle(color: Colors.black87)),
+              accountName: Text('User name', style: TextStyle(color: Colors.black87)),
+              accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
               currentAccountPicture: Image.asset("assets/user.png"),
-              decoration: BoxDecoration(color: Colors.amberAccent),
+              decoration: BoxDecoration(color: Colors.amber),
             ),
+
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
@@ -111,22 +113,22 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 Navigator.pop(context);
               },
             ),
-            Divider(
-              height: 2.0,
-            ),
+
+            Divider(height: 2.0),
+
             ListTile(
               leading: Icon(Icons.mode_edit),
-              title: Text('mode'),
+              title: Text('Mode'),
               onTap: () {
                 Navigator.pop(context);
               },
             ),
-            Divider(
-              height: 2.0,
-            ),
+
+            Divider(height: 2.0),
+
             ListTile(
               leading: Icon(Icons.outlined_flag),
-              title: Text('sign out'),
+              title: Text('Sign Out'),
               onTap: () {
                 setState(() {
                   AuthenticationService().signOut();
@@ -134,7 +136,22 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                       MaterialPageRoute(builder: (context) => AuthWrapper()));
                 });
               },
-            )
+            ),
+
+            Divider(height: 2.0),
+
+            ListTile(
+              leading: Icon(Icons.casino),
+              title: Text('Dice Bag'),
+              onTap: () {
+                setState(() {
+                  AuthenticationService().signOut();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RollPage()));
+                });
+              },
+            ),
+            
           ],
         ));
   }

@@ -67,12 +67,13 @@ class _CampaignState extends State<Campaign> {
       slivers: <Widget>[
         SliverPadding(
           padding: EdgeInsets.all(5),
-          // .extent just sets max cross axis size (horizontal) whereas .count would set a specific number of evenly spaced widgets per row.
-          sliver: SliverGrid.extent(
+          // .extent sets max cross axis size (horizontal pixels) whereas .count set a specific number of evenly spaced widgets per row.
+          sliver: SliverGrid.count(
+            crossAxisCount: 1,
             crossAxisSpacing: 5,
             mainAxisSpacing: 5,
             // This is the max number of pixels the widgets will expand horizontally.
-            maxCrossAxisExtent: 1080,
+            //maxCrossAxisExtent: 1080,
             children: <Widget>[
 
               _campaignHeader(context, snapshot),

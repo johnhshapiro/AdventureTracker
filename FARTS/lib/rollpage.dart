@@ -1,3 +1,4 @@
+import 'package:FARTS/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,7 +17,13 @@ class _RollPageState extends State<RollPage> {
 
   @override
   Widget build(BuildContext context) {
+    return CustomScaffold(body: buildBody(context),);
+  }
+  
+  //@override
+  Widget buildBody(BuildContext context) {
     return new Scaffold(
+      // Wrapping the FAB in gesture detector allows it to listen to long taps as well as taps.
       floatingActionButton: GestureDetector(
         onLongPress: () {
           setState(() {

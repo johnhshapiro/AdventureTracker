@@ -13,7 +13,6 @@ void main() {
 
         await tester.pumpWidget(app);
         expect(find.byType(RollPage), findsOneWidget);
-        expect(find.byType(Scaffold), findsOneWidget);
     });
   });
 
