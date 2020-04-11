@@ -15,13 +15,19 @@ class _RollPageState extends State<RollPage> {
   int _totalRollValue = 0;
   int _listItemCount = 1;
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return CustomScaffold(body: _diceBagBody(context));
+  // }
+  
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(body: _diceBagBody(context));
-  }
-  
-  Widget _diceBagBody(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        elevation: 0,
+      ),
       // Wrapping the FAB in gesture detector allows it to listen to long taps as well as taps.
       floatingActionButton: GestureDetector(
         onLongPress: () {

@@ -1,5 +1,6 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/rollpage.dart';
+import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 
@@ -120,7 +121,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               leading: Icon(Icons.mode_edit),
               title: Text('Mode'),
               onTap: () {
-                Navigator.pop(context);
+                setState(() {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SelectModePage()));
+                });
               },
             ),
 
