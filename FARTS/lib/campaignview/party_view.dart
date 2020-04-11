@@ -15,7 +15,7 @@ class _PartyViewState extends State <PartyView> {
         stream: Firestore.instance.collection('campaigns').snapshots(),
         builder: (context, snapshot) {
 
-          if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+          if (snapshot.hasError) return Text('campaign collection error ${snapshot.error}');
             
           if (!snapshot.hasData) return CircularProgressIndicator();
 

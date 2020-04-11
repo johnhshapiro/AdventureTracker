@@ -11,23 +11,6 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-
-  // GestureDetector(
-  //   onTap: () {
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => MapView()));
-  //   },
-  //   child: Container(
-  //     padding: EdgeInsets.all(5.0),
-  //     child: FittedBox(
-  //       fit: BoxFit.fitHeight,
-  //       //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
-  //       child: Image.network(
-  //           "https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519"
-  //               .toString()),
-  //     ),
-  //   ),
-  // ),
   
   @override
   build(BuildContext context) {
@@ -36,7 +19,7 @@ class _MapViewState extends State<MapView> {
         stream: Firestore.instance.collection('campaigns').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
 
-          if (snapshot.hasError) throw Exception ('Unable to get map from FireStore DB: ${snapshot.error}');
+          if (snapshot.hasError) return Text('Unable to get map from FireStore DB: ${snapshot.error}');
 
           if (!snapshot.hasData) return CircularProgressIndicator();
 

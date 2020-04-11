@@ -42,8 +42,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
         appBar: _buildAppBar(),
 
-        // Wont show the navbar if routeList and navBarItems paramters are null
-        bottomNavigationBar: (routeList != null && navBarItems != null && body == null) ? _buildBottomNavigationBar() : null,
+        // Wont show the navbar if routeList and navBarItems parameters are null
+        bottomNavigationBar: (routeList != null && navBarItems != null) ? _buildBottomNavigationBar() : null,
 
         // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
         body: body != null ? body : _buildIndexedStack()
