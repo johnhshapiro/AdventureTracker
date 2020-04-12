@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'add_load_campaign_view.dart';
 
 // Relevant pages.
 import 'package:FARTS/services/vibrate.dart';
@@ -40,6 +42,7 @@ class _CampaignState extends State<Campaign> {
 
   @override
   Widget build(BuildContext context) {
+    final campaignData = Provider.of<CampaignData>(context);
     return SafeArea(
       top: false,
       child: Scaffold(
