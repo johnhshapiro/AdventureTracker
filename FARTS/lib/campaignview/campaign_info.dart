@@ -42,7 +42,6 @@ class _CampaignState extends State<Campaign> {
 
   @override
   Widget build(BuildContext context) {
-    final campaignData = Provider.of<CampaignData>(context);
     return SafeArea(
       top: false,
       child: Scaffold(
