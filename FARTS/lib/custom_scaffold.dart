@@ -33,32 +33,30 @@ class _CustomScaffoldState extends State<CustomScaffold> {
       context: context,
       removeTop: true,
       child: Scaffold(
-        primary: true,
-        resizeToAvoidBottomInset: false,
-        extendBodyBehindAppBar: true,
-        key: _scaffoldKey,
+          primary: true,
+          resizeToAvoidBottomInset: false,
+          extendBodyBehindAppBar: true,
+          key: _scaffoldKey,
+          endDrawer: _buildDrawer(),
+          appBar: _buildAppBar(),
 
-        endDrawer: _buildDrawer(),
+          // Wont show the navbar if routeList and navBarItems parameters are null
+          bottomNavigationBar: (routeList != null && navBarItems != null)
+              ? _buildBottomNavigationBar()
+              : null,
 
-        appBar: _buildAppBar(),
-
-        // Wont show the navbar if routeList and navBarItems parameters are null
-        bottomNavigationBar: (routeList != null && navBarItems != null) ? _buildBottomNavigationBar() : null,
-
-        // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-        body: body != null ? body : _buildIndexedStack()
-        
-      ),
+          // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
+          body: body != null ? body : _buildIndexedStack()),
     );
   }
 
-    _buildIndexedStack() {
+  _buildIndexedStack() {
     return IndexedStack(
-          index: navBarItemSelected,
-          children: routeList,
-        );
+      index: navBarItemSelected,
+      children: routeList,
+    );
   }
-  
+
   _buildBottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType
@@ -99,12 +97,13 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('User name', style: TextStyle(color: Colors.black87)),
-              accountEmail: Text('user_name@gmail.com', style: TextStyle(color: Colors.black87)),
+              accountName:
+                  Text('User name', style: TextStyle(color: Colors.black87)),
+              accountEmail: Text('user_name@gmail.com',
+                  style: TextStyle(color: Colors.black87)),
               currentAccountPicture: Image.asset("assets/user.png"),
               decoration: BoxDecoration(color: Colors.amber),
             ),
-
             ListTile(
               leading: Icon(Icons.settings),
               title: Text('Settings'),
@@ -113,46 +112,45 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                 Navigator.pop(context);
               },
             ),
-
             Divider(height: 2.0),
-
             ListTile(
               leading: Icon(Icons.mode_edit),
               title: Text('Mode'),
               onTap: () {
                 setState(() {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SelectModePage()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SelectModePage()));
                 });
               },
             ),
-
             Divider(height: 2.0),
-
             ListTile(
               leading: Icon(Icons.outlined_flag),
               title: Text('Sign Out'),
               onTap: () {
                 setState(() {
                   AuthenticationService().signOut();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AuthWrapper()));
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => AuthWrapper()),
+                      (r) => false);
                 });
               },
             ),
-
             Divider(height: 2.0),
-
             ListTile(
               leading: Icon(Icons.casino),
               title: Text('Dice Bag'),
               onTap: () {
                 setState(() {
                   Navigator.pop(context);
-                                    Navigator.push(context, MaterialPageRoute(builder: (context) => RollPage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RollPage()));
                 });
               },
             ),
-            
           ],
         ));
   }
