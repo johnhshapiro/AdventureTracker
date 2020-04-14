@@ -1,10 +1,11 @@
-import 'package:FARTS/campaignview/campaign_view.dart';
-import 'package:FARTS/custom_scaffold.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+
+// Relevant pages.
+import 'package:FARTS/custom_scaffold.dart';
+import 'package:FARTS/campaignview/campaign_view.dart';
 
 class GameMaster extends StatefulWidget {
   @override
@@ -34,20 +35,19 @@ class _GameMasterState extends State<GameMaster> {
                       return new Text(
                           'Campaign snapshot error ${snapshot.error}');
 
-                    if (!snapshot.hasData) return CircularProgressIndicator();
+                    if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
 
                     return ListView(
                       children: snapshot.data.documents
                           .map((DocumentSnapshot document) {
                         return Card(
-                            //color: Colors.red,
                             color: Colors.grey[500],
                             child: ListTile(
                               title: new Text(document['name'],
                                   style: TextStyle(
                                       fontSize: 16.0, color: Colors.black)),
                               onTap: () {
-                                print(document.documentID);
+                                print("Selected campaign: ${document.documentID}\n");
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

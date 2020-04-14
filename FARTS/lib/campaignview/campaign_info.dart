@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'add_load_campaign_view.dart';
 
 // Relevant pages.
 import 'package:FARTS/services/vibrate.dart';
@@ -15,22 +14,17 @@ class Campaign extends StatefulWidget {
 
 class _CampaignState extends State<Campaign> {
   Stream<QuerySnapshot> _campaignStream;
+  final CollectionReference _campaignCollectionRef = Firestore.instance.collection('campaigns');
+  String _campaignId = "CcQAZ4zjpWYozjVs8lPD";
   static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
-
   bool _isEditingText = false;
   TextEditingController _editingController;
-  //String _initialText = "CampaiNotes";
-
-  final CollectionReference _campaignCollection =
-      Firestore.instance.collection('campaigns');
-  //DocumentReference initText = Firestore.instance.document('campaigns/CcQAZ4zjpWYozjVs8lPD/notes');
 
   @override
   void initState() {
     super.initState();
     _campaignStream = Firestore.instance.collection("campaigns").snapshots();
-    // you can add initial text to the tex controler as a paramters <text: "intitial text">
     _editingController = TextEditingController();
   }
 
@@ -51,7 +45,7 @@ class _CampaignState extends State<Campaign> {
                   if (snapshot.hasError)
                     return Text('Error: ${snapshot.error}');
 
-                  if (!snapshot.hasData) return CircularProgressIndicator();
+                  if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
 
                   // This initilzes the notes with the db value.
                   _editingController.text = snapshot.data.documents[0]['notes'];
@@ -160,9 +154,8 @@ class _CampaignState extends State<Campaign> {
     if (_isEditingText)
       return Card(
         child: TextField(
-          maxLines: null,
+          //maxLines: 15,
           onSubmitted: (newValue) {
-            print("submitted");
             setState(() {
               _updateNotes(context, newValue);
               _isEditingText = false;
@@ -175,7 +168,6 @@ class _CampaignState extends State<Campaign> {
 
     return InkWell(
         onTap: () {
-          print("inkwell tapped");
           setState(() {
             _isEditingText = true;
           });
@@ -185,10 +177,8 @@ class _CampaignState extends State<Campaign> {
 
   Future _updateNotes(context, newValue) async {
     try {
-      //final CollectionReference _campaignCollection = Firestore.instance.collection('campaigns');
-      await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").updateData({
-        // await Firestore.instance.collection('campaigns').document("CcQAZ4zjpWYozjVs8lPD").updateData({
-        'notes': "LOLOLOL"
+      await _campaignCollectionRef.document(_campaignId).updateData({
+        'notes': "$newValue"
       });
     } catch (e) {
       print(e.code);

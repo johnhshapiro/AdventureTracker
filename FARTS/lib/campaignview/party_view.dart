@@ -25,6 +25,7 @@ class _PartyViewState extends State<PartyView> {
                     color: Colors.grey[500],
                     child: ListTile(
                       leading: Icon(Icons.person),
+                      trailing: Text("Lvl Class Name", style: TextStyle(color: Colors.black)),
                       title: Text(
                           snapshot.data.documents[0]['party_test'][index],
                           style: TextStyle(color: Colors.black)),

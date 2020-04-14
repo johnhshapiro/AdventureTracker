@@ -18,7 +18,7 @@ class _EncounterViewState extends State<EncounterView> {
             if (snapshot.hasError)
               return Text('campaign collection error ${snapshot.error}');
 
-            if (!snapshot.hasData) return CircularProgressIndicator();
+            if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
 
             return ListView.builder(
                 itemCount: snapshot.data.documents[0]['encounter_test'].length,
@@ -26,12 +26,12 @@ class _EncounterViewState extends State<EncounterView> {
                   return Card(
                     color: Colors.grey[500],
                     child: ListTile(
-                      leading: Icon(Icons.person),
+                      trailing: Text("example XP", style: TextStyle(color: Colors.black)),
                       title: Text(
                           snapshot.data.documents[0]['encounter_test'][index],
                           style: TextStyle(color: Colors.black)),
                       onTap:
-                          () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
+                          () {}, // TODO inflate or navigate to the corresponding encounter data.
                     ),
                   );
                 });
