@@ -3,6 +3,7 @@ import 'package:FARTS/rollpage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
+import 'package:FARTS/campaignview/encounter_view.dart';
 import 'package:FARTS/campaignview/campaign_info.dart';
 import 'package:FARTS/campaignview/map_view.dart';
 import 'package:FARTS/campaignview/party_view.dart';
@@ -28,9 +29,13 @@ class _CampaignViewState extends State<CampaignView> {
       icon: Icon(Icons.group),
       title: Text('Party'),
     ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.error),
+      title: Text('Encounters'),
+    ),
   ];
   // This is a list of the routes available to the NavBar.
-  final _campaignRouteList = [Campaign(), MapView(), PartyView()];
+  final _campaignRouteList = [Campaign(), MapView(), PartyView(), EncounterView()];
 
   @override
   Widget build(BuildContext context) {
