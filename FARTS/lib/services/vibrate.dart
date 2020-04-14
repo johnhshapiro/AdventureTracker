@@ -2,7 +2,6 @@ import 'package:flutter/services.dart';
 import 'dart:io';
 
 class Vibrate {
-
   void smallRoll() {
     HapticFeedback.lightImpact();
     sleep(Duration(milliseconds: 90));
@@ -24,13 +23,15 @@ class Vibrate {
     sleep(Duration(milliseconds: 30));
     HapticFeedback.heavyImpact();
     sleep(Duration(milliseconds: 60));
-    HapticFeedback.heavyImpact();HapticFeedback.lightImpact();
+    HapticFeedback.heavyImpact();
+    HapticFeedback.lightImpact();
     sleep(Duration(milliseconds: 20));
     HapticFeedback.mediumImpact();
     sleep(Duration(milliseconds: 30));
     HapticFeedback.lightImpact();
     sleep(Duration(milliseconds: 60));
-    HapticFeedback.mediumImpact();HapticFeedback.lightImpact();
+    HapticFeedback.mediumImpact();
+    HapticFeedback.lightImpact();
     sleep(Duration(milliseconds: 90));
     HapticFeedback.mediumImpact();
     sleep(Duration(milliseconds: 100));
@@ -97,7 +98,5 @@ class Vibrate {
     HapticFeedback.heavyImpact();
     sleep(Duration(milliseconds: 100));
     HapticFeedback.lightImpact();
-    
   }
-
 }

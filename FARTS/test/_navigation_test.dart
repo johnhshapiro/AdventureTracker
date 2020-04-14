@@ -9,9 +9,9 @@ import 'package:FARTS/campaignview/campaign_info.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
-
   group('CREATE NEW USER PAGE widget tests', () {
-    testWidgets('Create new user button is present and triggers navigation', (WidgetTester tester) async {
+    testWidgets('Create new user button is present and triggers navigation',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
@@ -28,9 +28,10 @@ void main() {
       expect(find.byType(CreateNewUser), findsOneWidget);
     });
   });
-  
+
   group('SELECT MODE PAGE widget tests', () {
-    testWidgets('game master mode button is present', (WidgetTester tester) async {
+    testWidgets('game master mode button is present',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
@@ -45,7 +46,8 @@ void main() {
       expect(find.byType(SelectModePage), findsOneWidget);
     });
 
-    testWidgets('adventurer mode button is present', (WidgetTester tester) async {
+    testWidgets('adventurer mode button is present',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
@@ -62,7 +64,8 @@ void main() {
   });
 
   group("View Campaign Page Widget Tests", () {
-    testWidgets('game master mode button is present', (WidgetTester tester) async {
+    testWidgets('game master mode button is present',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
@@ -70,7 +73,7 @@ void main() {
           navigatorObservers: [mockObserver],
         ),
       );
-     // TODO test for character stream not just for text 
+      // TODO test for character stream not just for text
       expect(find.text('Game Master'), findsOneWidget);
       await tester.tap(find.text('Game Master'));
       verify(mockObserver.didPush(any, any));
@@ -105,13 +108,12 @@ void main() {
       expect(find.text("Campaign"), findsOneWidget);
     });
 
-    testWidgets('Date/Time text widget is present', (WidgetTester tester) async {
+    testWidgets('Date/Time text widget is present',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Text("Date/Time")
-          ),
+          home: Scaffold(body: Text("Date/Time")),
           navigatorObservers: [mockObserver],
         ),
       );
@@ -119,13 +121,12 @@ void main() {
       expect(find.text("Date/Time"), findsOneWidget);
     });
 
-    testWidgets('Session number text widget is present', (WidgetTester tester) async {
+    testWidgets('Session number text widget is present',
+        (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Text("Session Number")
-          ),
+          home: Scaffold(body: Text("Session Number")),
           navigatorObservers: [mockObserver],
         ),
       );
@@ -137,9 +138,7 @@ void main() {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Text("Map")
-          ),
+          home: Scaffold(body: Text("Map")),
           navigatorObservers: [mockObserver],
         ),
       );
@@ -151,9 +150,7 @@ void main() {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Text("Notes")
-          ),
+          home: Scaffold(body: Text("Notes")),
           navigatorObservers: [mockObserver],
         ),
       );
@@ -165,15 +162,12 @@ void main() {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: Scaffold(
-            body: Text("NPCS")
-          ),
+          home: Scaffold(body: Text("NPCS")),
           navigatorObservers: [mockObserver],
         ),
       );
       // TODO improve this test
       expect(find.text("NPCS"), findsOneWidget);
     });
-
   });
 }

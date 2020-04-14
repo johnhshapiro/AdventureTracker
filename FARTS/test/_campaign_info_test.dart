@@ -6,8 +6,8 @@ import 'package:FARTS/campaignview/campaign_info.dart';
 
 void main() {
   group('View Campaign page widget tests', () {
-
-    testWidgets('View campaign page widgets are present', (WidgetTester tester) async {
+    testWidgets('View campaign page widgets are present',
+        (WidgetTester tester) async {
       MaterialApp app = MaterialApp(home: Campaign());
       await tester.pumpWidget(app);
 
@@ -18,12 +18,14 @@ void main() {
     });
 
     testWidgets('View Campaign Text is present', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: Scaffold(body: Campaign(),),);
+      MaterialApp app = MaterialApp(
+        home: Scaffold(
+          body: Campaign(),
+        ),
+      );
       await tester.pumpWidget(app);
 
       // Make sure all the text is showing correctly.
     });
-
   });
-
 }

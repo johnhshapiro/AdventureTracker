@@ -19,7 +19,7 @@ class _RollPageState extends State<RollPage> {
   // Widget build(BuildContext context) {
   //   return CustomScaffold(body: _diceBagBody(context));
   // }
-  
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(

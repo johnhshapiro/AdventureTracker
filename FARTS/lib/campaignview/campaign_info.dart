@@ -14,7 +14,6 @@ class Campaign extends StatefulWidget {
 }
 
 class _CampaignState extends State<Campaign> {
-
   Stream<QuerySnapshot> _campaignStream;
   static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
@@ -23,9 +22,9 @@ class _CampaignState extends State<Campaign> {
   TextEditingController _editingController;
   //String _initialText = "CampaiNotes";
 
-  final CollectionReference _campaignCollection = Firestore.instance.collection('campaigns');
+  final CollectionReference _campaignCollection =
+      Firestore.instance.collection('campaigns');
   //DocumentReference initText = Firestore.instance.document('campaigns/CcQAZ4zjpWYozjVs8lPD/notes');
-  
 
   @override
   void initState() {
@@ -34,6 +33,7 @@ class _CampaignState extends State<Campaign> {
     // you can add initial text to the tex controler as a paramters <text: "intitial text">
     _editingController = TextEditingController();
   }
+
   @override
   void dispose() {
     _editingController.dispose();
@@ -43,23 +43,21 @@ class _CampaignState extends State<Campaign> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      top: false,
-      child: Scaffold(
-          body: StreamBuilder(
-            stream: _campaignStream,
-            builder: (context, snapshot) {
+        top: false,
+        child: Scaffold(
+            body: StreamBuilder(
+                stream: _campaignStream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError)
+                    return Text('Error: ${snapshot.error}');
 
-              if (snapshot.hasError) return Text('Error: ${snapshot.error}');
+                  if (!snapshot.hasData) return CircularProgressIndicator();
 
-              if (!snapshot.hasData) return CircularProgressIndicator();
+                  // This initilzes the notes with the db value.
+                  _editingController.text = snapshot.data.documents[0]['notes'];
 
-              // this initilzes the notes with the db value.
-              _editingController.text = snapshot.data.documents[0]['notes'];
-
-              return _getScrollView(context, snapshot);
-            }
-          ))
-    );
+                  return _getScrollView(context, snapshot);
+                })));
   }
 
   _getScrollView(context, snapshot) {
@@ -77,11 +75,8 @@ class _CampaignState extends State<Campaign> {
             // This is the max number of pixels the widgets will expand horizontally.
             //maxCrossAxisExtent: 1080,
             children: <Widget>[
-
               _campaignHeader(context, snapshot),
-
               _campaignNotes(context, snapshot),
-
             ],
           ),
         ),
@@ -93,74 +88,58 @@ class _CampaignState extends State<Campaign> {
     return Container(
       margin: EdgeInsets.only(top: 30.0),
       padding: EdgeInsets.all(5.0),
-
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-
           Image(
             image: AssetImage('assets/realoldpaper.jpg'),
             fit: BoxFit.cover,
           ),
-          
           Column(
             children: <Widget>[
-
               Text(
                 "Campaign",
-                  style: TextStyle(
-                  fontSize: 16.0, 
-                  color: Colors.grey[900]),
+                style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),
               ),
-
               Container(
                   padding: EdgeInsets.all(14.0),
                   child: Text(snapshot.data.documents[0]['name'],
                       style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.black,
-                          fontStyle: FontStyle.italic))
-              ),
-
+                          fontStyle: FontStyle.italic))),
               Text("Time/Date",
-                  style: TextStyle(
-                    fontSize: 16.0, 
-                    color: Colors.grey[900])
-              ),
-
+                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
-                  padding: EdgeInsets.all(14.0),
-                  child: Text(_now.toString(), 
-                    style: TextStyle(
+                padding: EdgeInsets.all(14.0),
+                child: Text(
+                  _now.toString(),
+                  style: TextStyle(
                       fontSize: 26.0,
                       color: Colors.black,
                       fontStyle: FontStyle.italic),
-                  ),
+                ),
               ),
-
-              Text("Session Number", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-
+              Text("Session Number",
+                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
                   // TODO increment the session number dynamically
                   padding: EdgeInsets.all(14.0),
                   child: Text("1",
-                    style: TextStyle(
-                      fontSize: 26.0, 
-                      color: Colors.black, 
-                      fontStyle: FontStyle.italic))
-              ),
-
-              Text("Map", style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-                      
+                      style: TextStyle(
+                          fontSize: 26.0,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic))),
+              Text("Map",
+                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
-                  padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['map_name'],
+                padding: EdgeInsets.all(14.0),
+                child: Text(snapshot.data.documents[0]['map_name'],
                     style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.black,
-                      fontStyle: FontStyle.italic)),
+                        fontSize: 30.0,
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic)),
               ),
-
             ],
           ),
         ],
@@ -169,26 +148,21 @@ class _CampaignState extends State<Campaign> {
   }
 
   _campaignNotes(context, snapshot) {
-
     return Column(
       children: <Widget>[
-
         Text("Notes", style: TextStyle(fontSize: 20.0)),
-
         _editNotes(context, snapshot),
-
       ],
     );
   }
 
   _editNotes(context, snapshot) {
-
     if (_isEditingText)
-
       return Card(
         child: TextField(
           maxLines: null,
-          onSubmitted: (newValue){
+          onSubmitted: (newValue) {
+            print("submitted");
             setState(() {
               _updateNotes(context, newValue);
               _isEditingText = false;
@@ -198,25 +172,26 @@ class _CampaignState extends State<Campaign> {
           controller: _editingController,
         ),
       );
-    
+
     return InkWell(
-      onTap: () {
-        setState(() {
-          _isEditingText = true;
-        });
-      },
-      child: Text(snapshot.data.documents[0]['notes'])
-    );
+        onTap: () {
+          print("inkwell tapped");
+          setState(() {
+            _isEditingText = true;
+          });
+        },
+        child: Text(snapshot.data.documents[0]['notes']));
   }
 
   Future _updateNotes(context, newValue) async {
     try {
+      //final CollectionReference _campaignCollection = Firestore.instance.collection('campaigns');
       await _campaignCollection.document("CcQAZ4zjpWYozjVs8lPD").updateData({
-        'notes' : "$newValue"
+        // await Firestore.instance.collection('campaigns').document("CcQAZ4zjpWYozjVs8lPD").updateData({
+        'notes': "LOLOLOL"
       });
     } catch (e) {
       print(e.code);
     }
   }
-
 }

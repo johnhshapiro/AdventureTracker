@@ -32,8 +32,7 @@ class _SelectModePageState extends State<SelectModePage> {
                     Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => GameMaster()),
+                      MaterialPageRoute(builder: (context) => GameMaster()),
                     );
                   },
                   child: Image(

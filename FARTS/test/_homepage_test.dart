@@ -8,8 +8,8 @@ import 'package:FARTS/homepage.dart';
 
 void main() {
   group('Homepage widget tests.', () {
-
-    testWidgets('Contain root widget, indexed stack, bottom navbar.', (WidgetTester tester) async {
+    testWidgets('Contain root widget, indexed stack, bottom navbar.',
+        (WidgetTester tester) async {
       // Create an instance of the HomePage widget and pump it.
       //MaterialApp app = MaterialApp(home: HomePage());
       //await tester.pumpWidget(app);
@@ -42,6 +42,5 @@ void main() {
       //await tester.tap(find.text("Party"));
       //verify(mockObserver.didPush(any, any));
     });
-
   });
 }

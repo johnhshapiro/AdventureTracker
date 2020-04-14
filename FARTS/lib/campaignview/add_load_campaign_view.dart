@@ -40,6 +40,7 @@ class _GameMasterState extends State<GameMaster> {
                       children: snapshot.data.documents
                           .map((DocumentSnapshot document) {
                         return Card(
+                            //color: Colors.red,
                             color: Colors.grey[500],
                             child: ListTile(
                               title: new Text(document['name'],
@@ -51,9 +52,10 @@ class _GameMasterState extends State<GameMaster> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                      StreamProvider<CampaignData>.value(
-                                        value: JustDoIt().streamCampaignData(document),
-                                        child: CampaignView(),
+                                        StreamProvider<CampaignData>.value(
+                                      value: JustDoIt()
+                                          .streamCampaignData(document),
+                                      child: CampaignView(),
                                     ),
                                   ),
                                 );
@@ -77,10 +79,10 @@ class JustDoIt {
 
   Stream<CampaignData> streamCampaignData(DocumentSnapshot document) {
     return _db
-    .collection('campaigns')
-    .document(document.documentID)
-    .snapshots()
-    .map((docId) => CampaignData.fromMap(docId));
+        .collection('campaigns')
+        .document(document.documentID)
+        .snapshots()
+        .map((docId) => CampaignData.fromMap(docId));
   }
 }
 

@@ -4,7 +4,8 @@ import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 // relevant pages
 import 'package:FARTS/selectmodepage.dart';
 
-Widget _currentPage = SelectModePage(); // linter says name non-constant identifiers with camel case :(
+Widget _currentPage =
+    SelectModePage(); // linter says name non-constant identifiers with camel case :(
 
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
@@ -20,6 +21,7 @@ class _HomePageState extends State<HomePage> {
     return _currentPage;
   }
 }
+
 navigate() {
-    _currentPage = GameMaster();
+  _currentPage = GameMaster();
 }

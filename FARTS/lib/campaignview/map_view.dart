@@ -8,50 +8,47 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
-  
   @override
   build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: Firestore.instance.collection('campaigns').snapshots(),
-        builder: (context, snapshot) {
+          stream: Firestore.instance.collection('campaigns').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError)
+              return Text(
+                  'Unable to get map from FireStore DB: ${snapshot.error}');
 
-          if (snapshot.hasError) return Text('Unable to get map from FireStore DB: ${snapshot.error}');
+            if (!snapshot.hasData) return CircularProgressIndicator();
 
-          if (!snapshot.hasData) return CircularProgressIndicator();
-
-          return _mapViewBody(context, snapshot);
-        }
-      ),
+            return _mapViewBody(context, snapshot);
+          }),
     );
   }
 
-    _mapViewBody(context, AsyncSnapshot snapshot) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              GestureDetector(
+  _mapViewBody(context, AsyncSnapshot snapshot) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Stack(
+          children: <Widget>[
+            GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CampaignView()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CampaignView()));
                 },
-                child: Image.asset('assets/samplemap.jpg')
-              ),
-
-              Positioned(
+                child: Image.asset('assets/samplemap.jpg')),
+            Positioned(
                 bottom: 5,
                 left: 5,
                 child: Text(snapshot.data.documents[0]['map_name'],
-                  style: TextStyle(fontSize: 30.0, 
-                  color: Colors.black, 
-                  fontStyle: FontStyle.italic))
-              ),
-            ],
-          ),
-        ],
-      );
-    }
-
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic))),
+          ],
+        ),
+      ],
+    );
+  }
 }

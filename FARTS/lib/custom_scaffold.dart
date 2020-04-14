@@ -46,7 +46,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               : null,
 
           // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-          body: body != null ? body : _buildIndexedStack()),
+          body: body != null 
+            ? body 
+            : _buildIndexedStack()),
+
     );
   }
 
@@ -58,14 +61,16 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   }
 
   _buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType
-          .shifting, //change shifting to fixed to display navbar item text when not selected.
-      selectedItemColor: Colors.amberAccent[400],
-      currentIndex: navBarItemSelected,
-      items: navBarItems,
-      onTap: _onNavBarItemTapped,
-    );
+    return (routeList == [] || navBarItems == [])
+        ? Text("Error: Empty NavBar parameters.")
+        : BottomNavigationBar(
+            type: BottomNavigationBarType
+                .shifting, //change shifting to fixed to display navbar item text when not selected.
+            selectedItemColor: Colors.amberAccent[400],
+            currentIndex: navBarItemSelected,
+            items: navBarItems,
+            onTap: _onNavBarItemTapped,
+          );
   }
 
   _onNavBarItemTapped(int index) {

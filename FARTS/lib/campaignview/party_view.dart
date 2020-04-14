@@ -6,38 +6,34 @@ class PartyView extends StatefulWidget {
   _PartyViewState createState() => _PartyViewState();
 }
 
-class _PartyViewState extends State <PartyView> {
-
+class _PartyViewState extends State<PartyView> {
   @override
-  Widget build(BuildContext context){
-    return Scaffold(  
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: StreamBuilder(
-        stream: Firestore.instance.collection('campaigns').snapshots(),
-        builder: (context, snapshot) {
+          stream: Firestore.instance.collection('campaigns').snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError)
+              return Text('campaign collection error ${snapshot.error}');
 
-          if (snapshot.hasError) return Text('campaign collection error ${snapshot.error}');
-            
-          if (!snapshot.hasData) return CircularProgressIndicator();
+            if (!snapshot.hasData) return CircularProgressIndicator();
 
-          return ListView.builder(
-            itemCount: snapshot.data.documents[0]['party_test'].length,
-            itemBuilder: (context, index){
-
-              return Card(
-                color: Colors.grey[500],
-                child: ListTile(
-                  title: Text(snapshot.data.documents[0]['party_test'][index], 
-                  style: TextStyle(color: Colors.black)),
-                  onTap: () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
-                ),
-              );
-
-            }
-          );
-
-        }
-      ) ,
+            return ListView.builder(
+                itemCount: snapshot.data.documents[0]['party_test'].length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.grey[500],
+                    child: ListTile(
+                      leading: Icon(Icons.person),
+                      title: Text(
+                          snapshot.data.documents[0]['party_test'][index],
+                          style: TextStyle(color: Colors.black)),
+                      onTap:
+                          () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
+                    ),
+                  );
+                });
+          }),
     );
   }
-
 }
