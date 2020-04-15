@@ -1,4 +1,3 @@
-import 'package:FARTS/homepage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.

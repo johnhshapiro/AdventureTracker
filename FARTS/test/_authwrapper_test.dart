@@ -1,5 +1,4 @@
 import 'package:FARTS/authwrapper.dart';
-import 'package:FARTS/homepage.dart';
 import 'package:FARTS/loginpage.dart';
 import 'package:FARTS/selectmodepage.dart';
 import 'package:firebase_auth/firebase_auth.dart';

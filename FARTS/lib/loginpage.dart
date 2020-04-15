@@ -1,4 +1,3 @@
-import 'package:FARTS/homepage.dart';
 import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
