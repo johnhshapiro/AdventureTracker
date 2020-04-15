@@ -1,5 +1,4 @@
 import 'package:FARTS/custom_scaffold.dart';
-import 'package:FARTS/rollpage.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -7,15 +6,16 @@ import 'package:FARTS/campaignview/encounter_view.dart';
 import 'package:FARTS/campaignview/campaign_info.dart';
 import 'package:FARTS/campaignview/map_view.dart';
 import 'package:FARTS/campaignview/party_view.dart';
+import 'package:provider/provider.dart';
 
 class CampaignView extends StatefulWidget {
-  CampaignView({Key key, this.title}) : super(key: key);
-  final String title;
+  
   @override
   _CampaignViewState createState() => _CampaignViewState();
 }
 
 class _CampaignViewState extends State<CampaignView> {
+  
   final _campaignNavBarItems = [
     BottomNavigationBarItem(
       icon: Icon(Icons.announcement),
@@ -35,10 +35,10 @@ class _CampaignViewState extends State<CampaignView> {
     ),
   ];
   // This is a list of the routes available to the NavBar.
-  final _campaignRouteList = [Campaign(), MapView(), PartyView(), EncounterView()];
-
+  
   @override
   Widget build(BuildContext context) {
+    final _campaignRouteList = [Campaign(), MapView(), PartyView(), EncounterView()];
     return CustomScaffold(
         routeList: _campaignRouteList, navBarItems: _campaignNavBarItems);
   }

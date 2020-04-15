@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 // Relevant pages.
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/campaignview/campaign_view.dart';
+import 'package:FARTS/models/campaign_model.dart';
+import 'package:FARTS/services/stream.dart';
 
 class GameMaster extends StatefulWidget {
   @override
@@ -21,7 +23,6 @@ class _GameMasterState extends State<GameMaster> {
   }
 
   Widget _buildAddLoadCampaignBody(BuildContext context) {
-    //binding collection to ListView. source: https://pub.dev/packages/cloud_firestore
     return Scaffold(
       body: Center(
           child: Container(
@@ -52,8 +53,8 @@ class _GameMasterState extends State<GameMaster> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) =>
-                                        StreamProvider<CampaignData>.value(
-                                      value: JustDoIt()
+                                        StreamProvider<CampaignModel>.value(
+                                      value: CampaignModelStream()
                                           .streamCampaignData(document),
                                       child: CampaignView(),
                                     ),
@@ -71,26 +72,5 @@ class _GameMasterState extends State<GameMaster> {
       ),
     );
   }
-}
 
-// TODO: make a service class to do service tasks (like creating streams)
-class JustDoIt {
-  final Firestore _db = Firestore.instance;
-
-  Stream<CampaignData> streamCampaignData(DocumentSnapshot document) {
-    return _db
-        .collection('campaigns')
-        .document(document.documentID)
-        .snapshots()
-        .map((docId) => CampaignData.fromMap(docId));
-  }
-}
-
-class CampaignData {
-  final docId;
-  CampaignData({this.docId});
-
-  factory CampaignData.fromMap(DocumentSnapshot document) {
-    return CampaignData(docId: document.documentID);
-  }
 }
