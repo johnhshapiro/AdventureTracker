@@ -9,7 +9,7 @@ class CampaignModelStream {
         .collection('campaigns')
         .document(document.documentID)
         .snapshots()
-        .map((docId) => CampaignModel.fromMap(docId));
+        .map((document) => CampaignModel.fromMap(document));
   }
 
 }

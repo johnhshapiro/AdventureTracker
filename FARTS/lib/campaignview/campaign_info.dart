@@ -14,7 +14,6 @@ class Campaign extends StatefulWidget {
 class _CampaignState extends State<Campaign> {
   Stream _firestoreStream = Firestore.instance.collection("campaigns").snapshots();
   var _campaignModelStream;
-  String text;
   final CollectionReference _campaignCollectionRef = Firestore.instance.collection('campaigns');
   static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
@@ -36,11 +35,11 @@ class _CampaignState extends State<Campaign> {
   @override
   Widget build(BuildContext context) {
 
+    // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
-
-    // This initilzes the notes with the db value.
-    _campaignCollectionRef.document('${_campaignModelStream.docId}').get().then((DocumentSnapshot document) async {
-      _editingController.text = (document['notes']); });
+    
+    // Initilzes the notes with the db value.
+      _editingController.text = _campaignModelStream.notes;
 
     return SafeArea(
         top: false,
@@ -100,7 +99,7 @@ class _CampaignState extends State<Campaign> {
               ),
               Container(
                   padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['name'],
+                  child: Text(_campaignModelStream.name,
                     style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.black,
@@ -131,7 +130,7 @@ class _CampaignState extends State<Campaign> {
                   style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
                 padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['map_name'],
+                  child: Text(_campaignModelStream.mapName,
                     style: TextStyle(
                         fontSize: 30.0,
                         color: Colors.black,
@@ -175,8 +174,7 @@ class _CampaignState extends State<Campaign> {
             _isEditingText = true;
           });
         },
-        child: Text(snapshot.data.documents[0]['notes']));
-        // TODO change this to a document ref.
+        child: Text(_campaignModelStream.notes));
   }
 
   Future _updateNotes(newValue) async {
