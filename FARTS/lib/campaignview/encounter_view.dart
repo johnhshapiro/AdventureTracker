@@ -26,7 +26,7 @@ class _EncounterViewState extends State<EncounterView> {
                   return Card(
                     color: Colors.grey[500],
                     child: ListTile(
-                      trailing: Text("example XP", style: TextStyle(color: Colors.black)),
+                      trailing: Text("example XP", style: TextStyle(fontSize: 12.0, color: Colors.black)),
                       title: Text(
                           snapshot.data.documents[0]['encounter_test'][index],
                           style: TextStyle(color: Colors.black)),

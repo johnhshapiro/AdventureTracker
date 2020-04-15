@@ -82,17 +82,6 @@ void main() {
   });
 
   group('VIEW CAMPAIGN PAGE widget tests', () {
-    testWidgets('Campaign widget is present', (WidgetTester tester) async {
-      final mockObserver = MockNavigatorObserver();
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Campaign(),
-          navigatorObservers: [mockObserver],
-        ),
-      );
-      // TODO improve this test right now it only check to see if the widget exists.
-      expect(find.byType(Campaign), findsOneWidget);
-    });
 
     testWidgets('Campaign text widget is present', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();

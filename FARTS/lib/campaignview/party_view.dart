@@ -16,7 +16,7 @@ class _PartyViewState extends State<PartyView> {
             if (snapshot.hasError)
               return Text('campaign collection error ${snapshot.error}');
 
-            if (!snapshot.hasData) return CircularProgressIndicator();
+            if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
 
             return ListView.builder(
                 itemCount: snapshot.data.documents[0]['party_test'].length,
@@ -25,7 +25,7 @@ class _PartyViewState extends State<PartyView> {
                     color: Colors.grey[500],
                     child: ListTile(
                       leading: Icon(Icons.person),
-                      trailing: Text("Lvl Class Name", style: TextStyle(color: Colors.black)),
+                      trailing: Text("Lvl Class Name", style: TextStyle(fontSize: 12.0, color: Colors.black)),
                       title: Text(
                           snapshot.data.documents[0]['party_test'][index],
                           style: TextStyle(color: Colors.black)),

@@ -1,11 +1,10 @@
 import 'dart:async';
+import 'package:FARTS/models/campaign_model.dart';
 import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-// Relevant pages.
-import 'package:FARTS/services/vibrate.dart';
 
 class Campaign extends StatefulWidget {
   @override
@@ -13,9 +12,10 @@ class Campaign extends StatefulWidget {
 }
 
 class _CampaignState extends State<Campaign> {
-  Stream<QuerySnapshot> _campaignStream;
+  Stream _firestoreStream = Firestore.instance.collection("campaigns").snapshots();
+  var _campaignModelStream;
+  String text;
   final CollectionReference _campaignCollectionRef = Firestore.instance.collection('campaigns');
-  String _campaignId = "CcQAZ4zjpWYozjVs8lPD";
   static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
   bool _isEditingText = false;
@@ -24,7 +24,6 @@ class _CampaignState extends State<Campaign> {
   @override
   void initState() {
     super.initState();
-    _campaignStream = Firestore.instance.collection("campaigns").snapshots();
     _editingController = TextEditingController();
   }
 
@@ -36,19 +35,23 @@ class _CampaignState extends State<Campaign> {
 
   @override
   Widget build(BuildContext context) {
+
+    _campaignModelStream = Provider.of<CampaignModel>(context);
+
+    // This initilzes the notes with the db value.
+    _campaignCollectionRef.document('${_campaignModelStream.docId}').get().then((DocumentSnapshot document) async {
+      _editingController.text = (document['notes']); });
+
     return SafeArea(
         top: false,
         child: Scaffold(
             body: StreamBuilder(
-                stream: _campaignStream,
+                stream: _firestoreStream,
                 builder: (context, snapshot) {
                   if (snapshot.hasError)
                     return Text('Error: ${snapshot.error}');
 
                   if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
-
-                  // This initilzes the notes with the db value.
-                  _editingController.text = snapshot.data.documents[0]['notes'];
 
                   return _getScrollView(context, snapshot);
                 })));
@@ -98,7 +101,7 @@ class _CampaignState extends State<Campaign> {
               Container(
                   padding: EdgeInsets.all(14.0),
                   child: Text(snapshot.data.documents[0]['name'],
-                      style: TextStyle(
+                    style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.black,
                           fontStyle: FontStyle.italic))),
@@ -128,7 +131,7 @@ class _CampaignState extends State<Campaign> {
                   style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
                 padding: EdgeInsets.all(14.0),
-                child: Text(snapshot.data.documents[0]['map_name'],
+                  child: Text(snapshot.data.documents[0]['map_name'],
                     style: TextStyle(
                         fontSize: 30.0,
                         color: Colors.black,
@@ -157,7 +160,7 @@ class _CampaignState extends State<Campaign> {
           //maxLines: 15,
           onSubmitted: (newValue) {
             setState(() {
-              _updateNotes(context, newValue);
+              _updateNotes(newValue);
               _isEditingText = false;
             });
           },
@@ -173,11 +176,12 @@ class _CampaignState extends State<Campaign> {
           });
         },
         child: Text(snapshot.data.documents[0]['notes']));
+        // TODO change this to a document ref.
   }
 
-  Future _updateNotes(context, newValue) async {
+  Future _updateNotes(newValue) async {
     try {
-      await _campaignCollectionRef.document(_campaignId).updateData({
+      await _campaignCollectionRef.document(_campaignModelStream.docId).updateData({
         'notes': "$newValue"
       });
     } catch (e) {
