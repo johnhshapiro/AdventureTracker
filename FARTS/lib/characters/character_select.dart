@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:FARTS/characters/new_character.dart';
 import 'package:FARTS/characters/character_service.dart';
 import 'package:FARTS/characters/character_model.dart';
-import 'package:FARTS/characters/user_model.dart';
+import 'package:FARTS/models/user_model.dart';
 
 
 class CharacterList extends StatefulWidget {

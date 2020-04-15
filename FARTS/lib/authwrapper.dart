@@ -1,7 +1,7 @@
 import 'package:FARTS/selectmodepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:FARTS/characters/user_model.dart';
+import 'package:FARTS/models/user_model.dart';
 import 'package:FARTS/services/database.dart';
 
 import 'loginpage.dart';

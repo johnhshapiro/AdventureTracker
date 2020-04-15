@@ -1,4 +1,4 @@
-import 'package:FARTS/characters/user_model.dart';
+import 'package:FARTS/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
