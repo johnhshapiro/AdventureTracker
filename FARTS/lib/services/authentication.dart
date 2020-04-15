@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:FARTS/characters/user_model.dart';
 
 class AuthenticationService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,8 +24,16 @@ class AuthenticationService {
     }
   }
 
-  Stream<FirebaseUser> get user {
+  Stream<FirebaseUser> get fbuser {
     // This stream is used to check state changes in authorization
     return _auth.onAuthStateChanged;
+  }
+
+  Stream<User> get user {
+    return _auth.onAuthStateChanged.map(_userDataFromFirebaseUser);
+  }
+
+  User _userDataFromFirebaseUser(FirebaseUser user) {
+    return user != null ? User(uid: user.uid) : null;
   }
 }
