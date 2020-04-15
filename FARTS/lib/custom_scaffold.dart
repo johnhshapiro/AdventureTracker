@@ -2,7 +2,11 @@ import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/rollpage.dart';
 import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
+import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'models/user_model.dart';
 
 class CustomScaffold extends StatefulWidget {
   final routeList;
@@ -26,9 +30,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   // This can and should be changed to a regular key, global keys are very expensive.
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -37,7 +41,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           resizeToAvoidBottomInset: false,
           extendBodyBehindAppBar: true,
           key: _scaffoldKey,
-          endDrawer: _buildDrawer(),
+          endDrawer: _buildDrawer(user),
           appBar: _buildAppBar(),
 
           // Wont show the navbar if routeList and navBarItems parameters are null
@@ -92,7 +96,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         ]);
   }
 
-  _buildDrawer() {
+  _buildDrawer(User user) {
     return Drawer(
         elevation: 20.0,
         child: ListView(
@@ -123,7 +127,9 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SelectModePage()));
+                          builder: (context) => StreamProvider<UserData>.value(
+                            value: DatabaseService(uid: user.uid).userData,
+                            child: SelectModePage())));
                 });
               },
             ),
