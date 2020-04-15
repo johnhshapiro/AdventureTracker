@@ -5,17 +5,15 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-
 class Campaign extends StatefulWidget {
   @override
   _CampaignState createState() => _CampaignState();
 }
 
 class _CampaignState extends State<Campaign> {
-  Stream _firestoreStream = Firestore.instance.collection("campaigns").snapshots();
   var _campaignModelStream;
-  String text;
-  final CollectionReference _campaignCollectionRef = Firestore.instance.collection('campaigns');
+  final CollectionReference _campaignCollectionRef =
+      Firestore.instance.collection('campaigns');
   static DateFormat dateFormat = DateFormat("h:mm M-dd-yy");
   String _now = dateFormat.format(DateTime.now());
   bool _isEditingText = false;
@@ -35,29 +33,20 @@ class _CampaignState extends State<Campaign> {
 
   @override
   Widget build(BuildContext context) {
-
+    // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
 
-    // This initilzes the notes with the db value.
-    _campaignCollectionRef.document('${_campaignModelStream.docId}').get().then((DocumentSnapshot document) async {
-      _editingController.text = (document['notes']); });
+    // Initilzes the notes with the CampaignModel value.
+    _editingController.text = _campaignModelStream.notes;
 
     return SafeArea(
         top: false,
         child: Scaffold(
-            body: StreamBuilder(
-                stream: _firestoreStream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError)
-                    return Text('Error: ${snapshot.error}');
-
-                  if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
-
-                  return _getScrollView(context, snapshot);
-                })));
+          body: _getScrollView(),
+        ));
   }
 
-  _getScrollView(context, snapshot) {
+  Widget _getScrollView() {
     // CustomScrollview is the actual name of the *gridview* layout widget.
     return CustomScrollView(
       primary: false,
@@ -67,13 +56,13 @@ class _CampaignState extends State<Campaign> {
           // .extent sets max cross axis size (horizontal pixels) whereas .count set a specific number of evenly spaced widgets per row.
           sliver: SliverGrid.count(
             crossAxisCount: 1,
-            crossAxisSpacing: 5,
-            mainAxisSpacing: 5,
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 5.0,
             // This is the max number of pixels the widgets will expand horizontally.
             //maxCrossAxisExtent: 1080,
             children: <Widget>[
-              _campaignHeader(context, snapshot),
-              _campaignNotes(context, snapshot),
+              _campaignHeader(),
+              _campaignNotes(),
             ],
           ),
         ),
@@ -81,7 +70,7 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  _campaignHeader(context, snapshot) {
+  Widget _campaignHeader() {
     return Container(
       margin: EdgeInsets.only(top: 30.0),
       padding: EdgeInsets.all(5.0),
@@ -100,8 +89,8 @@ class _CampaignState extends State<Campaign> {
               ),
               Container(
                   padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['name'],
-                    style: TextStyle(
+                  child: Text(_campaignModelStream.name,
+                      style: TextStyle(
                           fontSize: 30.0,
                           color: Colors.black,
                           fontStyle: FontStyle.italic))),
@@ -131,7 +120,7 @@ class _CampaignState extends State<Campaign> {
                   style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
               Container(
                 padding: EdgeInsets.all(14.0),
-                  child: Text(snapshot.data.documents[0]['map_name'],
+                child: Text(_campaignModelStream.mapName,
                     style: TextStyle(
                         fontSize: 30.0,
                         color: Colors.black,
@@ -144,16 +133,16 @@ class _CampaignState extends State<Campaign> {
     );
   }
 
-  _campaignNotes(context, snapshot) {
+  Widget _campaignNotes() {
     return Column(
       children: <Widget>[
         Text("Notes", style: TextStyle(fontSize: 20.0)),
-        _editNotes(context, snapshot),
+        _editNotes(),
       ],
     );
   }
 
-  _editNotes(context, snapshot) {
+  Widget _editNotes() {
     if (_isEditingText)
       return Card(
         child: TextField(
@@ -175,15 +164,14 @@ class _CampaignState extends State<Campaign> {
             _isEditingText = true;
           });
         },
-        child: Text(snapshot.data.documents[0]['notes']));
-        // TODO change this to a document ref.
+        child: Text(_campaignModelStream.notes));
   }
 
   Future _updateNotes(newValue) async {
     try {
-      await _campaignCollectionRef.document(_campaignModelStream.docId).updateData({
-        'notes': "$newValue"
-      });
+      await _campaignCollectionRef
+          .document(_campaignModelStream.docId)
+          .updateData({'notes': "$newValue"});
     } catch (e) {
       print(e.code);
     }

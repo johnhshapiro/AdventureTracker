@@ -46,10 +46,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
               : null,
 
           // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-          body: body != null 
-            ? body 
-            : _buildIndexedStack()),
-
+          body: body != null ? body : _buildIndexedStack()),
     );
   }
 

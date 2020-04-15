@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 
 // Relevant pages.
 import 'package:FARTS/services/vibrate.dart';
-import 'package:FARTS/characters/character_select.dart';
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 import 'package:provider/provider.dart';
 import 'package:FARTS/models/user_model.dart';
-
+import 'characters/character_select.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);

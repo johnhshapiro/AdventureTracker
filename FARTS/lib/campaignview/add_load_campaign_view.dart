@@ -36,7 +36,8 @@ class _GameMasterState extends State<GameMaster> {
                       return new Text(
                           'Campaign snapshot error ${snapshot.error}');
 
-                    if (!snapshot.hasData) return Center( child: CircularProgressIndicator());
+                    if (!snapshot.hasData)
+                      return Center(child: CircularProgressIndicator());
 
                     return ListView(
                       children: snapshot.data.documents
@@ -48,7 +49,8 @@ class _GameMasterState extends State<GameMaster> {
                                   style: TextStyle(
                                       fontSize: 16.0, color: Colors.black)),
                               onTap: () {
-                                print("Selected campaign: ${document.documentID}\n");
+                                print(
+                                    "Selected campaign: ${document.documentID}\n");
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -72,5 +74,4 @@ class _GameMasterState extends State<GameMaster> {
       ),
     );
   }
-
 }

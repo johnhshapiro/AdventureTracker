@@ -85,7 +85,6 @@ void main() {
   });
 
   group('VIEW CAMPAIGN PAGE widget tests', () {
-
     testWidgets('Campaign text widget is present', (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
