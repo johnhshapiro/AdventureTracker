@@ -10,7 +10,7 @@ class CampaignModel {
 
   CampaignModel({
     this.docId,
-    this.name, 
+    this.name,
     this.notes,
     this.mapName,
     this.party,
@@ -19,12 +19,11 @@ class CampaignModel {
 
   factory CampaignModel.fromMap(DocumentSnapshot document) {
     return CampaignModel(
-      docId: document.documentID,
-      name: document['name'],
-      notes: document['notes'],
-      mapName: document['map_name'],
-      party: document['party_test'],
-      encounters: document['encounter_test']
-    );
+        docId: document.documentID,
+        name: document['name'],
+        notes: document['notes'],
+        mapName: document['map_name'],
+        party: document['party_test'],
+        encounters: document['encounter_test']);
   }
 }
