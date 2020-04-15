@@ -1,3 +1,5 @@
+import 'package:FARTS/models/user_model.dart';
+import 'package:FARTS/services/database.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/createnewuserpage.dart';
 import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/campaignview/campaign_info.dart';
+import 'package:provider/provider.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -30,12 +33,16 @@ void main() {
   });
 
   group('SELECT MODE PAGE widget tests', () {
+    Widget selectModeWrappedWithProvider = 
+      StreamProvider<UserData>.value(
+        value: DatabaseService(uid: 'M8OTV0XlKcW6l4YhGyUCNY74Sfj1').userData,
+        child: SelectModePage());
     testWidgets('game master mode button is present',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: SelectModePage(),
+          home: selectModeWrappedWithProvider,
           navigatorObservers: [mockObserver],
         ),
       );
@@ -51,7 +58,7 @@ void main() {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: SelectModePage(),
+          home: selectModeWrappedWithProvider,
           navigatorObservers: [mockObserver],
         ),
       );
@@ -61,19 +68,15 @@ void main() {
       verify(mockObserver.didPush(any, any));
       expect(find.byType(SelectModePage), findsOneWidget);
     });
-  });
-
-  group("View Campaign Page Widget Tests", () {
     testWidgets('game master mode button is present',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(
-          home: SelectModePage(),
+          home: selectModeWrappedWithProvider,
           navigatorObservers: [mockObserver],
         ),
       );
-      // TODO test for character stream not just for text
       expect(find.text('Game Master'), findsOneWidget);
       await tester.tap(find.text('Game Master'));
       verify(mockObserver.didPush(any, any));
