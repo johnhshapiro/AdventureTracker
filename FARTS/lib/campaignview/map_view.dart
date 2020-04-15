@@ -22,12 +22,7 @@ class _MapViewState extends State<MapView> {
       children: <Widget>[
         Stack(
           children: <Widget>[
-            GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CampaignView()));
-                },
-                child: Image.asset('assets/samplemap.jpg')),
+            Image.asset('assets/samplemap.jpg'),
             // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
             Positioned(
                 bottom: 5.0,

@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 void main() {
   group('add_load_campaign_view page widget tests', () {
     testWidgets('Page widgets are present', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: GameMaster()));
+      MaterialApp app = MaterialApp(
+          home: StreamProvider<User>.value(
+              value: AuthenticationService().user, child: GameMaster()));
       await tester.pumpWidget(app);
 
       expect(find.byType(GameMaster), findsOneWidget);
