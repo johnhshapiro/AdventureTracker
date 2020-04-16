@@ -16,11 +16,18 @@ class _PartyViewState extends State<PartyView> {
     _campaignModelStream = Provider.of<CampaignModel>(context);
 
     return Scaffold(
-        body: ListView.builder(
+        body: Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/realoldpaper.jpg'),
+          fit: BoxFit.fill,
+        ),
+        ListView.builder(
             itemCount: _campaignModelStream.party.length,
             itemBuilder: (context, index) {
               return Card(
-                color: Colors.grey[500],
+                color: Colors.transparent,
                 child: ListTile(
                   leading: Icon(Icons.person),
                   trailing: Text("Lvl Class Name",
@@ -31,6 +38,8 @@ class _PartyViewState extends State<PartyView> {
                       () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
                 ),
               );
-            }));
+            }),
+      ],
+    ));
   }
 }

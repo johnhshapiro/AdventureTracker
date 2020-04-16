@@ -15,11 +15,18 @@ class _EncounterViewState extends State<EncounterView> {
     _campaignModelStream = Provider.of<CampaignModel>(context);
 
     return Scaffold(
-        body: ListView.builder(
+        body: Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/realoldpaper.jpg'),
+          fit: BoxFit.fill,
+        ),
+        ListView.builder(
             itemCount: _campaignModelStream.encounters.length,
             itemBuilder: (context, index) {
               return Card(
-                color: Colors.grey[500],
+                color: Colors.transparent,
                 child: ListTile(
                   trailing: Text("example XP",
                       style: TextStyle(fontSize: 12.0, color: Colors.black)),
@@ -29,6 +36,8 @@ class _EncounterViewState extends State<EncounterView> {
                       () {}, // TODO inflate or navigate to the corresponding encounter data.
                 ),
               );
-            }));
+            }),
+      ],
+    ));
   }
 }

@@ -48,23 +48,32 @@ class _CampaignState extends State<Campaign> {
 
   Widget _getScrollView() {
     // CustomScrollview is the actual name of the *gridview* layout widget.
-    return CustomScrollView(
-      primary: false,
-      slivers: <Widget>[
-        SliverPadding(
-          padding: EdgeInsets.all(5),
-          // .extent sets max cross axis size (horizontal pixels) whereas .count set a specific number of evenly spaced widgets per row.
-          sliver: SliverGrid.count(
-            crossAxisCount: 1,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0,
-            // This is the max number of pixels the widgets will expand horizontally.
-            //maxCrossAxisExtent: 1080,
-            children: <Widget>[
-              _campaignHeader(),
-              _campaignNotes(),
-            ],
-          ),
+    return Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/realoldpaper.jpg'),
+          fit: BoxFit.cover,
+        ),
+        CustomScrollView(
+          primary: false,
+          slivers: <Widget>[
+            SliverPadding(
+              padding: EdgeInsets.all(5),
+              // .extent sets max cross axis size (horizontal pixels) whereas .count set a specific number of evenly spaced widgets per row.
+              sliver: SliverGrid.count(
+                crossAxisCount: 1,
+                crossAxisSpacing: 5.0,
+                mainAxisSpacing: 5.0,
+                // This is the max number of pixels the widgets will expand horizontally.
+                //maxCrossAxisExtent: 1080,
+                children: <Widget>[
+                  _campaignHeader(),
+                  _campaignNotes(),
+                ],
+              ),
+            ),
+          ],
         ),
       ],
     );
@@ -74,59 +83,50 @@ class _CampaignState extends State<Campaign> {
     return Container(
       margin: EdgeInsets.only(top: 30.0),
       padding: EdgeInsets.all(5.0),
-      child: Stack(
-        fit: StackFit.expand,
+      child: Column(
         children: <Widget>[
-          Image(
-            image: AssetImage('assets/realoldpaper.jpg'),
-            fit: BoxFit.cover,
+          Text(
+            "Campaign",
+            style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),
           ),
-          Column(
-            children: <Widget>[
-              Text(
-                "Campaign",
-                style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),
-              ),
-              Container(
-                  padding: EdgeInsets.all(14.0),
-                  child: Text(_campaignModelStream.name,
-                      style: TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.black,
-                          fontStyle: FontStyle.italic))),
-              Text("Time/Date",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-              Container(
-                padding: EdgeInsets.all(14.0),
-                child: Text(
-                  _now.toString(),
+          Container(
+              padding: EdgeInsets.all(14.0),
+              child: Text(_campaignModelStream.name,
                   style: TextStyle(
-                      fontSize: 26.0,
+                      fontSize: 30.0,
                       color: Colors.black,
-                      fontStyle: FontStyle.italic),
-                ),
-              ),
-              Text("Session Number",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-              Container(
-                  // TODO increment the session number dynamically
-                  padding: EdgeInsets.all(14.0),
-                  child: Text("1",
-                      style: TextStyle(
-                          fontSize: 26.0,
-                          color: Colors.black,
-                          fontStyle: FontStyle.italic))),
-              Text("Map",
-                  style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-              Container(
-                padding: EdgeInsets.all(14.0),
-                child: Text(_campaignModelStream.mapName,
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.black,
-                        fontStyle: FontStyle.italic)),
-              ),
-            ],
+                      fontStyle: FontStyle.italic))),
+          Text("Time/Date",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+            padding: EdgeInsets.all(14.0),
+            child: Text(
+              _now.toString(),
+              style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.black,
+                  fontStyle: FontStyle.italic),
+            ),
+          ),
+          Text("Session Number",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+              // TODO increment the session number dynamically
+              padding: EdgeInsets.all(14.0),
+              child: Text("1",
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic))),
+          Text("Map",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+            padding: EdgeInsets.all(14.0),
+            child: Text(_campaignModelStream.mapName,
+                style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.black,
+                    fontStyle: FontStyle.italic)),
           ),
         ],
       ),
@@ -134,11 +134,14 @@ class _CampaignState extends State<Campaign> {
   }
 
   Widget _campaignNotes() {
-    return Column(
-      children: <Widget>[
-        Text("Notes", style: TextStyle(fontSize: 20.0)),
-        _editNotes(),
-      ],
+    return Container(
+      padding: EdgeInsets.all(5.0),
+      child: Column(
+        children: <Widget>[
+          Text("Notes", style: TextStyle(fontSize: 20.0, color: Colors.black)),
+          _editNotes(),
+        ],
+      ),
     );
   }
 
@@ -146,6 +149,7 @@ class _CampaignState extends State<Campaign> {
     if (_isEditingText)
       return Card(
         child: TextField(
+          //keyboardType: ,
           //maxLines: 15,
           onSubmitted: (newValue) {
             setState(() {
@@ -158,13 +162,22 @@ class _CampaignState extends State<Campaign> {
         ),
       );
 
-    return InkWell(
-        onTap: () {
-          setState(() {
-            _isEditingText = true;
-          });
-        },
-        child: Text(_campaignModelStream.notes));
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: InkWell(
+          onTap: () {
+            setState(() {
+              _isEditingText = true;
+            });
+          },
+          child: Text(
+            _campaignModelStream.notes,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 16.0,
+                fontStyle: FontStyle.italic),
+          )),
+    );
   }
 
   Future _updateNotes(newValue) async {

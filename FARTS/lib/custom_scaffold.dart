@@ -104,7 +104,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               accountName:
-                  Text('User name', style: TextStyle(color: Colors.black87)),
+                  Text('username', style: TextStyle(color: Colors.black87)),
               accountEmail: Text('user_name@gmail.com',
                   style: TextStyle(color: Colors.black87)),
               currentAccountPicture: Image.asset("assets/user.png"),

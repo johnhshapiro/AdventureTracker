@@ -16,25 +16,24 @@ class _MapViewState extends State<MapView> {
     _campaignModelStream = Provider.of<CampaignModel>(context);
 
     return Scaffold(
-        body: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            Image.asset('assets/samplemap.jpg'),
-            // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
-            Positioned(
-                bottom: 5.0,
-                left: 5.0,
-                child: Text(_campaignModelStream.mapName,
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.black,
-                        fontStyle: FontStyle.italic))),
-          ],
-        ),
-      ],
-    ));
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image(
+            image: AssetImage('assets/samplemap2.jpg'),
+            fit: BoxFit.fill,
+          ),
+          // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
+          Positioned(
+              bottom: 5.0,
+              left: 5.0,
+              child: Text(_campaignModelStream.mapName,
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic))),
+        ],
+      ),
+    );
   }
 }
