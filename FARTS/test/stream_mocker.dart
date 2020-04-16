@@ -5,8 +5,8 @@ class MockStream {
 
   final CollectionReference userCollection = Firestore.instance.collection('users');
 
-  // Stream<UserData> get mockUserData {
-  //   return userCollection.document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1')
+  // Stream<User> get mockUser {
+  //   return User(uid: 'M8OTV0XlKcW6l4YhGyUCNY74Sfj1');
   // }
 
 }
