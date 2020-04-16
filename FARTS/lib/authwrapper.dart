@@ -19,8 +19,8 @@ class AuthWrapper extends StatelessWidget {
   Widget showCorrectPage(User user) {
     if (user != null) {
       return StreamProvider<UserData>.value(
-        value: DatabaseService(uid: user.uid).userData,
-        child: SelectModePage()); 
+          value: DatabaseService(uid: user.uid).userData,
+          child: SelectModePage());
     } else {
       return LoginPage();
     }

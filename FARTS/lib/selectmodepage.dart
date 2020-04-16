@@ -18,7 +18,6 @@ class SelectModePage extends StatefulWidget {
 class _SelectModePageState extends State<SelectModePage> {
   @override
   Widget build(BuildContext context) {
-
     UserData userData = Provider.of<UserData>(context);
 
     return Scaffold(
@@ -82,7 +81,8 @@ class _SelectModePageState extends State<SelectModePage> {
                       context,
                       // TODO point this at the top level character view page (this is the tappable image, dont forget to do this for the button below also.)
                       MaterialPageRoute(
-                          builder: (context) => CharacterSelect(userData: userData)),
+                          builder: (context) =>
+                              CharacterSelect(userData: userData)),
                     );
                   },
                   child: Image(
@@ -109,7 +109,8 @@ class _SelectModePageState extends State<SelectModePage> {
                                 context,
                                 // TODO point this at the top level character view page (this is the actual button)
                                 MaterialPageRoute(
-                                    builder: (context) => CharacterSelect(userData: userData)),
+                                    builder: (context) =>
+                                        CharacterSelect(userData: userData)),
                               );
                             },
                           ),

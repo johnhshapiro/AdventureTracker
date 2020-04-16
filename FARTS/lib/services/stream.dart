@@ -5,8 +5,7 @@ class CampaignModelStream {
   final Firestore _db = Firestore.instance;
 
   Stream<CampaignModel> streamCampaignData(DocumentSnapshot document) {
-
-    if(document.data.isEmpty) print('CampaignModelStream document is empty');
+    if (document.data.isEmpty) print('CampaignModelStream document is empty');
 
     return _db
         .collection('campaigns')

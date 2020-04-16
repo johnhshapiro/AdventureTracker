@@ -128,8 +128,8 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => StreamProvider<UserData>.value(
-                            value: DatabaseService(uid: user.uid).userData,
-                            child: SelectModePage())));
+                              value: DatabaseService(uid: user.uid).userData,
+                              child: SelectModePage())));
                 });
               },
             ),

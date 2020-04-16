@@ -33,8 +33,7 @@ void main() {
   });
 
   group('SELECT MODE PAGE widget tests', () {
-    Widget selectModeWrappedWithProvider =
-      StreamProvider<UserData>.value(
+    Widget selectModeWrappedWithProvider = StreamProvider<UserData>.value(
         value: DatabaseService(uid: 'M8OTV0XlKcW6l4YhGyUCNY74Sfj1').userData,
         child: SelectModePage());
     testWidgets('game master mode button is present',

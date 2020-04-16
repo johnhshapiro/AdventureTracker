@@ -5,20 +5,20 @@ class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  final CollectionReference userCollection = Firestore.instance.collection('users');
+  final CollectionReference userCollection =
+      Firestore.instance.collection('users');
 
-  Stream<UserData> get userData{
+  Stream<UserData> get userData {
     return userCollection.document(uid).snapshots().map(_userDataFromSnapshot);
   }
 
   UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-  UserData user = UserData(
-    uid: snapshot.documentID,
-    characters: snapshot.data['characters'],
-    gmCampaigns: snapshot.data['gmCampaigns'],
-    username: snapshot.data['username'],
-    email: snapshot.data['email']
-    );
+    UserData user = UserData(
+        uid: snapshot.documentID,
+        characters: snapshot.data['characters'],
+        gmCampaigns: snapshot.data['gmCampaigns'],
+        username: snapshot.data['username'],
+        email: snapshot.data['email']);
     return user;
   }
 }
