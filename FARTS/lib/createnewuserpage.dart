@@ -1,6 +1,6 @@
 // import 'dart:io';
 
-import 'package:FARTS/loginpage.dart';
+import 'package:FARTS/authwrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
@@ -137,7 +137,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
           'gmCampaigns': [null],
         });
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => AuthWrapper()));
       } catch (e) {
         print(e.code);
         if (e.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
