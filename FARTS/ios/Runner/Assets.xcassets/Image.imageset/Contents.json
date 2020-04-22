@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "FAVPNG_dungeons-dragons-pathfinder-roleplaying-game-shadow-dragon-monster-manual_FgZugqUE-1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "FAVPNG_dungeons-dragons-pathfinder-roleplaying-game-shadow-dragon-monster-manual_FgZugqUE.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "FAVPNG_dungeons-dragons-pathfinder-roleplaying-game-shadow-dragon-monster-manual_FgZugqUE-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
