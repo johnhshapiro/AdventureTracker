@@ -16,8 +16,8 @@ class _PartyViewState extends State<PartyView> {
     _campaignModelStream = Provider.of<CampaignModel>(context);
     if (_campaignModelStream == null){
       print("WAITING FOR DATA TO LOAD");
-      return Text("You are Fucked");}
-    else {
+      return Center(child: CircularProgressIndicator(),);
+    } else {
       print("DATA IS LOADED!");
       return Scaffold(
           body: Stack(
