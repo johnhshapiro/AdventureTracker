@@ -14,26 +14,31 @@ class _MapViewState extends State<MapView> {
   @override
   build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          Image(
-            image: AssetImage('assets/samplemap2.jpg'),
-            fit: BoxFit.fill,
-          ),
-          // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
-          Positioned(
-              bottom: 5.0,
-              left: 5.0,
-              child: Text(_campaignModelStream.mapName,
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.black,
-                      fontStyle: FontStyle.italic))),
-        ],
-      ),
-    );
+    if (_campaignModelStream == null){
+      print("WAITING FOR DATA TO LOAD");
+      return Text("You are Fucked");}
+    else {
+      print("DATA IS LOADED!");
+      return Scaffold(
+        body: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            Image(
+              image: AssetImage('assets/samplemap2.jpg'),
+              fit: BoxFit.fill,
+            ),
+            // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
+            Positioned(
+                bottom: 5.0,
+                left: 5.0,
+                child: Text(_campaignModelStream.mapName,
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        color: Colors.black,
+                        fontStyle: FontStyle.italic))),
+          ],
+        ),
+      );
+    }
   }
 }

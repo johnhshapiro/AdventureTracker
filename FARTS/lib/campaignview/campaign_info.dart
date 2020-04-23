@@ -35,15 +35,21 @@ class _CampaignState extends State<Campaign> {
   Widget build(BuildContext context) {
     // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
+    if (_campaignModelStream == null){
+      print("WAITING FOR DATA TO LOAD");
+      return Text("You are Fucked");}
+    else {
+      print("DATA IS LOADED!");
 
-    // Initilzes the notes with the CampaignModel value.
-    _editingController.text = _campaignModelStream.notes;
+      // Initilzes the notes with the CampaignModel value.
+      _editingController.text = _campaignModelStream.notes;
 
-    return SafeArea(
-        top: false,
-        child: Scaffold(
-          body: _getScrollView(),
-        ));
+      return SafeArea(
+          top: false,
+          child: Scaffold(
+            body: _getScrollView(),
+          ));
+    }
   }
 
   Widget _getScrollView() {

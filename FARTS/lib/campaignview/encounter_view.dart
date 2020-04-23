@@ -13,8 +13,12 @@ class _EncounterViewState extends State<EncounterView> {
   @override
   Widget build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-
-    return Scaffold(
+    if (_campaignModelStream == null){
+      print("WAITING FOR DATA TO LOAD");
+      return Text("You are Fucked");}
+    else {
+      print("DATA IS LOADED!");
+          return Scaffold(
         body: Stack(
       fit: StackFit.expand,
       children: <Widget>[
@@ -39,5 +43,6 @@ class _EncounterViewState extends State<EncounterView> {
             }),
       ],
     ));
+    }
   }
 }
