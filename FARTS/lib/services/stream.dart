@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class CampaignModelStream {
   final Firestore _db = Firestore.instance;
 
-  Stream<CampaignModel> streamCampaignData(DocumentSnapshot document) {
-    if (document.data.isEmpty) print('CampaignModelStream document is empty');
+  Stream<CampaignModel> streamCampaignData(String uid) {
 
     return _db
         .collection('campaigns')
-        .document(document.documentID)
+        .document(uid)
         .snapshots()
-        .map((document) => CampaignModel.fromMap(document));
+        .map((snap) => CampaignModel.fromMap(snap.data));
   }
 }

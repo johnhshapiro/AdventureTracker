@@ -64,7 +64,7 @@ class _GameMasterState extends State<GameMaster> {
                                 builder: (context) =>
                                     StreamProvider<CampaignModel>.value(
                                   value: CampaignModelStream()
-                                      .streamCampaignData(document),
+                                      .streamCampaignData(document.documentID),
                                   child: CampaignView(),
                                 ),
                               ),
