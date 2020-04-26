@@ -1,5 +1,6 @@
 import 'package:FARTS/models/campaign_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CampaignModelStream {
@@ -14,7 +15,11 @@ class CampaignModelStream {
         .map((snap) => CampaignModel.fromMap(snap.data));
   }
 
-  // Widget showCorrectWidget(CampaignModel campaign, Widget widgetToLoad) {
-
-  // }
+  Widget showCorrectWidget(CampaignModel campaign, Widget widgetToLoad) {
+    if (campaign != null) {
+      return widgetToLoad;
+    } else {
+      return Center(child: CircularProgressIndicator(),);
+    }
+  }
 }
