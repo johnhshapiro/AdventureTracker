@@ -14,29 +14,33 @@ class _MapViewState extends State<MapView> {
   @override
   build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-    if (_campaignModelStream == null){
-      return Center(child: CircularProgressIndicator(),);
-    } else {
-      return Scaffold(
-        body: Stack(
-          fit: StackFit.expand,
-          children: <Widget>[
-            Image(
-              image: AssetImage('assets/samplemap2.jpg'),
-              fit: BoxFit.fill,
-            ),
-            // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
-            Positioned(
-                bottom: 5.0,
-                left: 5.0,
-                child: Text(_campaignModelStream.mapName,
-                    style: TextStyle(
-                        fontSize: 30.0,
-                        color: Colors.black,
-                        fontStyle: FontStyle.italic))),
-          ],
-        ),
-      );
-    }
+    return showCorrectWidget(_campaignModelStream);
+
   }
+}
+Widget showCorrectWidget(CampaignModel campaign) {
+  if (campaign != null){
+        return Scaffold(
+          body: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/samplemap2.jpg'),
+                fit: BoxFit.fill,
+              ),
+              // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
+              Positioned(
+                  bottom: 5.0,
+                  left: 5.0,
+                  child: Text(campaign.mapName,
+                      style: TextStyle(
+                          fontSize: 30.0,
+                          color: Colors.black,
+                          fontStyle: FontStyle.italic))),
+            ],
+          ),
+        );
+      } else {
+        return Center(child: CircularProgressIndicator(),);
+      }
 }
