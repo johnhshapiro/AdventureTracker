@@ -14,5 +14,6 @@ main() {
       ),
     );
     await tester.pumpWidget(app);
+    expect(find.byType(Stack), findsOneWidget);
   });
 }
