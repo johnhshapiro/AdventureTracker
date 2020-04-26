@@ -35,12 +35,10 @@ class _CampaignState extends State<Campaign> {
   Widget build(BuildContext context) {
     // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
+    // Check for campaign info to avoid a redscreen on slower phones while info is loading
     if (_campaignModelStream == null){
-      print("WAITING FOR DATA TO LOAD");
       return Center(child: CircularProgressIndicator(),);
     } else {
-      print("DATA IS LOADED!");
-
       // Initilzes the notes with the CampaignModel value.
       _editingController.text = _campaignModelStream.notes;
 
