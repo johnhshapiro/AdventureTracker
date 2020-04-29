@@ -25,16 +25,17 @@ class _GameMasterState extends State<GameMaster> {
 
   Widget _buildAddLoadCampaignBody(BuildContext context) {
     final user = Provider.of<UserData>(context);
-    return showCorrectWidget(user, addLoadCampaignWidget(user));
+    var userId = user.uid;
+    return showCorrectWidget(user, addLoadCampaignWidget(userId));
   }
 }
 
-Widget addLoadCampaignWidget(UserData user) {
+Widget addLoadCampaignWidget(String uid) {
   return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance
               .collection('campaigns')
-              .where('userId', isEqualTo: user.uid)
+              .where('userId', isEqualTo: uid)
               .snapshots(),
           builder:
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
