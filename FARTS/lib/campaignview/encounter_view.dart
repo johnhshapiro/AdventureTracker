@@ -22,29 +22,36 @@ class _EncounterViewState extends State<EncounterView> {
 }
 
 Widget encounterViewWidget(CampaignModel campaign) {
+  var encounters = [];
+  try {
+    encounters = campaign.encounters;
+  } catch (e) {
+    print("Encounter Data Loading");
+  }
   return Scaffold(
-      body: Stack(
-    fit: StackFit.expand,
-    children: <Widget>[
-      Image(
-        image: AssetImage('assets/realoldpaper.jpg'),
-        fit: BoxFit.fill,
-      ),
-      ListView.builder(
-          itemCount: campaign.encounters.length,
-          itemBuilder: (context, index) {
-            return Card(
-              color: Colors.transparent,
-              child: ListTile(
-                trailing: Text("example XP",
-                    style: TextStyle(fontSize: 12.0, color: Colors.black)),
-                title: Text(campaign.encounters[index],
-                    style: TextStyle(color: Colors.black)),
-                onTap:
-                    () {}, // TODO inflate or navigate to the corresponding encounter data.
-              ),
-            );
-          }),
-    ],
-  ));
+    body: Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/realoldpaper.jpg'),
+          fit: BoxFit.fill,
+        ),
+        ListView.builder(
+            itemCount: encounters.length,
+            itemBuilder: (context, index) {
+              return Card(
+                color: Colors.transparent,
+                child: ListTile(
+                  trailing: Text("example XP",
+                      style: TextStyle(fontSize: 12.0, color: Colors.black)),
+                  title: Text(encounters[index],
+                      style: TextStyle(color: Colors.black)),
+                  onTap:
+                      () {}, // TODO inflate or navigate to the corresponding encounter data.
+                ),
+              );
+            }),
+      ],
+    ),
+  );
 }
