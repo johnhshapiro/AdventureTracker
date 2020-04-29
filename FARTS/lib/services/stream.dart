@@ -16,7 +16,7 @@ class CampaignModelStream {
   }
 
   Widget showCorrectWidget(CampaignModel campaign, Widget widgetToLoad) {
-    if (campaign != null) {
+    if (campaign == null) {
       return Center(child: CircularProgressIndicator(),);
     }
     return widgetToLoad;

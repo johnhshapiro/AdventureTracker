@@ -23,6 +23,12 @@ class _PartyViewState extends State<PartyView> {
 }
 
 Widget partyViewWidget(CampaignModel campaign) {
+  var party = [];
+  try {
+    party = campaign.party;
+  } catch (e) {
+    print("Party Data Loading");
+  }
   return Scaffold(
       body: Stack(
     fit: StackFit.expand,
@@ -32,7 +38,7 @@ Widget partyViewWidget(CampaignModel campaign) {
         fit: BoxFit.fill,
       ),
       ListView.builder(
-          itemCount: campaign.party.length,
+          itemCount: party.length,
           itemBuilder: (context, index) {
             return Card(
               color: Colors.transparent,
@@ -40,7 +46,7 @@ Widget partyViewWidget(CampaignModel campaign) {
                 leading: Icon(Icons.person),
                 trailing: Text("Lvl Class Name",
                     style: TextStyle(fontSize: 12.0, color: Colors.black)),
-                title: Text(campaign.party[index],
+                title: Text(party[index],
                     style: TextStyle(color: Colors.black)),
                 onTap:
                     () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
