@@ -1,4 +1,3 @@
-import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:FARTS/models/campaign_model.dart';
 import 'package:FARTS/services/stream.dart';
 import 'package:flutter/material.dart';
