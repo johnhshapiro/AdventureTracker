@@ -1,4 +1,5 @@
 import 'package:FARTS/characters/character_sheet.dart';
+import 'package:FARTS/characters/character_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -41,8 +42,9 @@ class _CharacterListState extends State<CharacterList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>
-                                CharacterSheetPage(character: chars[index])),
+                            builder: (context) => CharacterView(character: chars[index]),
+                                // CharacterSheetPage(character: chars[index])
+                        ),
                       );
                     }
                   ),
