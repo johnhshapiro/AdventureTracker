@@ -70,7 +70,7 @@ Widget addLoadCampaignWidget(String uid) {
                                 builder: (context) =>
                                     StreamProvider<CampaignModel>.value(
                                   value: CampaignModelStream()
-                                      .streamCampaignData(document.documentID),
+                                      .streamCampaignData(document),
                                   child: CampaignView(),
                                 ),
                               ),

@@ -8,7 +8,7 @@ void main() {
   group('View Campaign page widget tests', () {
     testWidgets('View campaign page widgets are present',
         (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: CampaignView());
+      // MaterialApp app = MaterialApp(home: CampaignView());
       //await tester.pumpWidget(app);
 
       // Make sure these widgets are on the view campaign page.

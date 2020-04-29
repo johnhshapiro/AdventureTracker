@@ -17,14 +17,13 @@ class CampaignModel {
     this.encounters,
   });
 
-  factory CampaignModel.fromMap(Map data) {
-    data = data ?? {};
+  factory CampaignModel.fromMap(DocumentSnapshot document) {
     return CampaignModel(
-        docId: data['userId'],
-        name: data['name'],
-        notes: data['notes'],
-        mapName: data['map_name'],
-        party: data['party_test'],
-        encounters: data['encounter_test']);
+        docId: document.documentID,
+        name: document['name'],
+        notes: document['notes'],
+        mapName: document['map_name'],
+        party: document['party_test'],
+        encounters: document['encounter_test']);
   }
 }

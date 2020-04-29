@@ -6,13 +6,13 @@ import 'package:flutter/widgets.dart';
 class CampaignModelStream {
   final Firestore _db = Firestore.instance;
 
-  Stream<CampaignModel> streamCampaignData(String uid) {
+  Stream<CampaignModel> streamCampaignData(DocumentSnapshot document) {
 
     return _db
         .collection('campaigns')
-        .document(uid)
+        .document(document.documentID)
         .snapshots()
-        .map((snap) => CampaignModel.fromMap(snap.data));
+        .map((doc) => CampaignModel.fromMap(doc));
   }
 }
   Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
