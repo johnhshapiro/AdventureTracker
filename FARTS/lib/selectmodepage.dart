@@ -1,3 +1,4 @@
+import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -33,7 +34,12 @@ class _SelectModePageState extends State<SelectModePage> {
                     Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GameMaster()),
+                      MaterialPageRoute(
+                        builder: (context) => StreamProvider.value(
+                          value: DatabaseService(uid: userData.uid).userData,
+                          child: GameMaster(),
+                        ),
+                      ),
                     );
                   },
                   child: Image(
