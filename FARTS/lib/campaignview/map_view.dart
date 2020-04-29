@@ -20,6 +20,12 @@ class _MapViewState extends State<MapView> {
   }
 }
 Widget mapViewWidget(CampaignModel campaign) {
+  var mapName = "Loading Map Data";
+  try {
+    mapName = campaign.mapName;
+  } catch (e) {
+    print("Loading map data");
+  }
   return Scaffold(
     body: Stack(
       fit: StackFit.expand,
@@ -32,7 +38,7 @@ Widget mapViewWidget(CampaignModel campaign) {
         Positioned(
             bottom: 5.0,
             left: 5.0,
-            child: Text(campaign.mapName,
+            child: Text(mapName,
                 style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.black,
