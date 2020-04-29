@@ -14,11 +14,10 @@ class CampaignModelStream {
         .snapshots()
         .map((snap) => CampaignModel.fromMap(snap.data));
   }
-
-  Widget showCorrectWidget(CampaignModel campaign, Widget widgetToLoad) {
-    if (campaign == null) {
+}
+  Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
+    if (stream == null) {
       return Center(child: CircularProgressIndicator(),);
     }
     return widgetToLoad;
   }
-}

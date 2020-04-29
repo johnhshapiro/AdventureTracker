@@ -14,8 +14,7 @@ class _MapViewState extends State<MapView> {
   @override
   build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-    return CampaignModelStream()
-      .showCorrectWidget(_campaignModelStream, mapViewWidget(_campaignModelStream));
+    return showCorrectWidget(_campaignModelStream, mapViewWidget(_campaignModelStream));
 
   }
 }

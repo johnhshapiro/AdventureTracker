@@ -15,7 +15,7 @@ class _PartyViewState extends State<PartyView> {
   Widget build(BuildContext context) {
     // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
-    return CampaignModelStream().showCorrectWidget(
+    return showCorrectWidget(
       _campaignModelStream,
       partyViewWidget(_campaignModelStream),
     );

@@ -9,12 +9,12 @@ main() {
   group('showCorrectWidgetFunctions correctly', () {
     CampaignModel campaign = CampaignModel(mapName: 'The Fart Zone');
     testWidgets('showCorrectWidget functions correctly when given a CampaignModel', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: CampaignModelStream().showCorrectWidget(campaign, mapViewWidget(campaign)));
+      MaterialApp app = MaterialApp(home: showCorrectWidget(campaign, mapViewWidget(campaign)));
       await tester.pumpWidget(app);
       expect(find.byType(Scaffold), findsOneWidget);
     });
     testWidgets('showCorrectWidget functions correctly when given null', (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(home: CampaignModelStream().showCorrectWidget(null, mapViewWidget(campaign)));
+      MaterialApp app = MaterialApp(home: showCorrectWidget(null, mapViewWidget(campaign)));
       await tester.pumpWidget(app);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });

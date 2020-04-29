@@ -14,7 +14,7 @@ class _EncounterViewState extends State<EncounterView> {
   @override
   Widget build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-    return CampaignModelStream().showCorrectWidget(
+    return showCorrectWidget(
       _campaignModelStream,
       encounterViewWidget(_campaignModelStream),
     );
