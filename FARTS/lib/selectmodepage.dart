@@ -65,7 +65,12 @@ class _SelectModePageState extends State<SelectModePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GameMaster()),
+                                builder: (context) => StreamProvider.value(
+                                  value: DatabaseService(uid: userData.uid)
+                                      .userData,
+                                  child: GameMaster(),
+                                ),
+                              ),
                             );
                           },
                         ),
