@@ -47,7 +47,18 @@ Widget addLoadCampaignWidget(String uid) {
           if (!snapshot.hasData)
             return Center(child: CircularProgressIndicator());
 
-          return Stack(
+          return addLoadCampaignStack(context, snapshot.data);
+        }),
+    floatingActionButton: FloatingActionButton.extended(
+      onPressed: () {},
+      label: Text('Create New'),
+      backgroundColor: Colors.grey[500],
+    ),
+  );
+}
+
+Widget addLoadCampaignStack(BuildContext context, QuerySnapshot snapshotData) {
+            return Stack(
             fit: StackFit.expand,
             children: <Widget>[
               Image(
@@ -56,7 +67,7 @@ Widget addLoadCampaignWidget(String uid) {
               ),
               ListView(
                 children:
-                    snapshot.data.documents.map((DocumentSnapshot document) {
+                    snapshotData.documents.map((DocumentSnapshot document) {
                   return Card(
                       color: Colors.transparent,
                       child: ListTile(
@@ -82,11 +93,4 @@ Widget addLoadCampaignWidget(String uid) {
               ),
             ],
           );
-        }),
-    floatingActionButton: FloatingActionButton.extended(
-      onPressed: () {},
-      label: Text('Create New'),
-      backgroundColor: Colors.grey[500],
-    ),
-  );
 }
