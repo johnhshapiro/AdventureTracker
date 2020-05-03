@@ -34,7 +34,6 @@ main() {
       await instance.collection('campaigns').document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1').setData({
         'name': 'Shrek it up'
       });
-      print(instance.dump());
       final snapshotData = await instance.collection('campaigns').getDocuments();
       MaterialApp app = MaterialApp(
         home: Builder(
