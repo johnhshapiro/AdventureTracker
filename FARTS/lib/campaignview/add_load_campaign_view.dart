@@ -11,6 +11,8 @@ import 'package:FARTS/models/campaign_model.dart';
 import 'package:FARTS/services/stream.dart';
 
 class GameMaster extends StatefulWidget {
+  GameMaster({@required this.userData});
+  final UserData userData;
   @override
   _GameMasterState createState() => _GameMasterState();
 }
@@ -24,9 +26,10 @@ class _GameMasterState extends State<GameMaster> {
   }
 
   Widget _buildAddLoadCampaignBody(BuildContext context) {
-    final user = Provider.of<UserData>(context);
-    var userId = user.uid;
-    return showCorrectWidget(user, addLoadCampaignWidget(userId));
+    if (widget.userData == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return showCorrectWidget(widget.userData, addLoadCampaignWidget(widget.userData.uid));
   }
 }
 
