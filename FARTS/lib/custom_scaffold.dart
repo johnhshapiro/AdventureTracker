@@ -9,48 +9,51 @@ import 'package:provider/provider.dart';
 import 'models/user_model.dart';
 
 class CustomScaffold extends StatefulWidget {
+  final bool nabVar;
   final routeList;
   final navBarItems;
   final body;
 
-  CustomScaffold({this.routeList, this.navBarItems, this.body});
+  CustomScaffold(
+      {this.routeList, this.navBarItems, this.body, this.nabVar = false});
 
   @override
-  _CustomScaffoldState createState() =>
-      _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
+  _CustomScaffoldState createState() => _CustomScaffoldState(
+      this.routeList, this.navBarItems, this.body, this.nabVar);
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
+  final bool nabVar;
   final body;
   final routeList;
   final navBarItems;
   int navBarItemSelected = 0;
 
-  _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
+  _CustomScaffoldState(
+      this.routeList, this.navBarItems, this.body, this.nabVar);
 
   // This can and should be changed to a regular key, global keys are very expensive.
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
       child: Scaffold(
-          primary: true,
-          resizeToAvoidBottomInset: false,
-          extendBodyBehindAppBar: true,
-          key: _scaffoldKey,
-          endDrawer: _buildDrawer(user),
-          appBar: _buildAppBar(),
+        primary: true,
+        resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        key: _scaffoldKey,
+        endDrawer: (nabVar == false) ? null : BuildDrawer(context),
+        appBar: _buildAppBar(),
 
-          // Wont show the navbar if routeList and navBarItems parameters are null
-          bottomNavigationBar: (routeList != null && navBarItems != null)
-              ? _buildBottomNavigationBar()
-              : null,
+        // Wont show the navbar if routeList and navBarItems parameters are null
+        bottomNavigationBar:
+            (nabVar != false) ? _buildBottomNavigationBar() : null,
 
-          // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-          body: body != null ? body : _buildIndexedStack()),
+        // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
+        body: (nabVar == false) ? body : _buildIndexedStack(),
+      ),
     );
   }
 
@@ -95,8 +98,21 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ),
         ]);
   }
+}
 
-  _buildDrawer(User user) {
+class BuildDrawer extends StatefulWidget {
+  final BuildContext context;
+  BuildDrawer(this.context);
+
+  @override
+  _BuildDrawerState createState() => _BuildDrawerState();
+}
+
+class _BuildDrawerState extends State<BuildDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return Drawer(
         elevation: 20.0,
         child: ListView(

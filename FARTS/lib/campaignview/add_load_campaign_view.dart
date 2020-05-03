@@ -32,60 +32,58 @@ class _GameMasterState extends State<GameMaster> {
 
 Widget addLoadCampaignWidget(String uid) {
   return Scaffold(
-      body: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance
-              .collection('campaigns')
-              .where('userId', isEqualTo: uid)
-              .snapshots(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.hasError)
-              return new Text('Campaign snapshot error ${snapshot.error}');
+    body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance
+            .collection('campaigns')
+            .where('userId', isEqualTo: uid)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError)
+            return new Text('Campaign snapshot error ${snapshot.error}');
 
-            if (!snapshot.hasData)
-              return Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
 
-            return Stack(
-              fit: StackFit.expand,
-              children: <Widget>[
-                Image(
-                  image: AssetImage('assets/realoldpaper.jpg'),
-                  fit: BoxFit.cover,
-                ),
-                ListView(
-                  children:
-                      snapshot.data.documents.map((DocumentSnapshot document) {
-                    return Card(
-                        color: Colors.transparent,
-                        child: ListTile(
-                          title: new Text(document['name'],
-                              style: TextStyle(
-                                  fontSize: 16.0, color: Colors.black)),
-                          onTap: () {
-                            print(
-                                "Selected campaign: ${document.documentID}\n");
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    StreamProvider<CampaignModel>.value(
-                                  value: CampaignModelStream()
-                                      .streamCampaignData(document),
-                                  child: CampaignView(),
-                                ),
+          return Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/realoldpaper.jpg'),
+                fit: BoxFit.cover,
+              ),
+              ListView(
+                children:
+                    snapshot.data.documents.map((DocumentSnapshot document) {
+                  return Card(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: new Text(document['name'],
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.black)),
+                        onTap: () {
+                          print("Selected campaign: ${document.documentID}\n");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  StreamProvider<CampaignModel>.value(
+                                value: CampaignModelStream()
+                                    .streamCampaignData(document),
+                                child: CampaignView(),
                               ),
-                            );
-                          },
-                        ));
-                  }).toList(),
-                ),
-              ],
-            );
-          }),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: Text('Create New'),
-        backgroundColor: Colors.grey[500],
-      ),
-    );
+                            ),
+                          );
+                        },
+                      ));
+                }).toList(),
+              ),
+            ],
+          );
+        }),
+    floatingActionButton: FloatingActionButton.extended(
+      onPressed: () {},
+      label: Text('Create New'),
+      backgroundColor: Colors.grey[500],
+    ),
+  );
 }
