@@ -1,3 +1,5 @@
+import 'package:FARTS/campaignview/add_load_campaign_view.dart';
+import 'package:FARTS/characters/character_select.dart';
 import 'package:FARTS/models/user_model.dart';
 import 'package:FARTS/services/database.dart';
 import 'package:mockito/mockito.dart';
@@ -14,7 +16,7 @@ Widget selectModeWrappedWithProvider = StreamProvider<UserData>.value(
       child: SelectModePage());
 main() {
   group('SELECT MODE PAGE widget tests', () {
-    testWidgets('game master mode button is present',
+    testWidgets('game master mode button is present + navigates correctly',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
@@ -23,13 +25,30 @@ main() {
           navigatorObservers: [mockObserver],
         ),
       );
-
       expect(find.text('Game Master'), findsOneWidget);
       await tester.tap(find.text('Game Master'));
+      // I pumped twice because pumpAndSettle times out waiting for future
+      await tester.pump();
+      await tester.pump();
       verify(mockObserver.didPush(any, any));
-      expect(find.byType(SelectModePage), findsOneWidget);
+      expect(find.byType(GameMaster), findsOneWidget);
     });
-
+    testWidgets('game master image is present + navigates correctly',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      await tester.pumpWidget(
+        MaterialApp(
+          home: selectModeWrappedWithProvider,
+          navigatorObservers: [mockObserver],
+        ),
+      );
+      expect(find.byKey(Key("gmImage")), findsOneWidget);
+      await tester.tap(find.byKey(Key("gmImage")));
+      await tester.pump();
+      await tester.pump();
+      verify(mockObserver.didPush(any, any));
+      expect(find.byType(GameMaster), findsOneWidget);
+    });
     testWidgets('adventurer mode button is present',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
@@ -42,10 +61,11 @@ main() {
 
       expect(find.text('Adventurer'), findsOneWidget);
       await tester.tap(find.text('Adventurer'));
+      await tester.pumpAndSettle();
       verify(mockObserver.didPush(any, any));
-      expect(find.byType(SelectModePage), findsOneWidget);
+      expect(find.byType(CharacterSelect), findsOneWidget);
     });
-    testWidgets('game master mode button is present',
+        testWidgets('adventurer mode image is present',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
@@ -54,10 +74,12 @@ main() {
           navigatorObservers: [mockObserver],
         ),
       );
-      expect(find.text('Game Master'), findsOneWidget);
-      await tester.tap(find.text('Game Master'));
+
+      expect(find.byKey(Key("advImage")), findsOneWidget);
+      await tester.tap(find.byKey(Key("advImage")));
+      await tester.pumpAndSettle();
       verify(mockObserver.didPush(any, any));
-      expect(find.byType(SelectModePage), findsOneWidget);
+      expect(find.byType(CharacterSelect), findsOneWidget);
     });
   });
 }
