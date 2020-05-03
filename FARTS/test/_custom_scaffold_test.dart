@@ -48,6 +48,66 @@ void main() {
 
       await tester.pumpWidget(app);
       expect(find.byType(Drawer), findsOneWidget);
+
+      Finder diceBagButton = find.byKey(Key('DiceBag'));
+      await tester.tap(diceBagButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
+
+  testWidgets(
+    'test for drawer Signout',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: BuildDrawer(null),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+      expect(find.byType(Drawer), findsOneWidget);
+
+      Finder signOutButton = find.byKey(Key('SignOut'));
+      await tester.tap(signOutButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
+
+  // testWidgets(
+  //   'test for drawer Mode',
+  //   (WidgetTester tester) async {
+  //     StreamProvider<User> app = StreamProvider<User>.value(
+  //       value: AuthenticationService().user,
+  //       child: MaterialApp(
+  //         home: BuildDrawer(null),
+  //       ),
+  //     );
+
+  //     await tester.pumpWidget(app);
+  //     expect(find.byType(Drawer), findsOneWidget);
+
+  //     Finder signOutButton = find.byKey(Key('Mode'));
+  //     await tester.tap(signOutButton);
+  //     await tester.pumpAndSettle(Duration(seconds: 2));
+  //   },
+  // );
+
+  testWidgets(
+    'test for Drawer Settings',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: BuildDrawer(null),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder signOutButton = find.byKey(Key('Settings'));
+      await tester.tap(signOutButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
     },
   );
 }
