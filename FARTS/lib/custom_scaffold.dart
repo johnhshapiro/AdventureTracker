@@ -44,7 +44,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         key: _scaffoldKey,
-        endDrawer: (nabVar == false) ? null : BuildDrawer(context),
+        endDrawer: BuildDrawer(context),
         appBar: _buildAppBar(),
 
         // Wont show the navbar if routeList and navBarItems parameters are null
