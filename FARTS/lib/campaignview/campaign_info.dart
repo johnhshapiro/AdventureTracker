@@ -36,8 +36,10 @@ class _CampaignState extends State<Campaign> {
     // Initializes the stream of data for this specifici campaign, mapped from firestore to the local CampaignModel
     _campaignModelStream = Provider.of<CampaignModel>(context);
     // Check for campaign info to avoid a redscreen on slower phones while info is loading
-    if (_campaignModelStream == null){
-      return Center(child: CircularProgressIndicator(),);
+    if (_campaignModelStream == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     } else {
       // Initilzes the notes with the CampaignModel value.
       _editingController.text = _campaignModelStream.notes;
@@ -72,7 +74,8 @@ class _CampaignState extends State<Campaign> {
                 // This is the max number of pixels the widgets will expand horizontally.
                 //maxCrossAxisExtent: 1080,
                 children: <Widget>[
-                  _campaignHeader(),
+                  CampaignHeader(_campaignModelStream.name,
+                      _campaignModelStream.mapName, _now.toString()),
                   _campaignNotes(),
                 ],
               ),
@@ -80,60 +83,6 @@ class _CampaignState extends State<Campaign> {
           ],
         ),
       ],
-    );
-  }
-
-  Widget _campaignHeader() {
-    return Container(
-      margin: EdgeInsets.only(top: 30.0),
-      padding: EdgeInsets.all(5.0),
-      child: Column(
-        children: <Widget>[
-          Text(
-            "Campaign",
-            style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),
-          ),
-          Container(
-              padding: EdgeInsets.all(14.0),
-              child: Text(_campaignModelStream.name,
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.black,
-                      fontStyle: FontStyle.italic))),
-          Text("Time/Date",
-              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-          Container(
-            padding: EdgeInsets.all(14.0),
-            child: Text(
-              _now.toString(),
-              style: TextStyle(
-                  fontSize: 30.0,
-                  color: Colors.black,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          Text("Session Number",
-              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-          Container(
-              // TODO increment the session number dynamically
-              padding: EdgeInsets.all(14.0),
-              child: Text("1",
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      color: Colors.black,
-                      fontStyle: FontStyle.italic))),
-          Text("Map",
-              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-          Container(
-            padding: EdgeInsets.all(14.0),
-            child: Text(_campaignModelStream.mapName,
-                style: TextStyle(
-                    fontSize: 30.0,
-                    color: Colors.black,
-                    fontStyle: FontStyle.italic)),
-          ),
-        ],
-      ),
     );
   }
 
@@ -192,5 +141,67 @@ class _CampaignState extends State<Campaign> {
     } catch (e) {
       print(e.code);
     }
+  }
+}
+
+class CampaignHeader extends StatelessWidget {
+  final String name;
+  final String mapName;
+  final String now;
+  const CampaignHeader(this.name, this.mapName, this.now);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 30.0),
+      padding: EdgeInsets.all(5.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "Campaign",
+            style: TextStyle(fontSize: 16.0, color: Colors.grey[900]),
+          ),
+          Container(
+              padding: EdgeInsets.all(14.0),
+              child: Text(name,
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic))),
+          Text("Time/Date",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+            padding: EdgeInsets.all(14.0),
+            child: Text(
+              now,
+              style: TextStyle(
+                  fontSize: 30.0,
+                  color: Colors.black,
+                  fontStyle: FontStyle.italic),
+            ),
+          ),
+          Text("Session Number",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+              // TODO increment the session number dynamically
+              padding: EdgeInsets.all(14.0),
+              child: Text("1",
+                  style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.black,
+                      fontStyle: FontStyle.italic))),
+          Text("Map",
+              style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
+          Container(
+            padding: EdgeInsets.all(14.0),
+            child: Text(mapName,
+                style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.black,
+                    fontStyle: FontStyle.italic)),
+          ),
+        ],
+      ),
+    );
   }
 }
