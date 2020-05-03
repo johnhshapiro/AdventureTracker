@@ -10,12 +10,17 @@ import 'models/user_model.dart';
 
 class CustomScaffold extends StatefulWidget {
   final bool nabVar;
+  final bool appBarVis;
   final routeList;
   final navBarItems;
-  final body;
+  final Widget body;
 
   CustomScaffold(
-      {this.routeList, this.navBarItems, this.body, this.nabVar = false});
+      {this.routeList,
+      this.navBarItems,
+      this.body,
+      this.nabVar = false,
+      this.appBarVis = true});
 
   @override
   _CustomScaffoldState createState() => _CustomScaffoldState(
@@ -44,37 +49,30 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         key: _scaffoldKey,
-        endDrawer: BuildDrawer(context),
+        endDrawer: (widget.appBarVis == false) ? null : BuildDrawer(context),
         appBar: _buildAppBar(),
 
         // Wont show the navbar if routeList and navBarItems parameters are null
         bottomNavigationBar:
-            (nabVar != false) ? _buildBottomNavigationBar() : null,
+            (nabVar != false) ? buildBottomNavigationBar() : null,
 
         // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-        body: (nabVar == false) ? body : _buildIndexedStack(),
+        body: (nabVar == false)
+            ? body
+            : BuildIndexedStack(navBarItemSelected, routeList),
       ),
     );
   }
 
-  _buildIndexedStack() {
-    return IndexedStack(
-      index: navBarItemSelected,
-      children: routeList,
+  buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType
+          .shifting, //change shifting to fixed to display navbar item text when not selected.
+      selectedItemColor: Colors.amberAccent[400],
+      currentIndex: navBarItemSelected,
+      items: navBarItems,
+      onTap: _onNavBarItemTapped,
     );
-  }
-
-  _buildBottomNavigationBar() {
-    return (routeList == [] || navBarItems == [])
-        ? Text("Error: Empty NavBar parameters.")
-        : BottomNavigationBar(
-            type: BottomNavigationBarType
-                .shifting, //change shifting to fixed to display navbar item text when not selected.
-            selectedItemColor: Colors.amberAccent[400],
-            currentIndex: navBarItemSelected,
-            items: navBarItems,
-            onTap: _onNavBarItemTapped,
-          );
   }
 
   _onNavBarItemTapped(int index) {
@@ -97,6 +95,20 @@ class _CustomScaffoldState extends State<CustomScaffold> {
             ),
           ),
         ]);
+  }
+}
+
+class BuildIndexedStack extends StatelessWidget {
+  final int navBarItemSelected;
+  final List<Widget> routeList;
+  const BuildIndexedStack(this.navBarItemSelected, this.routeList);
+
+  @override
+  Widget build(BuildContext context) {
+    return IndexedStack(
+      index: navBarItemSelected,
+      children: routeList,
+    );
   }
 }
 

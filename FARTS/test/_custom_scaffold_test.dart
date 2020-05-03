@@ -17,7 +17,25 @@ void main() {
       expect(find.byType(Scaffold), findsOneWidget);
     },
   );
+  testWidgets(
+    'test for custom scaffold Drawer',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: CustomScaffold(
+            appBarVis: false,
+            nabVar: true,
+            routeList: <Widget>[],
+            navBarItems: campaignNavBarItems,
+          ),
+        ),
+      );
 
+      await tester.pumpWidget(app);
+      expect(find.byType(BottomNavigationBar), findsOneWidget);
+    },
+  );
   testWidgets(
     'test for custom scaffold Drawer',
     (WidgetTester tester) async {
