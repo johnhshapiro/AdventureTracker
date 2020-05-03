@@ -73,11 +73,16 @@ class CharacterSelect extends StatefulWidget {
 class _CharacterSelectState extends State<CharacterSelect> {
   @override
   Widget build(BuildContext context) {
+    if (widget.userData == null) {
+      return Text("Ur fucked");
+    }
+    else {
     return StreamProvider<List<Character>>.value(
       value: CharacterService(userId: widget.userData.uid).chars,
       child: Scaffold(
         body: CharacterList() ?? [],
       ),
     );
+    }
   }
 }
