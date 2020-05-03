@@ -29,6 +29,8 @@ const campaignNavBarItems = [
 final campaignRouteList = [Campaign(), MapView(), PartyView(), EncounterView()];
 
 class CampaignView extends StatefulWidget {
+  final bool route;
+  CampaignView({this.route = true});
   @override
   _CampaignViewState createState() => _CampaignViewState();
 }
@@ -40,7 +42,7 @@ class _CampaignViewState extends State<CampaignView> {
   Widget build(BuildContext context) {
     return CustomScaffold(
         nabVar: true,
-        routeList: campaignRouteList,
+        routeList: widget.route == true ? campaignRouteList : <Widget>[],
         navBarItems: campaignNavBarItems);
   }
 }
