@@ -11,4 +11,8 @@ main() {
         MaterialApp(home: CampaignHeader('name', 'mapName', 'now'));
     await tester.pumpWidget(app);
   });
+  testWidgets('Page widgets are present', (WidgetTester tester) async {
+    MaterialApp app = MaterialApp(home: Campaign());
+    await tester.pumpWidget(app);
+  });
 }
