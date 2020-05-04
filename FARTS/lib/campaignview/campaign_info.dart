@@ -145,10 +145,10 @@ class _CampaignState extends State<Campaign> {
 }
 
 class CampaignHeader extends StatelessWidget {
-  final String name;
-  final String mapName;
-  final String now;
-  const CampaignHeader(this.name, this.mapName, this.now);
+  final String _name;
+  final String _mapName;
+  final String _now;
+  const CampaignHeader(this._name, this._mapName, this._now);
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +163,7 @@ class CampaignHeader extends StatelessWidget {
           ),
           Container(
               padding: EdgeInsets.all(14.0),
-              child: Text(name,
+              child: Text(_name,
                   style: TextStyle(
                       fontSize: 30.0,
                       color: Colors.black,
@@ -173,7 +173,7 @@ class CampaignHeader extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(14.0),
             child: Text(
-              now,
+              _now,
               style: TextStyle(
                   fontSize: 30.0,
                   color: Colors.black,
@@ -194,7 +194,7 @@ class CampaignHeader extends StatelessWidget {
               style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
           Container(
             padding: EdgeInsets.all(14.0),
-            child: Text(mapName,
+            child: Text(_mapName,
                 style: TextStyle(
                     fontSize: 30.0,
                     color: Colors.black,

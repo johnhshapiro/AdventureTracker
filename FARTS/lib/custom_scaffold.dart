@@ -88,6 +88,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         elevation: 0,
         actions: <Widget>[
           Padding(
+            key: Key('AppPad'),
             padding: const EdgeInsets.all(9.0),
             child: IconButton(
               icon: Icon(Icons.menu, color: Colors.white),
@@ -139,15 +140,19 @@ class _BuildDrawerState extends State<BuildDrawer> {
               decoration: BoxDecoration(color: Colors.amber),
             ),
             ListTile(
+              key: Key('Settings'),
               leading: Icon(Icons.settings),
               title: Text('Settings'),
               onTap: () {
                 // This line code will close drawer programatically....
-                Navigator.pop(context);
+                setState(() {
+                  Navigator.pop(context);
+                });
               },
             ),
             Divider(height: 2.0),
             ListTile(
+              key: Key('Mode'),
               leading: Icon(Icons.mode_edit),
               title: Text('Mode'),
               onTap: () {
@@ -163,6 +168,7 @@ class _BuildDrawerState extends State<BuildDrawer> {
             ),
             Divider(height: 2.0),
             ListTile(
+              key: Key('SignOut'),
               leading: Icon(Icons.outlined_flag),
               title: Text('Sign Out'),
               onTap: () {
@@ -177,6 +183,7 @@ class _BuildDrawerState extends State<BuildDrawer> {
             ),
             Divider(height: 2.0),
             ListTile(
+              key: Key('DiceBag'),
               leading: Icon(Icons.casino),
               title: Text('Dice Bag'),
               onTap: () {
