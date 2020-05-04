@@ -1,4 +1,3 @@
-import 'package:FARTS/homepage.dart';
 import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
@@ -126,18 +125,6 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           splashColor: Colors
                               .amber, //Creates the color splash when u press the button.
-                        ),
-                        MaterialButton(
-                          color: Colors.grey[900],
-                          child: Text("Dev Bypass"),
-                          onPressed: () {
-                            HapticFeedback.heavyImpact();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SelectModePage()),
-                            );
-                          },
                         ),
                       ],
                     ),

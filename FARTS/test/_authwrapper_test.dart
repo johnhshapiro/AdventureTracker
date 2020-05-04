@@ -1,13 +1,12 @@
 import 'package:FARTS/authwrapper.dart';
-import 'package:FARTS/homepage.dart';
 import 'package:FARTS/loginpage.dart';
 import 'package:FARTS/selectmodepage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:FARTS/models/user_model.dart';
 
-class MockFirebaseUser extends Mock implements FirebaseUser {}
+class MockUser extends Mock implements User {}
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
@@ -27,7 +26,7 @@ void main() {
     });
     testWidgets('Application loads homepage when user is not null',
         (WidgetTester tester) async {
-      final mockUser = new MockFirebaseUser();
+      final mockUser = new MockUser();
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(
         MaterialApp(

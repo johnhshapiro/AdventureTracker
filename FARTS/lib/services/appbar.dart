@@ -11,19 +11,19 @@ class BuildAppBar {
   BuildAppBar({this.scaffoldKey, this.context});
 
   buildAppBar() {
-  return AppBar(
-      backgroundColor: Colors.transparent,
-      bottomOpacity: 0,
-      elevation: 0,
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(9.0),
-          child: IconButton(
-            icon: Icon(Icons.menu, color: Colors.white),
-            onPressed: () => scaffoldKey.currentState.openEndDrawer(),
+    return AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        elevation: 0,
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: IconButton(
+              icon: Icon(Icons.menu, color: Colors.white),
+              onPressed: () => scaffoldKey.currentState.openEndDrawer(),
+            ),
           ),
-        ),
-      ]);
+        ]);
   }
 
   buildDrawer() {
@@ -55,9 +55,9 @@ class BuildAppBar {
               leading: Icon(Icons.outlined_flag),
               title: Text('sign out'),
               onTap: () {
-                  AuthenticationService().signOut();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => AuthWrapper()));
+                AuthenticationService().signOut();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AuthWrapper()));
               },
             ),
             Divider(
@@ -77,8 +77,8 @@ class BuildAppBar {
               leading: Icon(Icons.casino),
               title: Text('Dice Bag'),
               onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RollPage()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RollPage()));
               },
             )
           ],

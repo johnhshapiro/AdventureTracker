@@ -1,12 +1,12 @@
-import 'package:FARTS/homepage.dart';
+import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
-import 'package:FARTS/characters/character_sheet.dart';
-import 'package:FARTS/characters/new_character.dart';
 import 'package:FARTS/services/vibrate.dart';
-import 'package:FARTS/characters/character_select.dart';
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
+import 'package:provider/provider.dart';
+import 'package:FARTS/models/user_model.dart';
+import 'characters/character_select.dart';
 
 class SelectModePage extends StatefulWidget {
   SelectModePage({Key key, this.title}) : super(key: key);
@@ -19,6 +19,8 @@ class SelectModePage extends StatefulWidget {
 class _SelectModePageState extends State<SelectModePage> {
   @override
   Widget build(BuildContext context) {
+    UserData userData = Provider.of<UserData>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -33,10 +35,12 @@ class _SelectModePageState extends State<SelectModePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GameMaster()),
+                        builder: (context) => GameMaster(userData: userData,),
+                      ),
                     );
                   },
                   child: Image(
+                    key: Key("gmImage"),
                     image: AssetImage("assets/gamemaster.jpg"),
                     fit: BoxFit.fill,
                     color: Colors.black12, // The number here is the opacity.
@@ -59,7 +63,8 @@ class _SelectModePageState extends State<SelectModePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GameMaster()),
+                                builder: (context) => GameMaster(userData: userData,),
+                              ),
                             );
                           },
                         ),
@@ -81,10 +86,12 @@ class _SelectModePageState extends State<SelectModePage> {
                       context,
                       // TODO point this at the top level character view page (this is the tappable image, dont forget to do this for the button below also.)
                       MaterialPageRoute(
-                          builder: (context) => CreateNewCharacter()),
+                          builder: (context) =>
+                              CharacterSelect(userData: userData)),
                     );
                   },
                   child: Image(
+                      key: Key("advImage"),
                       image: AssetImage("assets/adventurer.jpg"),
                       fit: BoxFit.fill,
                       color: Colors.black12, // The number here is the opacity.
@@ -108,7 +115,8 @@ class _SelectModePageState extends State<SelectModePage> {
                                 context,
                                 // TODO point this at the top level character view page (this is the actual button)
                                 MaterialPageRoute(
-                                    builder: (context) => CreateNewCharacter()),
+                                    builder: (context) =>
+                                        CharacterSelect(userData: userData)),
                               );
                             },
                           ),

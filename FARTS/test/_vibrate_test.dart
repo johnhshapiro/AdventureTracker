@@ -5,9 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/services/vibrate.dart';
 
 void main() {
-  
   group('Vibrate class and fucntions tests', () {
-
     test('Test roll methods', () {
       WidgetsFlutterBinding.ensureInitialized();
       final app = new Vibrate();
@@ -15,10 +13,6 @@ void main() {
       app.smallRoll();
       app.bigRoll();
       app.epicRoll();
-
     });
-
   });
-
 }
-

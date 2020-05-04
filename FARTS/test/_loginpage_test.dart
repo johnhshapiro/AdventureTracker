@@ -16,29 +16,31 @@ void main() {
         ),
       );
       // We use finder to find the elements on the page.
-      Finder email = find.byKey(new Key ('email'));
-      Finder password  = find.byKey(new Key ('password'));
+      Finder email = find.byKey(new Key('email'));
+      Finder password = find.byKey(new Key('password'));
       Finder signIn = find.text('Sign In');
       Finder formWidgetFinder = find.byType(Form);
       Form formWidget = tester.widget(formWidgetFinder) as Form;
       GlobalKey<FormState> formKey = formWidget.key as GlobalKey<FormState>;
       // Invalid email and short password result in invalid form
-      await tester.enterText (email, "invalidEmail");
+      await tester.enterText(email, "invalidEmail");
       await tester.enterText(password, "short");
       await tester.pump();
       await tester.tap(signIn);
       await tester.pumpAndSettle();
       expect(formKey.currentState.validate(), isFalse);
       expect(find.text('Invalid email address'), findsOneWidget);
-      expect(find.text('Password is blank or less than 6 characters'), findsOneWidget);
+      expect(find.text('Password is blank or less than 6 characters'),
+          findsOneWidget);
       // Test that valid email and password works
-      await tester.enterText (email, "vailid@valid.com");
+      await tester.enterText(email, "vailid@valid.com");
       await tester.enterText(password, "valid1");
       await tester.tap(signIn);
       await tester.pumpAndSettle();
       expect(formKey.currentState.validate(), isTrue);
       expect(find.text('Invalid email address'), findsNothing);
-      expect(find.text('Password is blank or less than 6 characters'), findsNothing);
+      expect(find.text('Password is blank or less than 6 characters'),
+          findsNothing);
     });
     testWidgets(
         'New user button is present and triggers navigation after tapped',

@@ -1,14 +1,11 @@
 // import 'package:FARTS/viewcampaignpage.dart';
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/services/authentication.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:FARTS/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
-import './loginpage.dart';
-// import './homepage.dart';
 
 void main() {
   runApp(BoardsEdge());
@@ -26,7 +23,7 @@ class BoardsEdge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // 'build' is the equivalent of a constructor for a class (note its also a widget like everything)
-    return StreamProvider<FirebaseUser>.value(
+    return StreamProvider<User>.value(
       value: AuthenticationService().user,
       child: MaterialApp(
           home:

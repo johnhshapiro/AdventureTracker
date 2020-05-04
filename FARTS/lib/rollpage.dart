@@ -1,3 +1,4 @@
+import 'package:FARTS/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,10 +15,22 @@ class _RollPageState extends State<RollPage> {
   int _totalRollValue = 0;
   int _listItemCount = 1;
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return CustomScaffold(body: _diceBagBody(context));
+  // }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        elevation: 0,
+      ),
+      // Wrapping the FAB in gesture detector allows it to listen to long taps as well as taps.
       floatingActionButton: GestureDetector(
+        key: Key('Vibrate'),
         onLongPress: () {
           setState(() {
             if (_listItemCount > 0) {
@@ -27,6 +40,7 @@ class _RollPageState extends State<RollPage> {
           });
         },
         child: FloatingActionButton(
+          key: Key('ListCount'),
           onPressed: () {
             setState(() {
               _listItemCount++;
@@ -103,6 +117,7 @@ class _DiceBagState extends State<DiceBag> {
           Container(
             margin: EdgeInsets.all(8),
             child: IconButton(
+                key: Key('RollDiceIcon'),
                 icon: Icon(
                   Icons.casino,
                   size: 40.0,
@@ -120,6 +135,7 @@ class _DiceBagState extends State<DiceBag> {
             ),
           ),
           Container(
+            key: Key('d4'),
             color: Colors.blue,
             margin: EdgeInsets.all(8),
             child: Stack(
@@ -176,6 +192,7 @@ class _DiceBagState extends State<DiceBag> {
             child: Stack(
               children: <Widget>[
                 MaterialButton(
+                  key: Key('d6'),
                   splashColor: Colors.green,
                   child: Text(
                     "d6",
@@ -227,6 +244,7 @@ class _DiceBagState extends State<DiceBag> {
             child: Stack(
               children: <Widget>[
                 MaterialButton(
+                  key: Key('d10'),
                   splashColor: Colors.yellow,
                   child: Text(
                     "d10",
@@ -280,6 +298,7 @@ class _DiceBagState extends State<DiceBag> {
             color: Colors.orange,
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d12'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.orange,
@@ -331,6 +350,7 @@ class _DiceBagState extends State<DiceBag> {
             color: Colors.purple,
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d20'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.purple,
@@ -382,6 +402,7 @@ class _DiceBagState extends State<DiceBag> {
             color: Colors.red[800],
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d100'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.purple,

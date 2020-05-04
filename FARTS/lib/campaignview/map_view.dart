@@ -1,9 +1,7 @@
-import 'package:FARTS/campaignview/campaign_view.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:FARTS/models/campaign_model.dart';
+import 'package:FARTS/services/stream.dart';
 import 'package:flutter/material.dart';
-
-// Relevant Pages
-import 'package:FARTS/homepage.dart';
+import 'package:provider/provider.dart';
 
 class MapView extends StatefulWidget {
   @override
@@ -11,67 +9,40 @@ class MapView extends StatefulWidget {
 }
 
 class _MapViewState extends State<MapView> {
+  var _campaignModelStream;
 
-  // GestureDetector(
-  //   onTap: () {
-  //     Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => MapView()));
-  //   },
-  //   child: Container(
-  //     padding: EdgeInsets.all(5.0),
-  //     child: FittedBox(
-  //       fit: BoxFit.fitHeight,
-  //       //child: Image.network(snapshot.data.documents[0]['maps'].toString()),
-  //       child: Image.network(
-  //           "https://firebasestorage.googleapis.com/v0/b/flutter-adventure-rts.appspot.com/o/map.png?alt=media&token=a1549bd9-38d9-4690-b860-5369152e7519"
-  //               .toString()),
-  //     ),
-  //   ),
-  // ),
-  
   @override
   build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder(
-        stream: Firestore.instance.collection('campaigns').snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    _campaignModelStream = Provider.of<CampaignModel>(context);
+    return showCorrectWidget(_campaignModelStream, mapViewWidget(_campaignModelStream));
 
-          if (snapshot.hasError) throw Exception ('Unable to get map from FireStore DB: ${snapshot.error}');
-
-          if (!snapshot.hasData) return CircularProgressIndicator();
-
-          return _mapViewBody(context, snapshot);
-        }
-      ),
-    );
   }
-
-    _mapViewBody(context, AsyncSnapshot snapshot) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Stack(
-            children: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => CampaignView()));
-                },
-                child: Image.asset('assets/samplemap.jpg')
-              ),
-
-              Positioned(
-                bottom: 5,
-                left: 5,
-                child: Text(snapshot.data.documents[0]['mapName'],
-                        style: TextStyle(fontSize: 30.0, 
-                        color: Colors.black, 
-                        fontStyle: FontStyle.italic))
-              ),
-            ],
-          ),
-        ],
-      );
+}
+Widget mapViewWidget(CampaignModel campaign) {
+  var mapName = "Loading Map Data";
+  try {
+    mapName = campaign.mapName;
+  } catch (e) {
+    print("Loading map data");
   }
-
+  return Scaffold(
+    body: Stack(
+      fit: StackFit.expand,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/samplemap2.jpg'),
+          fit: BoxFit.fill,
+        ),
+        // TODO create a field in the DB for a map and pull it down via the _campaignModelStream (need to have a map field in campaign model, could be a URL string maybe)
+        Positioned(
+            bottom: 5.0,
+            left: 5.0,
+            child: Text(mapName,
+                style: TextStyle(
+                    fontSize: 30.0,
+                    color: Colors.black,
+                    fontStyle: FontStyle.italic))),
+      ],
+    ),
+  );
 }

@@ -1,63 +1,96 @@
-
-import 'package:FARTS/campaignview/campaign_view.dart';
-import 'package:FARTS/homepage.dart';
+import 'package:FARTS/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
+// Relevant pages.
+import 'package:FARTS/custom_scaffold.dart';
+import 'package:FARTS/campaignview/campaign_view.dart';
+import 'package:FARTS/models/campaign_model.dart';
+import 'package:FARTS/services/stream.dart';
 
 class GameMaster extends StatefulWidget {
-
+  GameMaster({@required this.userData});
+  final UserData userData;
   @override
   _GameMasterState createState() => _GameMasterState();
 }
 
 class _GameMasterState extends State<GameMaster> {
-
-  @override 
+  @override
   Widget build(BuildContext context) {
-    //binding collection to ListView. source: https://pub.dev/packages/cloud_firestore
-    
-    return Scaffold(
-      appBar: AppBar(title: Text('Campaigns')), // I dont think we need this AppBar
-      backgroundColor: Colors.grey[800],
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(10.0),
-          child: StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('campaigns').snapshots(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-            
-            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
-            
-            if (!snapshot.hasData) return CircularProgressIndicator();
-            
-            //returns listview of campaign collection items from Firestore
-            return new ListView(
-              children: snapshot.data.documents.map((DocumentSnapshot document){
-                return new Card(
-                  color: Colors.grey[500],
-                  child: ListTile(
-                  title: new Text(document['name'], style: TextStyle(fontSize: 16.0, color: Colors.black)),
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => CampaignView()));
-                  },
-                )
-                );
-              }
-              ).toList(),
-              
-            );
-            }),)
-      ),
-      
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {}, 
-        label: Text('Create New'),
-        backgroundColor: Colors.grey[500],
-        ),
+    return CustomScaffold(
+      body: _buildAddLoadCampaignBody(context),
     );
   }
+
+  Widget _buildAddLoadCampaignBody(BuildContext context) {
+    if (widget.userData == null) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return showCorrectWidget(widget.userData, addLoadCampaignWidget(widget.userData.uid));
+  }
+}
+
+Widget addLoadCampaignWidget(String uid) {
+  return Scaffold(
+    body: StreamBuilder<QuerySnapshot>(
+        stream: Firestore.instance
+            .collection('campaigns')
+            .where('userId', isEqualTo: uid)
+            .snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError)
+            return new Text('Campaign snapshot error ${snapshot.error}');
+
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
+
+          return addLoadCampaignStack(context, snapshot.data);
+        }),
+    floatingActionButton: FloatingActionButton.extended(
+      onPressed: () {},
+      label: Text('Create New'),
+      backgroundColor: Colors.grey[500],
+    ),
+  );
+}
+
+Widget addLoadCampaignStack(BuildContext context, QuerySnapshot snapshotData) {
+            return Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image(
+                image: AssetImage('assets/realoldpaper.jpg'),
+                fit: BoxFit.cover,
+              ),
+              ListView(
+                children:
+                    snapshotData.documents.map((DocumentSnapshot document) {
+                  return Card(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        title: new Text(document['name'],
+                            style:
+                                TextStyle(fontSize: 16.0, color: Colors.black)),
+                        onTap: () {
+                          print("Selected campaign: ${document.documentID}\n");
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  StreamProvider<CampaignModel>.value(
+                                value: CampaignModelStream()
+                                    .streamCampaignData(document),
+                                child: CampaignView(),
+                              ),
+                            ),
+                          );
+                        },
+                      ));
+                }).toList(),
+              ),
+            ],
+          );
 }
