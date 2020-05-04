@@ -17,114 +17,175 @@ void main() {
       expect(find.byType(RollPage), findsOneWidget);
     });
   });
+  group('Dice onTap', () {
+    testWidgets(
+      'test for ontap Vibrate',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
 
-  testWidgets(
-    'test for Drawer Settings',
-    (WidgetTester tester) async {
-      StreamProvider<User> app = StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: MaterialApp(
-          home: RollPage(),
-        ),
-      );
+        await tester.pumpWidget(app);
 
-      await tester.pumpWidget(app);
+        Finder signOutButton = find.byKey(Key('Vibrate'));
 
-      Finder signOutButton = find.byKey(Key('d6'));
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.longPress(signOutButton);
+        await tester.longPress(signOutButton);
 
-      await tester.pumpAndSettle(Duration(seconds: 4));
-    },
-  );
-  testWidgets(
-    'test for Drawer Settings',
-    (WidgetTester tester) async {
-      StreamProvider<User> app = StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: MaterialApp(
-          home: RollPage(),
-        ),
-      );
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
 
-      await tester.pumpWidget(app);
+    testWidgets(
+      'test for ontap ListCount',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
 
-      Finder signOutButton = find.byKey(Key('d10'));
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
+        await tester.pumpWidget(app);
 
-      await tester.longPress(signOutButton);
+        Finder signOutButton = find.byKey(Key('ListCount'));
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
-    },
-  );
+        await tester.tap(signOutButton);
 
-  testWidgets(
-    'test for Drawer Settings',
-    (WidgetTester tester) async {
-      StreamProvider<User> app = StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: MaterialApp(
-          home: RollPage(),
-        ),
-      );
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
 
-      await tester.pumpWidget(app);
+    testWidgets(
+      'test for ontap RollDiceIcon',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
 
-      Finder signOutButton = find.byKey(Key('d4'));
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.longPress(signOutButton);
+        await tester.pumpWidget(app);
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
-    },
-  );
+        Finder signOutButton = find.byKey(Key('RollDiceIcon'));
 
-  testWidgets(
-    'test for Drawer Settings',
-    (WidgetTester tester) async {
-      StreamProvider<User> app = StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: MaterialApp(
-          home: RollPage(),
-        ),
-      );
+        await tester.tap(signOutButton);
 
-      await tester.pumpWidget(app);
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
 
-      Finder signOutButton = find.byKey(Key('d12'));
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.longPress(signOutButton);
+    testWidgets(
+      'test for ontap d6',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
-    },
-  );
+        await tester.pumpWidget(app);
 
-  testWidgets(
-    'test for Drawer Settings',
-    (WidgetTester tester) async {
-      StreamProvider<User> app = StreamProvider<User>.value(
-        value: AuthenticationService().user,
-        child: MaterialApp(
-          home: RollPage(),
-        ),
-      );
+        Finder signOutButton = find.byKey(Key('d6'));
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.longPress(signOutButton);
 
-      await tester.pumpWidget(app);
+        await tester.pumpAndSettle(Duration(seconds: 4));
+      },
+    );
+    testWidgets(
+      'test for ontap d10',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
 
-      Finder signOutButton = find.byKey(Key('d20'));
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.tap(signOutButton);
-      await tester.longPress(signOutButton);
+        await tester.pumpWidget(app);
 
-      await tester.pumpAndSettle(Duration(seconds: 2));
-    },
-  );
+        Finder signOutButton = find.byKey(Key('d10'));
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+
+        await tester.longPress(signOutButton);
+
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
+
+    testWidgets(
+      'test for ontap d4',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
+
+        await tester.pumpWidget(app);
+
+        Finder signOutButton = find.byKey(Key('d4'));
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.longPress(signOutButton);
+
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
+
+    testWidgets(
+      'test for ontap d12',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
+
+        await tester.pumpWidget(app);
+
+        Finder signOutButton = find.byKey(Key('d12'));
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.longPress(signOutButton);
+
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
+
+    testWidgets(
+      'test for ontap d20',
+      (WidgetTester tester) async {
+        StreamProvider<User> app = StreamProvider<User>.value(
+          value: AuthenticationService().user,
+          child: MaterialApp(
+            home: RollPage(),
+          ),
+        );
+
+        await tester.pumpWidget(app);
+
+        Finder signOutButton = find.byKey(Key('d20'));
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.tap(signOutButton);
+        await tester.longPress(signOutButton);
+
+        await tester.pumpAndSettle(Duration(seconds: 2));
+      },
+    );
+  });
 }
