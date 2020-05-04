@@ -114,6 +114,10 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
 
     int _statIndex;
     String _lookup, _statName, _skillName;
+    int charStats = 0;
+    if (char != null) {
+      charStats = char.stats[_lookup];
+    }
 
     // Add page title row
     _gridChildContent.add(
@@ -132,7 +136,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
         _statName = statFields[_statIndex][0];
 
         _gridChildContent.add(
-          abilityScoreCell(_statName, char.stats[_lookup]),
+          abilityScoreCell(_statName, charStats),
         );
         _gridTileShapes.add(
           StaggeredTile.count(3, 5), // Strength ability score
@@ -152,7 +156,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
           _lookup = skillsAndSavingThrows[skillLineCount][1];
           _skillName = skillsAndSavingThrows[skillLineCount][0];
           _gridChildContent.add(
-            skillCell(calculateModifier(char.stats[_lookup]), _skillName),
+            skillCell(calculateModifier(charStats), _skillName),
           );
         } else {
           _gridChildContent.add(

@@ -29,7 +29,8 @@ class _GameMasterState extends State<GameMaster> {
     if (widget.userData == null) {
       return Center(child: CircularProgressIndicator());
     }
-    return showCorrectWidget(widget.userData, addLoadCampaignWidget(widget.userData.uid));
+    return showCorrectWidget(
+        widget.userData, addLoadCampaignWidget(widget.userData.uid));
   }
 }
 
@@ -50,7 +51,7 @@ Widget addLoadCampaignWidget(String uid) {
           return addLoadCampaignStack(context, snapshot.data);
         }),
     floatingActionButton: FloatingActionButton.extended(
-      onPressed: () {},
+      onPressed: null, //TODO: nivigate to create new
       label: Text('Create New'),
       backgroundColor: Colors.grey[500],
     ),
@@ -58,39 +59,36 @@ Widget addLoadCampaignWidget(String uid) {
 }
 
 Widget addLoadCampaignStack(BuildContext context, QuerySnapshot snapshotData) {
-            return Stack(
-            fit: StackFit.expand,
-            children: <Widget>[
-              Image(
-                image: AssetImage('assets/realoldpaper.jpg'),
-                fit: BoxFit.cover,
-              ),
-              ListView(
-                children:
-                    snapshotData.documents.map((DocumentSnapshot document) {
-                  return Card(
-                      color: Colors.transparent,
-                      child: ListTile(
-                        title: new Text(document['name'],
-                            style:
-                                TextStyle(fontSize: 16.0, color: Colors.black)),
-                        onTap: () {
-                          print("Selected campaign: ${document.documentID}\n");
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  StreamProvider<CampaignModel>.value(
-                                value: CampaignModelStream()
-                                    .streamCampaignData(document),
-                                child: CampaignView(),
-                              ),
-                            ),
-                          );
-                        },
-                      ));
-                }).toList(),
-              ),
-            ],
-          );
+  return Stack(
+    fit: StackFit.expand,
+    children: <Widget>[
+      Image(
+        image: AssetImage('assets/realoldpaper.jpg'),
+        fit: BoxFit.cover,
+      ),
+      ListView(
+        children: snapshotData.documents.map((DocumentSnapshot document) {
+          return Card(
+              color: Colors.transparent,
+              child: ListTile(
+                title: new Text(document['name'],
+                    style: TextStyle(fontSize: 16.0, color: Colors.black)),
+                onTap: () {
+                  print("Selected campaign: ${document.documentID}\n");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StreamProvider<CampaignModel>.value(
+                        value:
+                            CampaignModelStream().streamCampaignData(document),
+                        child: CampaignView(),
+                      ),
+                    ),
+                  );
+                },
+              ));
+        }).toList(),
+      ),
+    ],
+  );
 }
