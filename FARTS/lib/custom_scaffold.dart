@@ -125,7 +125,11 @@ class _BuildDrawerState extends State<BuildDrawer> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
-
+    var uid;
+    try {
+      uid = user.uid;
+    } catch (e) {
+    }
     return Drawer(
         elevation: 20.0,
         child: ListView(
@@ -161,7 +165,7 @@ class _BuildDrawerState extends State<BuildDrawer> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => StreamProvider<UserData>.value(
-                              value: DatabaseService(uid: user.uid).userData,
+                              value: DatabaseService(uid: uid).userData,
                               child: SelectModePage())));
                 });
               },

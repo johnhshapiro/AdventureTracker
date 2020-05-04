@@ -6,6 +6,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:provider/provider.dart';
+
+import '_authwrapper_test.dart';
+import 'package:FARTS/services/mock_stream.dart' as UserStream;
 // class MockNavigatorObserver extends Mock implements RouteSettings {}
 
 void main() {
@@ -78,31 +81,25 @@ void main() {
     },
   );
 
-  // final instance = MockFirestoreInstance();
+  testWidgets(
+    'test for drawer Mode',
+    (WidgetTester tester) async {
+      MaterialApp app = MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return StreamProvider<User>.value(
+            value: UserStream.MockUser().getMockUser(),
+            child: BuildDrawer(context));
+        }),
+      );
 
-  // testWidgets(
-  //   'test for drawer Mode',
-  //   (WidgetTester tester) async {
-  //     await instance
-  //         .collection('campaigns')
-  //         .document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1')
-  //         .setData({'name': 'Shrek it up'});
-  //     final snapshotData =
-  //         await instance.collection('campaigns').getDocuments();
-  //     MaterialApp app = MaterialApp(
-  //       home: Builder(builder: (BuildContext context) {
-  //         return BuildDrawer(context);
-  //       }),
-  //     );
+      await tester.pumpWidget(app);
+      expect(find.byType(Drawer), findsOneWidget);
 
-  //     await tester.pumpWidget(app);
-  //     expect(find.byType(Drawer), findsOneWidget);
-
-  //     Finder signOutButton = find.byKey(Key('Mode'));
-  //     await tester.tap(signOutButton);
-  //     await tester.pumpAndSettle(Duration(seconds: 2));
-  //   },
-  // );
+      Finder signOutButton = find.byKey(Key('Mode'));
+      await tester.tap(signOutButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
 
   testWidgets(
     'test for Drawer Settings',

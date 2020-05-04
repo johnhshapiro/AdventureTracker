@@ -61,7 +61,8 @@ main() {
 
       expect(find.text('Adventurer'), findsOneWidget);
       await tester.tap(find.text('Adventurer'));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump();
       verify(mockObserver.didPush(any, any));
       expect(find.byType(CharacterSelect), findsOneWidget);
     });
@@ -77,7 +78,8 @@ main() {
 
       expect(find.byKey(Key("advImage")), findsOneWidget);
       await tester.tap(find.byKey(Key("advImage")));
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump();
       verify(mockObserver.didPush(any, any));
       expect(find.byType(CharacterSelect), findsOneWidget);
     });

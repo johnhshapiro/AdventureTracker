@@ -79,7 +79,7 @@ class _CharacterSelectState extends State<CharacterSelect> {
   @override
   Widget build(BuildContext context) {
     if (widget.userData == null) {
-      return Text("Ur fucked");
+      return Center(child: CircularProgressIndicator());
     }
     else {
     return StreamProvider<List<Character>>.value(

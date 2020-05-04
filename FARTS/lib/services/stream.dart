@@ -15,6 +15,8 @@ class CampaignModelStream {
         .map((doc) => CampaignModel.fromMap(doc));
   }
 }
+
+// Ensure streams have data in them before use
 Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
   if (stream == null) {
     return Center(child: CircularProgressIndicator(),);

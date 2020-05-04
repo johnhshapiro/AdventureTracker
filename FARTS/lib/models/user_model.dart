@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class User {
   final String uid;
 
   User({this.uid});
+
+  factory User.fromMap(DocumentSnapshot document) {
+    return User(
+      uid: document.documentID);
+  }
 }
 
 class UserData {
