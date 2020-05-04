@@ -1,17 +1,10 @@
 import 'package:FARTS/characters/character_model.dart';
+import 'package:FARTS/characters/character_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:FARTS/characters/character_sheet.dart';
 
 void main() {
-  testWidgets('CharacterSheetPage instant test', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: CharacterSheetPage(character: null),
-    ));
-    expect(find.byType(Scaffold), findsOneWidget);
-  });
-
-  testWidgets('CharacterSheetPage instant test', (WidgetTester tester) async {
+  testWidgets('character view test', (WidgetTester tester) async {
     Character char = Character(
       alignment: 'test',
       attacksAndSpells: 'df',
@@ -29,8 +22,9 @@ void main() {
       userId: 'user',
     );
     await tester.pumpWidget(MaterialApp(
-      home: CharacterSheetPage(character: char),
+      home: CharacterView(
+        character: char,
+      ),
     ));
-    expect(find.byType(Scaffold), findsOneWidget);
   });
 }
