@@ -188,6 +188,7 @@ class _DiceBagState extends State<DiceBag> {
             child: Stack(
               children: <Widget>[
                 MaterialButton(
+                  key: Key('d6'),
                   splashColor: Colors.green,
                   child: Text(
                     "d6",
@@ -239,6 +240,7 @@ class _DiceBagState extends State<DiceBag> {
             child: Stack(
               children: <Widget>[
                 MaterialButton(
+                  key: Key('d10'),
                   splashColor: Colors.yellow,
                   child: Text(
                     "d10",
