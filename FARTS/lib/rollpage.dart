@@ -30,6 +30,7 @@ class _RollPageState extends State<RollPage> {
       ),
       // Wrapping the FAB in gesture detector allows it to listen to long taps as well as taps.
       floatingActionButton: GestureDetector(
+        key: Key('Vibrate'),
         onLongPress: () {
           setState(() {
             if (_listItemCount > 0) {
@@ -39,6 +40,7 @@ class _RollPageState extends State<RollPage> {
           });
         },
         child: FloatingActionButton(
+          key: Key('ListCount'),
           onPressed: () {
             setState(() {
               _listItemCount++;
@@ -115,6 +117,7 @@ class _DiceBagState extends State<DiceBag> {
           Container(
             margin: EdgeInsets.all(8),
             child: IconButton(
+                key: Key('RollDiceIcon'),
                 icon: Icon(
                   Icons.casino,
                   size: 40.0,
@@ -396,10 +399,10 @@ class _DiceBagState extends State<DiceBag> {
             ),
           ),
           Container(
-            key: Key('d100'),
             color: Colors.red[800],
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d100'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.purple,
