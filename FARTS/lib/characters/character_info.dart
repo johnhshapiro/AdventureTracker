@@ -20,7 +20,7 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
     print(char);
     String race = "Race placeholder";
     String classes = "Classes placeholder";
-    String charName = "j";
+    String charName = "test";
     String charAlignment = "test";
     String charExperiencePoints = "test";
     String charNotes = "test";
