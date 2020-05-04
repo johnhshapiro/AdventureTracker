@@ -88,6 +88,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
         elevation: 0,
         actions: <Widget>[
           Padding(
+            key: Key('AppPad'),
             padding: const EdgeInsets.all(9.0),
             child: IconButton(
               icon: Icon(Icons.menu, color: Colors.white),
