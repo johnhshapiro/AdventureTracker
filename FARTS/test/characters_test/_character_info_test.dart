@@ -1,9 +1,8 @@
-import 'package:FARTS/characters/character_info.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
 
 // Relevant pages
-import 'package:FARTS/campaignview/campaign_info.dart';
+import 'package:FARTS/characters/character_info.dart';
 
 void main() {
   testWidgets(
