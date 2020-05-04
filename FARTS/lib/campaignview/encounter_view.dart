@@ -47,7 +47,7 @@ Widget encounterViewWidget(CampaignModel campaign) {
                   title: Text(encounters[index],
                       style: TextStyle(color: Colors.black)),
                   onTap:
-                      () {}, // TODO inflate or navigate to the corresponding encounter data.
+                      null, // TODO inflate or navigate to the corresponding encounter data.
                 ),
               );
             }),

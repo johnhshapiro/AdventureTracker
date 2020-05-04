@@ -17,9 +17,20 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
   @override
   Widget build(BuildContext context) {
     Character char = widget.character;
+    print(char);
     String race = "Race placeholder";
     String classes = "Classes placeholder";
+    String charName = "j";
+    String charAlignment = "test";
+    String charExperiencePoints = "test";
+    String charNotes = "test";
 
+    if (char != null) {
+      charName = char.name;
+      charAlignment = char.alignment;
+      charExperiencePoints = char.experiencePoints.toString();
+      charNotes = char.notes ?? "";
+    }
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.only(top: 12.0),
@@ -33,16 +44,15 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                 /* How this works:
             The child at index 'n' provides the content for StaggeredTile at index 'n'.
             */
-                Text(char.name, style: TextStyle(fontSize: 30.0)),
+                Text(charName, style: TextStyle(fontSize: 30.0)),
                 Text(classes, style: TextStyle(fontSize: 10.0)),
                 Text(
                   "Class(es) and level(s)",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
                 Text(race.toString(), style: TextStyle(fontSize: 10.0)),
-                Text(char.alignment, style: TextStyle(fontSize: 10.0)),
-                Text(char.experiencePoints.toString(),
-                    style: TextStyle(fontSize: 10.0)),
+                Text(charAlignment, style: TextStyle(fontSize: 10.0)),
+                Text(charExperiencePoints, style: TextStyle(fontSize: 10.0)),
                 Text(
                   "Name",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
@@ -67,7 +77,7 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   "Notes",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
-                Text(char.notes ?? "", style: TextStyle(fontSize: 30.0))
+                Text(charNotes, style: TextStyle(fontSize: 30.0))
               ],
               staggeredTiles: <StaggeredTile>[
                 /* How it works:
