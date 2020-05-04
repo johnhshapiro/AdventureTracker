@@ -22,6 +22,17 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
     Character char = widget.character;
     String race = "Race placeholder";
     String classes = "Classes placeholder";
+    String charName = "test";
+    String charAlignment = "test";
+    String charExperiencePoints = "test";
+    String charNotes = "test";
+
+    if (char != null) {
+      charName = char.name;
+      charAlignment = char.alignment;
+      charExperiencePoints = char.experiencePoints.toString();
+      charNotes = char.notes ?? "";
+    }
 
     return Scaffold(
         body: Padding(
@@ -36,16 +47,15 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                 /* How this works:
             The child at index 'n' provides the content for StaggeredTile at index 'n'.
             */
-                Text(char.name, style: TextStyle(fontSize: 30.0)),
+                Text(charName, style: TextStyle(fontSize: 30.0)),
                 Text(classes, style: TextStyle(fontSize: 10.0)),
                 Text(
                   "Class(es) and level(s)",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
                 Text(race.toString(), style: TextStyle(fontSize: 10.0)),
-                Text(char.alignment, style: TextStyle(fontSize: 10.0)),
-                Text(char.experiencePoints.toString(),
-                    style: TextStyle(fontSize: 10.0)),
+                Text(charAlignment, style: TextStyle(fontSize: 10.0)),
+                Text(charExperiencePoints, style: TextStyle(fontSize: 10.0)),
                 Text(
                   "Name",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
@@ -63,6 +73,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
                 MaterialButton(
+                    key: Key('Ability Scores'),
                     child: Text('Ability Scores and Skills'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
@@ -76,6 +87,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                           ));
                     }),
                 MaterialButton(
+                    key: Key('Combat'),
                     child: Text('Combat'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
@@ -89,6 +101,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                           ));
                     }),
                 MaterialButton(
+                    key: Key('Inventory'),
                     child: Text('Inventory'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
@@ -106,7 +119,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                   "Notes",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
-                Text(char.notes ?? "", style: TextStyle(fontSize: 30.0))
+                Text(charNotes, style: TextStyle(fontSize: 30.0))
               ],
               staggeredTiles: <StaggeredTile>[
                 /* How it works:

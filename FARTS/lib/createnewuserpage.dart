@@ -45,6 +45,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     TextFormField(
+                      key: Key('userName'),
                       // Username
                       validator: (value) {
                         if (value.isEmpty || value.length < 4) {
@@ -99,6 +100,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                     ),
                     Builder(
                       builder: (context) => MaterialButton(
+                        key: Key('Checking Inputs'),
                         color: Colors.grey[900],
                         child: Text("Create"),
                         // TODO: Validation checks if username is taken, maybe email as well

@@ -1,12 +1,22 @@
 import 'package:FARTS/models/user_model.dart';
 import 'package:FARTS/services/authentication.dart';
-import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/campaignview/campaign_view.dart';
 import 'package:provider/provider.dart';
+
 // class MockNavigatorObserver extends Mock implements RouteSettings {}
+
+final Firestore db = Firestore.instance;
+Stream<User> get fakeUser {
+    return db
+      .collection('users')
+      .document('FTEWHzJeXEOUyrtzGlZ3ciBVrrF2')
+      .snapshots()
+      .map((doc) => User.fromMap(doc));
+}
 
 void main() {
   testWidgets(
@@ -78,31 +88,25 @@ void main() {
     },
   );
 
-  // final instance = MockFirestoreInstance();
+  testWidgets(
+    'test for drawer Mode',
+    (WidgetTester tester) async {
+      MaterialApp app = MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return StreamProvider<User>.value(
+            value: fakeUser,
+            child: BuildDrawer(context));
+        }),
+      );
 
-  // testWidgets(
-  //   'test for drawer Mode',
-  //   (WidgetTester tester) async {
-  //     await instance
-  //         .collection('campaigns')
-  //         .document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1')
-  //         .setData({'name': 'Shrek it up'});
-  //     final snapshotData =
-  //         await instance.collection('campaigns').getDocuments();
-  //     MaterialApp app = MaterialApp(
-  //       home: Builder(builder: (BuildContext context) {
-  //         return BuildDrawer(context);
-  //       }),
-  //     );
+      await tester.pumpWidget(app);
+      expect(find.byType(Drawer), findsOneWidget);
 
-  //     await tester.pumpWidget(app);
-  //     expect(find.byType(Drawer), findsOneWidget);
-
-  //     Finder signOutButton = find.byKey(Key('Mode'));
-  //     await tester.tap(signOutButton);
-  //     await tester.pumpAndSettle(Duration(seconds: 2));
-  //   },
-  // );
+      Finder signOutButton = find.byKey(Key('Mode'));
+      await tester.tap(signOutButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
 
   testWidgets(
     'test for Drawer Settings',

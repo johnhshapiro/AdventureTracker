@@ -21,41 +21,35 @@ class _CharacterListState extends State<CharacterList> {
 
     return Scaffold(
       body: Container(
-        child: Stack(
-          fit: StackFit.expand, 
-          children: <Widget>[
-            Image(
-                  image: AssetImage('assets/realoldpaper.jpg'),
-                  fit: BoxFit.cover,
-            ),
-            ListView.separated(
-              padding: const EdgeInsets.all(50),
-              itemCount: chars.length,
-              itemBuilder: (BuildContext contex, int index) {
-                return Card(
-                  color: Colors.transparent,
-                  child: ListTile(
+          child: Stack(fit: StackFit.expand, children: <Widget>[
+        Image(
+          image: AssetImage('assets/realoldpaper.jpg'),
+          fit: BoxFit.cover,
+        ),
+        ListView.separated(
+            padding: const EdgeInsets.all(50),
+            itemCount: chars.length,
+            itemBuilder: (BuildContext contex, int index) {
+              return Card(
+                color: Colors.transparent,
+                child: ListTile(
                     title: Text('${chars[index].name}',
-                      style: TextStyle(
-                      fontSize: 16.0, color: Colors.black)),
+                        style: TextStyle(fontSize: 16.0, color: Colors.black)),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CharacterView(character: chars[index]),
-                                // CharacterSheetPage(character: chars[index])
+                          builder: (context) =>
+                              CharacterView(character: chars[index]),
+                          // CharacterSheetPage(character: chars[index])
                         ),
                       );
-                    }
-                  ),
-                );
-              },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider()
-            )
-          ]
-        )
-      ),
+                    }),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) =>
+                const Divider())
+      ])),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: Text('Create New'),
@@ -66,28 +60,27 @@ class _CharacterListState extends State<CharacterList> {
 }
 
 class CharacterSelect extends StatefulWidget {
-    CharacterSelect({Key key, this.title, @required this.userData})
-        : super(key: key);
-    final String title;
-    final UserData userData;
+  CharacterSelect({Key key, this.title, @required this.userData})
+      : super(key: key);
+  final String title;
+  final UserData userData;
 
-    @override
-    _CharacterSelectState createState() => _CharacterSelectState();
+  @override
+  _CharacterSelectState createState() => _CharacterSelectState();
 }
 
 class _CharacterSelectState extends State<CharacterSelect> {
   @override
   Widget build(BuildContext context) {
     if (widget.userData == null) {
-      return Text("Ur fucked");
-    }
-    else {
-    return StreamProvider<List<Character>>.value(
-      value: CharacterService(userId: widget.userData.uid).chars,
-      child: Scaffold(
-        body: CharacterList() ?? [],
-      ),
-    );
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return StreamProvider<List<Character>>.value(
+        value: CharacterService(userId: widget.userData.uid).chars,
+        child: Scaffold(
+          body: CharacterList() ?? [],
+        ),
+      );
     }
   }
 }

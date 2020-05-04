@@ -46,10 +46,10 @@ Widget partyViewWidget(CampaignModel campaign) {
                 leading: Icon(Icons.person),
                 trailing: Text("Lvl Class Name",
                     style: TextStyle(fontSize: 12.0, color: Colors.black)),
-                title: Text(party[index],
-                    style: TextStyle(color: Colors.black)),
+                title:
+                    Text(party[index], style: TextStyle(color: Colors.black)),
                 onTap:
-                    () {}, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
+                    null, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
               ),
             );
           }),
