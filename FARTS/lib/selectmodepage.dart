@@ -1,3 +1,4 @@
+import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
 
 // Relevant pages.
@@ -33,10 +34,13 @@ class _SelectModePageState extends State<SelectModePage> {
                     Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GameMaster()),
+                      MaterialPageRoute(
+                        builder: (context) => GameMaster(userData: userData,),
+                      ),
                     );
                   },
                   child: Image(
+                    key: Key("gmImage"),
                     image: AssetImage("assets/gamemaster.jpg"),
                     fit: BoxFit.fill,
                     color: Colors.black12, // The number here is the opacity.
@@ -59,7 +63,8 @@ class _SelectModePageState extends State<SelectModePage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => GameMaster()),
+                                builder: (context) => GameMaster(userData: userData,),
+                              ),
                             );
                           },
                         ),
@@ -86,6 +91,7 @@ class _SelectModePageState extends State<SelectModePage> {
                     );
                   },
                   child: Image(
+                      key: Key("advImage"),
                       image: AssetImage("assets/adventurer.jpg"),
                       fit: BoxFit.fill,
                       color: Colors.black12, // The number here is the opacity.

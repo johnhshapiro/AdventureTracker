@@ -9,69 +9,70 @@ import 'package:provider/provider.dart';
 import 'models/user_model.dart';
 
 class CustomScaffold extends StatefulWidget {
+  final bool nabVar;
+  final bool appBarVis;
   final routeList;
   final navBarItems;
-  final body;
+  final Widget body;
 
-  CustomScaffold({this.routeList, this.navBarItems, this.body});
+  CustomScaffold(
+      {this.routeList,
+      this.navBarItems,
+      this.body,
+      this.nabVar = false,
+      this.appBarVis = true});
 
   @override
-  _CustomScaffoldState createState() =>
-      _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
+  _CustomScaffoldState createState() => _CustomScaffoldState(
+      this.routeList, this.navBarItems, this.body, this.nabVar);
 }
 
 class _CustomScaffoldState extends State<CustomScaffold> {
+  final bool nabVar;
   final body;
   final routeList;
   final navBarItems;
   int navBarItemSelected = 0;
 
-  _CustomScaffoldState(this.routeList, this.navBarItems, this.body);
+  _CustomScaffoldState(
+      this.routeList, this.navBarItems, this.body, this.nabVar);
 
   // This can and should be changed to a regular key, global keys are very expensive.
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
       child: Scaffold(
-          primary: true,
-          resizeToAvoidBottomInset: false,
-          extendBodyBehindAppBar: true,
-          key: _scaffoldKey,
-          endDrawer: _buildDrawer(user),
-          appBar: _buildAppBar(),
+        primary: true,
+        resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        key: _scaffoldKey,
+        endDrawer: (widget.appBarVis == false) ? null : BuildDrawer(context),
+        appBar: _buildAppBar(),
 
-          // Wont show the navbar if routeList and navBarItems parameters are null
-          bottomNavigationBar: (routeList != null && navBarItems != null)
-              ? _buildBottomNavigationBar()
-              : null,
+        // Wont show the navbar if routeList and navBarItems parameters are null
+        bottomNavigationBar:
+            (nabVar != false) ? buildBottomNavigationBar() : null,
 
-          // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
-          body: body != null ? body : _buildIndexedStack()),
+        // Shows a single page passed in as body paramter, OR multiple pages if body is null and navbar paramters are present.
+        body: (nabVar == false)
+            ? body
+            : BuildIndexedStack(navBarItemSelected, routeList),
+      ),
     );
   }
 
-  _buildIndexedStack() {
-    return IndexedStack(
-      index: navBarItemSelected,
-      children: routeList,
+  buildBottomNavigationBar() {
+    return BottomNavigationBar(
+      type: BottomNavigationBarType
+          .shifting, //change shifting to fixed to display navbar item text when not selected.
+      selectedItemColor: Colors.amberAccent[400],
+      currentIndex: navBarItemSelected,
+      items: navBarItems,
+      onTap: _onNavBarItemTapped,
     );
-  }
-
-  _buildBottomNavigationBar() {
-    return (routeList == [] || navBarItems == [])
-        ? Text("Error: Empty NavBar parameters.")
-        : BottomNavigationBar(
-            type: BottomNavigationBarType
-                .shifting, //change shifting to fixed to display navbar item text when not selected.
-            selectedItemColor: Colors.amberAccent[400],
-            currentIndex: navBarItemSelected,
-            items: navBarItems,
-            onTap: _onNavBarItemTapped,
-          );
   }
 
   _onNavBarItemTapped(int index) {
@@ -95,8 +96,35 @@ class _CustomScaffoldState extends State<CustomScaffold> {
           ),
         ]);
   }
+}
 
-  _buildDrawer(User user) {
+class BuildIndexedStack extends StatelessWidget {
+  final int navBarItemSelected;
+  final List<Widget> routeList;
+  const BuildIndexedStack(this.navBarItemSelected, this.routeList);
+
+  @override
+  Widget build(BuildContext context) {
+    return IndexedStack(
+      index: navBarItemSelected,
+      children: routeList,
+    );
+  }
+}
+
+class BuildDrawer extends StatefulWidget {
+  final BuildContext context;
+  BuildDrawer(this.context);
+
+  @override
+  _BuildDrawerState createState() => _BuildDrawerState();
+}
+
+class _BuildDrawerState extends State<BuildDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return Drawer(
         elevation: 20.0,
         child: ListView(

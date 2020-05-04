@@ -1,4 +1,5 @@
 import 'package:FARTS/models/campaign_model.dart';
+import 'package:FARTS/services/stream.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,9 +14,22 @@ class _EncounterViewState extends State<EncounterView> {
   @override
   Widget build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
+    return showCorrectWidget(
+      _campaignModelStream,
+      encounterViewWidget(_campaignModelStream),
+    );
+  }
+}
 
-    return Scaffold(
-        body: Stack(
+Widget encounterViewWidget(CampaignModel campaign) {
+  var encounters = [];
+  try {
+    encounters = campaign.encounters;
+  } catch (e) {
+    print("Encounter Data Loading");
+  }
+  return Scaffold(
+    body: Stack(
       fit: StackFit.expand,
       children: <Widget>[
         Image(
@@ -23,14 +37,14 @@ class _EncounterViewState extends State<EncounterView> {
           fit: BoxFit.fill,
         ),
         ListView.builder(
-            itemCount: _campaignModelStream.encounters.length,
+            itemCount: encounters.length,
             itemBuilder: (context, index) {
               return Card(
                 color: Colors.transparent,
                 child: ListTile(
                   trailing: Text("example XP",
                       style: TextStyle(fontSize: 12.0, color: Colors.black)),
-                  title: Text(_campaignModelStream.encounters[index],
+                  title: Text(encounters[index],
                       style: TextStyle(color: Colors.black)),
                   onTap:
                       () {}, // TODO inflate or navigate to the corresponding encounter data.
@@ -38,6 +52,6 @@ class _EncounterViewState extends State<EncounterView> {
               );
             }),
       ],
-    ));
-  }
+    ),
+  );
 }
