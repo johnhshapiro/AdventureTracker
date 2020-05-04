@@ -11,6 +11,33 @@ void main() {
     expect(find.byType(Scaffold), findsOneWidget);
   });
 
+  testWidgets('test Ability Scores and Skills onTap',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: CharacterSheetPage(character: null),
+    ));
+    expect(find.byType(Scaffold), findsOneWidget);
+
+    Finder signOutButton = find.byKey(Key('Ability Scores'));
+
+    await tester.tap(signOutButton);
+
+    await tester.pumpAndSettle(Duration(seconds: 2));
+  });
+
+  testWidgets('test Combat and inventory onTap', (WidgetTester tester) async {
+    await tester.pumpWidget(MaterialApp(
+      home: CharacterSheetPage(character: null),
+    ));
+    expect(find.byType(Scaffold), findsOneWidget);
+
+    Finder signOutButton = find.byKey(Key('Combat'));
+
+    await tester.tap(signOutButton);
+
+    await tester.pumpAndSettle(Duration(seconds: 2));
+  });
+
   testWidgets('CharacterSheetPage instant test', (WidgetTester tester) async {
     Character char = Character(
       alignment: 'test',

@@ -73,6 +73,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
                 MaterialButton(
+                    key: Key('Ability Scores'),
                     child: Text('Ability Scores and Skills'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
@@ -86,6 +87,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                           ));
                     }),
                 MaterialButton(
+                    key: Key('Combat'),
                     child: Text('Combat'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
@@ -99,6 +101,7 @@ class _CharacterSheetPageState extends State<CharacterSheetPage> {
                           ));
                     }),
                 MaterialButton(
+                    key: Key('Inventory'),
                     child: Text('Inventory'),
                     color: Colors.grey[800],
                     splashColor: Colors.amber,
