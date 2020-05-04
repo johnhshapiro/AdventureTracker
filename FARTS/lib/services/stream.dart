@@ -15,9 +15,18 @@ class CampaignModelStream {
         .map((doc) => CampaignModel.fromMap(doc));
   }
 }
-  Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
-    if (stream == null) {
-      return Center(child: CircularProgressIndicator(),);
-    }
-    return widgetToLoad;
+Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
+  if (stream == null) {
+    return Center(child: CircularProgressIndicator(),);
   }
+  return widgetToLoad;
+}
+Widget showCorrectWidgetFromSnapshot(AsyncSnapshot<QuerySnapshot> snapshot, Widget widgetToLoad) {
+  if (snapshot.hasError)
+    return new Text('Campaign snapshot error ${snapshot.error}');
+
+  if (!snapshot.hasData)
+    return Center(child: CircularProgressIndicator());
+
+  return widgetToLoad;
+}
