@@ -17,18 +17,8 @@ class CharacterList extends StatefulWidget {
 class _CharacterListState extends State<CharacterList> {
   @override
   Widget build(BuildContext context) {
-    int charsLength = 0;
-    int index = 0;
-    String indexName = 'test';
-    var charIndex;
-    // print(Provider.of<List<Character>>(context) ?? []);
-    // if (Provider.of<List<Character>>(context) ?? [] != []) {
     final chars = Provider.of<List<Character>>(context) ?? [];
-    print(chars);
-    charsLength = chars.length;
-    indexName = chars[index].name;
-    charIndex = chars[index];
-    // }
+
     return Scaffold(
       body: Container(
           child: Stack(fit: StackFit.expand, children: <Widget>[
@@ -38,19 +28,19 @@ class _CharacterListState extends State<CharacterList> {
         ),
         ListView.separated(
             padding: const EdgeInsets.all(50),
-            itemCount: charsLength,
+            itemCount: chars.length,
             itemBuilder: (BuildContext contex, int index) {
               return Card(
                 color: Colors.transparent,
                 child: ListTile(
-                    title: Text(indexName,
+                    title: Text('${chars[index].name}',
                         style: TextStyle(fontSize: 16.0, color: Colors.black)),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              CharacterView(character: charIndex),
+                              CharacterView(character: chars[index]),
                           // CharacterSheetPage(character: chars[index])
                         ),
                       );
