@@ -32,6 +32,8 @@ void main() {
 
       Finder signOutButton = find.byKey(Key('d6'));
       await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
       await tester.longPress(signOutButton);
 
       await tester.pumpAndSettle(Duration(seconds: 4));
@@ -51,9 +53,78 @@ void main() {
 
       Finder signOutButton = find.byKey(Key('d10'));
       await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+
       await tester.longPress(signOutButton);
 
-      await tester.pumpAndSettle(Duration(seconds: 4));
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
+
+  testWidgets(
+    'test for Drawer Settings',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: RollPage(),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder signOutButton = find.byKey(Key('d4'));
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.longPress(signOutButton);
+
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
+
+  testWidgets(
+    'test for Drawer Settings',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: RollPage(),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder signOutButton = find.byKey(Key('d12'));
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.longPress(signOutButton);
+
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
+
+  testWidgets(
+    'test for Drawer Settings',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: RollPage(),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder signOutButton = find.byKey(Key('d20'));
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.tap(signOutButton);
+      await tester.longPress(signOutButton);
+
+      await tester.pumpAndSettle(Duration(seconds: 2));
     },
   );
 }

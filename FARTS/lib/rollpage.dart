@@ -132,6 +132,7 @@ class _DiceBagState extends State<DiceBag> {
             ),
           ),
           Container(
+            key: Key('d4'),
             color: Colors.blue,
             margin: EdgeInsets.all(8),
             child: Stack(
@@ -294,6 +295,7 @@ class _DiceBagState extends State<DiceBag> {
             color: Colors.orange,
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d12'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.orange,
@@ -345,6 +347,7 @@ class _DiceBagState extends State<DiceBag> {
             color: Colors.purple,
             margin: EdgeInsets.all(8),
             child: Stack(
+              key: Key('d20'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.purple,
@@ -393,6 +396,7 @@ class _DiceBagState extends State<DiceBag> {
             ),
           ),
           Container(
+            key: Key('d100'),
             color: Colors.red[800],
             margin: EdgeInsets.all(8),
             child: Stack(
