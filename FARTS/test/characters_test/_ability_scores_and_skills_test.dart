@@ -20,4 +20,15 @@ void main() {
     );
     expect(find.byType(StaggeredGridView), findsOneWidget);
   });
+
+  testWidgets('AbilityScoresPage instance test', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: AbilityScoresPage(
+          character: null,
+        ),
+      ),
+    );
+    expect(find.byType(Scaffold), findsOneWidget);
+  });
 }
