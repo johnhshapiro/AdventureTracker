@@ -184,18 +184,6 @@ void main() {
         await tester.tap(d20);
         await tester.longPress(d20);
 
-        const Offset firstLocation = Offset(40.0, 20.0);
-        final TestGesture gesture =
-            await tester.startGesture(firstLocation, pointer: 7);
-        const Offset secondLocation = Offset(10.0, 20.0);
-        await gesture.moveTo(secondLocation);
-
-        Finder d100 = find.byKey(Key('d100'));
-        await tester.tap(d100);
-        await tester.tap(d100);
-        await tester.tap(d100);
-        await tester.longPress(d100);
-
         await tester.pumpAndSettle(Duration(seconds: 2));
       },
     );
@@ -214,17 +202,19 @@ void main() {
       await tester.pumpWidget(app);
 
       Finder d100 = find.byKey(Key('d100'));
+      await tester.fling(find.byKey(Key('d4')), Offset(-200, 0), 1000);
+      // await tester.pump();
+
       await tester.tap(d100);
-      const Offset firstLocation = Offset(40.0, 20.0);
-      final TestGesture gesture =
-          await tester.startGesture(firstLocation, pointer: 7);
-      const Offset secondLocation = Offset(10.0, 20.0);
-      await gesture.moveTo(secondLocation);
       await tester.tap(d100);
       await tester.tap(d100);
       await tester.longPress(d100);
+      // Finder rollDiceIcon = find.byKey(Key('RollDiceIcon'));
+      // await tester.tap(rollDiceIcon);
+      // await tester.pump(Duration(seconds: 2));
 
       await tester.pumpAndSettle(Duration(seconds: 2));
+      // expect(d100Count, greaterThan(0));
     },
   );
 }
