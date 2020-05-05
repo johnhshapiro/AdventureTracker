@@ -36,6 +36,8 @@ class _CharacterListState extends State<CharacterList> {
                     title: Text('${chars[index].name}',
                         style: TextStyle(fontSize: 16.0, color: Colors.black)),
                     onTap: () {
+                      print(chars[index].name.toString());
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(

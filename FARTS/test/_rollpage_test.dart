@@ -156,11 +156,11 @@ void main() {
 
         await tester.pumpWidget(app);
 
-        Finder signOutButton = find.byKey(Key('d12'));
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.longPress(signOutButton);
+        Finder d12 = find.byKey(Key('d12'));
+        await tester.tap(d12);
+        await tester.tap(d12);
+        await tester.tap(d12);
+        await tester.longPress(d12);
 
         await tester.pumpAndSettle(Duration(seconds: 2));
       },
@@ -178,14 +178,53 @@ void main() {
 
         await tester.pumpWidget(app);
 
-        Finder signOutButton = find.byKey(Key('d20'));
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.longPress(signOutButton);
+        Finder d20 = find.byKey(Key('d20'));
+        await tester.tap(d20);
+        await tester.tap(d20);
+        await tester.tap(d20);
+        await tester.longPress(d20);
+
+        const Offset firstLocation = Offset(40.0, 20.0);
+        final TestGesture gesture =
+            await tester.startGesture(firstLocation, pointer: 7);
+        const Offset secondLocation = Offset(10.0, 20.0);
+        await gesture.moveTo(secondLocation);
+
+        Finder d100 = find.byKey(Key('d100'));
+        await tester.tap(d100);
+        await tester.tap(d100);
+        await tester.tap(d100);
+        await tester.longPress(d100);
 
         await tester.pumpAndSettle(Duration(seconds: 2));
       },
     );
   });
+
+  testWidgets(
+    'test for ontap d100',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: RollPage(),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder d100 = find.byKey(Key('d100'));
+      await tester.tap(d100);
+      const Offset firstLocation = Offset(40.0, 20.0);
+      final TestGesture gesture =
+          await tester.startGesture(firstLocation, pointer: 7);
+      const Offset secondLocation = Offset(10.0, 20.0);
+      await gesture.moveTo(secondLocation);
+      await tester.tap(d100);
+      await tester.tap(d100);
+      await tester.longPress(d100);
+
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
 }
