@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 void main() {
   testWidgets(
-    'test for drawer Mode',
+    'CharacterList test',
     (WidgetTester tester) async {
       var x = CharacterService(userId: 'jj');
       MaterialApp app = MaterialApp(
@@ -17,6 +17,32 @@ void main() {
           return StreamProvider<List<Character>>.value(
             value: x.chars,
             child: CharacterList(),
+          );
+        }),
+      );
+
+      await tester.pumpWidget(app);
+    },
+  );
+
+  testWidgets(
+    'CharacterSelect test',
+    (WidgetTester tester) async {
+      var x = CharacterService(userId: 'jj');
+      UserData x2 = new UserData(
+        uid: 'jg',
+        characters: 'jh',
+        email: 'hj',
+        gmCampaigns: 'jgv',
+        username: 'jgh',
+      );
+      MaterialApp app = MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return StreamProvider<List<Character>>.value(
+            value: x.chars,
+            child: CharacterSelect(
+              userData: x2,
+            ),
           );
         }),
       );
