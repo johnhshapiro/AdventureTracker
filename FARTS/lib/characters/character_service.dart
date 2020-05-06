@@ -28,7 +28,7 @@ class CharacterService {
   }
 
   Stream<List<Character>> get chars {
-    print(userId);
+    // print(userId);
     return Firestore.instance
         .collection('characters')
         .where('userId', isEqualTo: userId)

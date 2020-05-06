@@ -6,13 +6,14 @@ import 'package:flutter/services.dart';
 import 'services/vibrate.dart';
 import 'services/roll.dart';
 
+int totalRollValue = 0;
+
 class RollPage extends StatefulWidget {
   @override
   _RollPageState createState() => _RollPageState();
 }
 
 class _RollPageState extends State<RollPage> {
-  int _totalRollValue = 0;
   int _listItemCount = 1;
 
   // @override
@@ -54,7 +55,7 @@ class _RollPageState extends State<RollPage> {
           SafeArea(
             child: Container(
               child: Text(
-                _totalRollValue.toString(),
+                totalRollValue.toString(),
                 style: TextStyle(fontSize: 95, color: Colors.red),
               ),
             ),
@@ -78,7 +79,7 @@ class _RollPageState extends State<RollPage> {
   // This function is passed as a callback to the DiceBag() child.
   _updateRollTotal(int totalFromChild) {
     setState(() {
-      _totalRollValue = totalFromChild;
+      totalRollValue = totalFromChild;
     });
   }
 }
@@ -101,7 +102,7 @@ class _DiceBagState extends State<DiceBag> {
   int _d10Count = 0;
   int _d12Count = 0;
   int _d20Count = 0;
-  int _d100Count = 0;
+  int d100Count = 0;
   int _dnCount = 0;
   int _d2Count = 0;
 
@@ -347,10 +348,10 @@ class _DiceBagState extends State<DiceBag> {
             ),
           ),
           Container(
+            key: Key('d20'),
             color: Colors.purple,
             margin: EdgeInsets.all(8),
             child: Stack(
-              key: Key('d20'),
               children: <Widget>[
                 MaterialButton(
                   splashColor: Colors.purple,
@@ -412,20 +413,20 @@ class _DiceBagState extends State<DiceBag> {
                   ),
                   onPressed: () {
                     setState(() {
-                      _d100Count++;
+                      d100Count++;
                       _totalNumDice++;
                     });
                   },
                   onLongPress: () {
                     setState(() {
-                      if (_d100Count > 0) {
-                        _d100Count--;
+                      if (d100Count > 0) {
+                        d100Count--;
                         _totalNumDice--;
                       }
                     });
                   },
                 ),
-                _d100Count != 0
+                d100Count != 0
                     ? Positioned(
                         right: 5,
                         top: 5,
@@ -440,7 +441,7 @@ class _DiceBagState extends State<DiceBag> {
                             minHeight: 14,
                           ),
                           child: Text(
-                            '$_d100Count',
+                            '$d100Count',
                             style: TextStyle(color: Colors.white, fontSize: 8),
                             textAlign: TextAlign.center,
                           ),
@@ -477,7 +478,7 @@ class _DiceBagState extends State<DiceBag> {
       // Capture d20 total
       _totalRollValue += Roll().rollMultipleInRange(1, 21, _d20Count, 0);
       // Capture d100 total
-      _totalRollValue += Roll().rollMultipleInRange(1, 101, _d100Count, 0);
+      _totalRollValue += Roll().rollMultipleInRange(1, 101, d100Count, 0);
 
       // TODO create a local variable to hold the dn face value and then pass this to the rollMultipeInRange() as a param.
 

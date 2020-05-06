@@ -66,6 +66,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
 
   buildBottomNavigationBar() {
     return BottomNavigationBar(
+      key: Key('setIndex'),
       type: BottomNavigationBarType
           .shifting, //change shifting to fixed to display navbar item text when not selected.
       selectedItemColor: Colors.amberAccent[400],
@@ -128,8 +129,7 @@ class _BuildDrawerState extends State<BuildDrawer> {
     var uid;
     try {
       uid = user.uid;
-    } catch (e) {
-    }
+    } catch (e) {}
     return Drawer(
         elevation: 20.0,
         child: ListView(

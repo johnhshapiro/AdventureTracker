@@ -156,11 +156,11 @@ void main() {
 
         await tester.pumpWidget(app);
 
-        Finder signOutButton = find.byKey(Key('d12'));
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.longPress(signOutButton);
+        Finder d12 = find.byKey(Key('d12'));
+        await tester.tap(d12);
+        await tester.tap(d12);
+        await tester.tap(d12);
+        await tester.longPress(d12);
 
         await tester.pumpAndSettle(Duration(seconds: 2));
       },
@@ -178,14 +178,43 @@ void main() {
 
         await tester.pumpWidget(app);
 
-        Finder signOutButton = find.byKey(Key('d20'));
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.tap(signOutButton);
-        await tester.longPress(signOutButton);
+        Finder d20 = find.byKey(Key('d20'));
+        await tester.tap(d20);
+        await tester.tap(d20);
+        await tester.tap(d20);
+        await tester.longPress(d20);
 
         await tester.pumpAndSettle(Duration(seconds: 2));
       },
     );
   });
+
+  testWidgets(
+    'test for ontap d100',
+    (WidgetTester tester) async {
+      StreamProvider<User> app = StreamProvider<User>.value(
+        value: AuthenticationService().user,
+        child: MaterialApp(
+          home: RollPage(),
+        ),
+      );
+
+      await tester.pumpWidget(app);
+
+      Finder d100 = find.byKey(Key('d100'));
+      await tester.fling(find.byKey(Key('d4')), Offset(-200, 0), 1000);
+      // await tester.pump();
+
+      await tester.tap(d100);
+      await tester.tap(d100);
+      await tester.tap(d100);
+      await tester.longPress(d100);
+      // Finder rollDiceIcon = find.byKey(Key('RollDiceIcon'));
+      // await tester.tap(rollDiceIcon);
+      // await tester.pump(Duration(seconds: 2));
+
+      await tester.pumpAndSettle(Duration(seconds: 2));
+      // expect(d100Count, greaterThan(0));
+    },
+  );
 }

@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 final Firestore db = Firestore.instance;
 Stream<User> get fakeUser {
-    return db
+  return db
       .collection('users')
       .document('FTEWHzJeXEOUyrtzGlZ3ciBVrrF2')
       .snapshots()
@@ -19,6 +19,24 @@ Stream<User> get fakeUser {
 }
 
 void main() {
+  testWidgets(
+    'test for drawer Mode',
+    (WidgetTester tester) async {
+      MaterialApp app = MaterialApp(
+        home: Builder(builder: (BuildContext context) {
+          return StreamProvider<User>.value(
+              value: fakeUser, child: BuildDrawer(context));
+        }),
+      );
+
+      await tester.pumpWidget(app);
+      expect(find.byType(Drawer), findsOneWidget);
+
+      Finder signOutButton = find.byKey(Key('Mode'));
+      await tester.tap(signOutButton);
+      await tester.pumpAndSettle(Duration(seconds: 2));
+    },
+  );
   testWidgets(
     'test for custom scaffold with no nabVar',
     (WidgetTester tester) async {
@@ -28,6 +46,7 @@ void main() {
       expect(find.byType(Scaffold), findsOneWidget);
     },
   );
+
   testWidgets(
     'test for custom scaffold Drawer',
     (WidgetTester tester) async {
@@ -47,9 +66,13 @@ void main() {
       expect(find.byType(BottomNavigationBar), findsOneWidget);
       Finder diceBagButton = find.byKey(Key('AppPad'));
       await tester.tap(diceBagButton);
+      Finder setIndex = find.byKey(Key('setIndex'));
+      await tester.tap(setIndex);
+
       await tester.pumpAndSettle(Duration(seconds: 2));
     },
   );
+
   testWidgets(
     'test for custom scaffold Drawer',
     (WidgetTester tester) async {
@@ -83,26 +106,6 @@ void main() {
       expect(find.byType(Drawer), findsOneWidget);
 
       Finder signOutButton = find.byKey(Key('SignOut'));
-      await tester.tap(signOutButton);
-      await tester.pumpAndSettle(Duration(seconds: 2));
-    },
-  );
-
-  testWidgets(
-    'test for drawer Mode',
-    (WidgetTester tester) async {
-      MaterialApp app = MaterialApp(
-        home: Builder(builder: (BuildContext context) {
-          return StreamProvider<User>.value(
-            value: fakeUser,
-            child: BuildDrawer(context));
-        }),
-      );
-
-      await tester.pumpWidget(app);
-      expect(find.byType(Drawer), findsOneWidget);
-
-      Finder signOutButton = find.byKey(Key('Mode'));
       await tester.tap(signOutButton);
       await tester.pumpAndSettle(Duration(seconds: 2));
     },
