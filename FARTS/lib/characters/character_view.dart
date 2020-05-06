@@ -53,6 +53,9 @@ class _CharacterViewState extends State<CharacterView> {
       InventoryPage()
     ];
     return CustomScaffold(
-        routeList: _characterRouteList, navBarItems: _characterNavBarItems);
+        nabVar: true,
+        routeList: _characterRouteList,
+        navBarItems: _characterNavBarItems
+        );
   }
 }

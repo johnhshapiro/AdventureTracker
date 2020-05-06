@@ -84,7 +84,7 @@ class _CharacterSelectState extends State<CharacterSelect> {
     else {
     return StreamProvider<List<Character>>.value(
       value: CharacterService(userId: widget.userData.uid).chars,
-      child: Scaffold(
+      child: CustomScaffold(
         body: CharacterList() ?? [],
       ),
     );
