@@ -24,19 +24,19 @@ class CharacterView extends StatefulWidget {
 class _CharacterViewState extends State<CharacterView> {
   final _characterNavBarItems = [
     BottomNavigationBarItem(
-      icon: Icon(Icons.announcement),
-      title: Text('Characther'),
+      icon: Icon(Icons.accessibility),
+      title: Text('Character'),
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.map),
-      title: Text('Abilities'),
+      icon: Icon(Icons.fitness_center),
+      title: Text('Stats and Skills'),
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.group),
+      icon: Icon(Icons.security),
       title: Text('Combat'),
     ),
     BottomNavigationBarItem(
-      icon: Icon(Icons.error),
+      icon: Icon(Icons.work),
       title: Text('Items'),
     ),
   ];
@@ -50,7 +50,7 @@ class _CharacterViewState extends State<CharacterView> {
       CharacterInfoPage(character: char),
       AbilityScoresPage(character: char),
       CombatPage(),
-      InventoryPage()
+      InventoryPage(inventory: char.inventory)
     ];
     return CustomScaffold(
         nabVar: true,

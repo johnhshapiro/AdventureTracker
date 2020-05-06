@@ -59,10 +59,6 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                   "Experience Points",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
                 ),
-                Text('Ability Scores and Skills'),
-                Text('Combat'),
-                Text('Inventory'),
-                Text(""),
                 Text(
                   "Notes",
                   style: TextStyle(fontSize: 10.0, color: Colors.grey[600]),
@@ -92,11 +88,6 @@ class _CharacterInfoPageState extends State<CharacterInfoPage> {
                 StaggeredTile.count(2, 1), // Race label
                 StaggeredTile.count(2, 1), // Alignment label
                 StaggeredTile.count(2, 1), // Experience label
-                // Buttons
-                StaggeredTile.count(5, 5), // Ability Scores and Skills
-                StaggeredTile.count(5, 5), // Combat
-                StaggeredTile.count(5, 5), // Equipment
-                StaggeredTile.count(5, 5), // Empty tab (placeholder or spacing)
                 // Bottom
                 StaggeredTile.count(10, 1), // Notes label
                 StaggeredTile.count(10, 5), // Notes
