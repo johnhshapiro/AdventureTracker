@@ -13,6 +13,15 @@ import 'package:FARTS/characters/character_info.dart';
 import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:provider/provider.dart';
 
+final Firestore db = Firestore.instance;
+Stream<User> get fakeUser {
+  return db
+      .collection('users')
+      .document('FTEWHzJeXEOUyrtzGlZ3ciBVrrF2')
+      .snapshots()
+      .map((doc) => User.fromMap(doc));
+}
+
 Future<void> main() async {
   final instance = MockFirestoreInstance();
   await instance.collection('users').add({
