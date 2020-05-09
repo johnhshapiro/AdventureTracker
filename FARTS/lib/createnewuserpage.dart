@@ -19,6 +19,11 @@ class _CreateNewUserState extends State<CreateNewUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        bottomOpacity: 0,
+        elevation: 0,
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -40,7 +45,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       labelStyle:
                           TextStyle(color: Colors.grey[200], fontSize: 20.0))),
               child: Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(5.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -75,7 +80,7 @@ class _CreateNewUserState extends State<CreateNewUser> {
                       validator: (value) => value.length < 6
                           ? 'Password must be at least 6 characters'
                           : null,
-                      // TODO don't store the password value for checking password match purposes, instead create a hashfunction.
+                      // TODO don't store the password value for checking password match purposes, instead use a crypto hashfunction.
                       // So save it to a string and then MD5 (or whatever working encryption) it into an irreversible hash.,
                       onChanged: (input) => _password = input,
                       decoration: InputDecoration(

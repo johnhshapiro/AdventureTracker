@@ -8,7 +8,8 @@ void main() {
   test('Roll class ', () {
     final app = Roll();
 
-    app.rollInRange(0, 1);
+    var k = app.rollInRange(0, 1);
+    expect(k, 1);
     app.rollMultipleInRange(0, 1, 1, 1);
   });
 

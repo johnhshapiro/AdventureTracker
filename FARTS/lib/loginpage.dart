@@ -117,10 +117,18 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey[900],
                           child: Text("New User"),
                           onPressed: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => CreateNewUser()),
+                            // );
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateNewUser()),
+                              PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) => CreateNewUser(),
+                                  transitionsBuilder: (c, animation, a2, child) => FadeTransition(opacity: animation, child: child),
+                                  transitionDuration: Duration(milliseconds: 1000),
+                                  ),
                             );
                           },
                           splashColor: Colors
