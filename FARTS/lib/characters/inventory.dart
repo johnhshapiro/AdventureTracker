@@ -1,7 +1,6 @@
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:flutter/material.dart';
 
-
 class InventoryPage extends StatefulWidget {
   @override
   _InventoryPageState createState() => _InventoryPageState();

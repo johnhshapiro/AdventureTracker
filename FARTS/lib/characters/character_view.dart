@@ -16,7 +16,6 @@ class CharacterView extends StatefulWidget {
       : super(key: key);
   final String title;
 
-
   @override
   _CharacterViewState createState() => _CharacterViewState();
 }
