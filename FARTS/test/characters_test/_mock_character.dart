@@ -8,7 +8,7 @@ class MockCharacter {
     background: "Sole purpose in life is to exist for testing",
     classes: "1337 tester",
     experiencePoints: 9001,
-    inventory: {'armor': 'Plate'},
+    inventory: {'armor': ['Plate']},
     languages: ['Common'],
     name: 'Mock Jr.',
     notes: 'test',

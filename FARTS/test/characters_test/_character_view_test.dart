@@ -1,9 +1,7 @@
-import 'package:FARTS/models/user_model.dart';
-import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
-import 'package:provider/provider.dart';
 import 'package:FARTS/characters/character_model.dart';
+import 'package:FARTS/custom_scaffold.dart';
 
 
 // Relevant pages
@@ -17,6 +15,9 @@ void main() {
           MaterialApp app = MaterialApp(
             home: CharacterView(character: mockChar)
           );
+
+          await tester.pumpWidget(app);
+          expect(find.byType(CustomScaffold), findsOneWidget);
     });
   });
 }
