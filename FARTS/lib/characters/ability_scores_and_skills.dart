@@ -148,7 +148,7 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
       ["Performance", "cha"],
       ["Persuasion", "cha"],
       ["Religion", "int"],
-      ["Sleigh of Hand", "dex"],
+      ["Sleight of Hand", "dex"],
       ["Stealth", "dex"],
       ["Survival", "wis"],
       ["Passive Perception", "wis"]
