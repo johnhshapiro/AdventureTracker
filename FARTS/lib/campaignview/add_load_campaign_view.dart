@@ -1,3 +1,4 @@
+import 'package:FARTS/campaignview/new_campagin.dart';
 import 'package:FARTS/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,13 @@ Widget addLoadCampaignWidget(String uid) {
           return addLoadCampaignStack(context, snapshot.data);
         }),
     floatingActionButton: FloatingActionButton.extended(
-      onPressed: null, //TODO: nivigate to create new
+      onPressed: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CreateNewCampaign(userData: UserData)),
+        );
+      },
       label: Text('Create New'),
       backgroundColor: Colors.grey[500],
     ),
