@@ -1,29 +1,38 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
+import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 import 'package:FARTS/models/user_model.dart';
 import 'package:FARTS/services/stream.dart';
+import 'package:provider/provider.dart';
 
 class CreateNewCampaign extends StatefulWidget {
-  CreateNewCampaign({@required this.userData});
-  final UserData userData;
+  String userId; 
+  CreateNewCampaign(String uid){
+    this.userId = uid;
+  }
+  
+  
   @override
   _CreateNewCampaignState createState() => _CreateNewCampaignState();  
 }
 
 class _CreateNewCampaignState extends State<CreateNewCampaign> {
   final _formkey = GlobalKey<FormState>();
-  final databaseReference = Firestore.instance;
   final CollectionReference campaignCollection = Firestore.instance.collection('campaigns');
-  final CollectionReference encountersCollection = Firestore.instance.collection('encounters');
-  final CollectionReference mapsCollection = Firestore.instance.collection('maps');
   String _campaignName = '';
-
+  String user;
   @override
   Widget build(BuildContext context){
+    return CustomScaffold(
+      body: _buildCampaign(context),
+      );
+  }
+
+  Widget _buildCampaign(BuildContext context){
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -61,11 +70,11 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
                         child: Text("Create Campaign"),
                         //should check if identical campaign name exists
                         onPressed:() {
-                          createCampaign(_campaignName, widget.userData.uid);
+                          createCampaign(_campaignName, widget.userId);
                           Navigator.push(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => addLoadCampaignWidget(widget.userData.uid, context)));
+                              builder: (context) => addLoadCampaignWidget(widget.userId, context)));
                         },
                       ),
                     )
@@ -82,11 +91,14 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
   }
 
   Future createCampaign(String name, String uid) async{
-    await campaignCollection.document(uid)
+    await campaignCollection.document()
     .setData({
-      //should auto fill to null
       'name': name,
-      'notes': 'new campaign'
+      'notes': 'new campaign',
+      'encounter_test': ["encounter 1", "encounter 2"],
+      'party_test': ["Shrek","character 2"],
+      'map_name': "Map",
+      'userId': uid 
     });
   }
 

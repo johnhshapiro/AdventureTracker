@@ -56,7 +56,7 @@ Widget addLoadCampaignWidget(String uid, BuildContext context) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CreateNewCampaign()),
+            builder: (context) => CreateNewCampaign(uid)),
         );
       },
       label: Text('Create New'),
