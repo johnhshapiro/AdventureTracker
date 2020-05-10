@@ -1,4 +1,3 @@
-import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +31,10 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+      Image(
+        image: AssetImage('assets/realoldpaper.jpg'),
+        fit: BoxFit.cover,
+      ),
           Form(
             key: _formkey,
             child: Theme(
@@ -43,7 +46,7 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
                       labelStyle:
                           TextStyle(color: Colors.grey[200], fontSize: 20.0))),
               child: Container(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(50.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
