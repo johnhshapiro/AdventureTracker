@@ -1,3 +1,4 @@
+import 'package:FARTS/campaignview/campaign_info.dart';
 import 'package:FARTS/characters/character_model.dart';
 import 'package:FARTS/models/campaign_model.dart';
 import 'package:FARTS/models/user_model.dart';
@@ -15,12 +16,12 @@ import 'package:cloud_firestore_mocks/cloud_firestore_mocks.dart';
 import 'package:provider/provider.dart';
 
 final Firestore db = Firestore.instance;
-Stream<User> get fakeUser {
+Stream<CampaignModel> get fakeModel {
   return db
       .collection('users')
       .document('FTEWHzJeXEOUyrtzGlZ3ciBVrrF2')
       .snapshots()
-      .map((doc) => User.fromMap(doc));
+      .map((doc) => CampaignModel.fromMap(doc));
 }
 
 Future<void> main() async {
@@ -28,10 +29,14 @@ Future<void> main() async {
   await instance.collection('users').add({
     'name': 'Bob',
   });
-  final snapshot = await instance.collection('users').getDocuments();
-  print(snapshot.documents.length); // 1
-  print(snapshot.documents.first['username']); // 'Bob'
-  print(instance.dump());
+  final snapshot = instance
+      .collection('users')
+      .document('FTEWHzJeXEOUyrtzGlZ3ciBVrrF2')
+      .snapshots()
+      .map((doc) => CampaignModel.fromMap(doc));
+  // print(snapshot.documents.length); // 1
+  // print(snapshot.documents.first['username']); // 'Bob'
+  // print(instance.dump());
 
   testWidgets(
     'test for drawer Mode',
@@ -46,22 +51,17 @@ Future<void> main() async {
   );
 
   testWidgets(
-    'test for drawer Mode',
+    'test for _campaignModelStream not null',
     (WidgetTester tester) async {
-
+      print(fakeModel);
       await tester.pumpWidget(MaterialApp(
-        home: StreamProvider<UserData>.value(
-          value: DatabaseService().userData,
-          child: StreamProvider<CampaignModel>.value(
-            value: CampaignModelStream()
-                .streamCampaignData(snapshot.documents.first),
-            child: CharacterInfoPage(
-              character: MockCharacter().mockCharacter,
-            ),
-          ),
+        home: StreamProvider<CampaignModel>.value(
+          initialData: MockModel().mockModel,
+          value: snapshot,
+          child: Campaign(),
         ),
       ));
-      expect(find.byType(Scaffold), findsOneWidget);
+      // expect(find.byType(Scaffold), findsOneWidget);
     },
   );
 }
