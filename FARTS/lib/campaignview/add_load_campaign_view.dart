@@ -1,4 +1,3 @@
-import 'package:FARTS/campaignview/new_campagin.dart';
 import 'package:FARTS/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,7 @@ class _GameMasterState extends State<GameMaster> {
       return Center(child: CircularProgressIndicator());
     }
     return showCorrectWidget(
-        widget.userData, addLoadCampaignWidget(widget.userData.uid));
+        widget.userData, addLoadCampaignWidget(widget.userData.uid, context));
   }
 }
 
