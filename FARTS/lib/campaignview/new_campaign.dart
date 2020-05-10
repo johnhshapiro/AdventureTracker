@@ -1,13 +1,8 @@
 import 'package:FARTS/authwrapper.dart';
 import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 import 'package:FARTS/custom_scaffold.dart';
-import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
-import 'package:FARTS/models/user_model.dart';
-import 'package:FARTS/services/stream.dart';
-import 'package:provider/provider.dart';
 
 class CreateNewCampaign extends StatefulWidget {
   String userId; 
