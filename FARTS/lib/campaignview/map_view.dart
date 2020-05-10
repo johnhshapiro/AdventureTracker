@@ -14,10 +14,11 @@ class _MapViewState extends State<MapView> {
   @override
   build(BuildContext context) {
     _campaignModelStream = Provider.of<CampaignModel>(context);
-    return showCorrectWidget(_campaignModelStream, mapViewWidget(_campaignModelStream));
-
+    return showCorrectWidget(
+        _campaignModelStream, mapViewWidget(_campaignModelStream));
   }
 }
+
 Widget mapViewWidget(CampaignModel campaign) {
   var mapName = "Loading Map Data";
   try {

@@ -1,9 +1,8 @@
-import 'package:FARTS/characters/character_sheet.dart';
+
 import 'package:FARTS/characters/character_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
-import 'package:FARTS/characters/new_character.dart';
 import 'package:FARTS/characters/character_service.dart';
 import 'package:FARTS/characters/character_model.dart';
 import 'package:FARTS/models/user_model.dart';
@@ -21,7 +20,7 @@ class _CharacterListState extends State<CharacterList> {
 
     return Scaffold(
       body: Container(
-          child: Stack(fit: StackFit.expand, children: <Widget>[
+        child: Stack(fit: StackFit.expand, children: <Widget>[
         Image(
           image: AssetImage('assets/realoldpaper.jpg'),
           fit: BoxFit.cover,
@@ -79,8 +78,9 @@ class _CharacterSelectState extends State<CharacterSelect> {
     } else {
       return StreamProvider<List<Character>>.value(
         value: CharacterService(userId: widget.userData.uid).chars,
-        child: Scaffold(
+        child: CustomScaffold(
           body: CharacterList() ?? [],
+          nabVar: false,
         ),
       );
     }

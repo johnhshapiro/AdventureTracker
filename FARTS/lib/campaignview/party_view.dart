@@ -49,7 +49,19 @@ Widget partyViewWidget(CampaignModel campaign) {
                 title:
                     Text(party[index], style: TextStyle(color: Colors.black)),
                 onTap:
-                    null, // TODO navigate to the corresponding characterpage (index can be used to retrieve the chars like 'where(DBreference = index) ....showcharacter...)
+                    null, // TODO uncomment and naviaget to the relvant character page onces its made
+                // Navigator.push(
+                //   context,
+                //   PageRouteBuilder(
+                //     pageBuilder: (context, a1, a2) =>
+                //         RELEVANTCHARACTERRPAGE(),
+                //     transitionsBuilder:
+                //         (context, animation, a2, child) =>
+                //             FadeTransition(
+                //                 opacity: animation, child: child),
+                //     transitionDuration: Duration(milliseconds: 800),
+                //   ),
+                // )
               ),
             );
           }),

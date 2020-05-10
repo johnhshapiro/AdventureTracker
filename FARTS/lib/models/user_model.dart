@@ -6,8 +6,7 @@ class User {
   User({this.uid});
 
   factory User.fromMap(DocumentSnapshot document) {
-    return User(
-      uid: document.documentID);
+    return User(uid: document.documentID);
   }
 }
 

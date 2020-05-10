@@ -8,8 +8,12 @@ void main() {
   test('Roll class ', () {
     final app = Roll();
 
-    app.rollInRange(0, 1);
-    app.rollMultipleInRange(0, 1, 1, 1);
+    var x = app.rollInRange(0, 1);
+    expect(x, 0);
+    var y = app.rollMultipleInRange(0, 1, 1, 0);
+    expect(y, 0);
+    var z = app.rollMultipleInRange(0, 1, 1, 999);
+    expect(z, 999);
   });
 
   test('User instance test ', () {
