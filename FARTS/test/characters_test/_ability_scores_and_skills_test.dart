@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:FARTS/characters/ability_scores_and_skills.dart';
+import '_mock_character.dart';
 
 void main() {
   testWidgets('ability score cell instance test', (WidgetTester tester) async {
@@ -26,7 +27,7 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: AbilityScoresPage(
-          character: null,
+          character: MockCharacter().mockCharacter,
         ),
       ),
     );

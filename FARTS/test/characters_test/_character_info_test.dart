@@ -6,6 +6,7 @@ import 'package:FARTS/services/stream.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_test/flutter_test.dart";
+import '_mock_character.dart';
 
 // Relevant pages
 import 'package:FARTS/characters/character_info.dart';
@@ -40,29 +41,14 @@ Future<void> main() async {
           character: null,
         ),
       ));
-      expect(find.byType(Scaffold), findsOneWidget);
+      expect(find.byType(Center), findsOneWidget);
     },
   );
 
   testWidgets(
     'test for drawer Mode',
     (WidgetTester tester) async {
-      Character char = Character(
-        alignment: 'test',
-        attacksAndSpells: 'df',
-        background: 'fas',
-        classes: 'nadf',
-        experiencePoints: '12',
-        inventory: '12',
-        languages: 'asd',
-        name: 'Bob',
-        notes: 'asfadf',
-        race: 'dsdfgs',
-        skills: 'afd',
-        stats: '12',
-        campaignId: '123',
-        userId: 'user',
-      );
+
       await tester.pumpWidget(MaterialApp(
         home: StreamProvider<UserData>.value(
           value: DatabaseService().userData,
@@ -70,7 +56,7 @@ Future<void> main() async {
             value: CampaignModelStream()
                 .streamCampaignData(snapshot.documents.first),
             child: CharacterInfoPage(
-              character: char,
+              character: MockCharacter().mockCharacter,
             ),
           ),
         ),
