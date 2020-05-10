@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 // Relevant pages.
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/campaignview/campaign_view.dart';
+import 'package:FARTS/campaignview/new_campaign.dart';
 import 'package:FARTS/models/campaign_model.dart';
 import 'package:FARTS/services/stream.dart';
 
@@ -35,7 +36,7 @@ class _GameMasterState extends State<GameMaster> {
   }
 }
 
-Widget addLoadCampaignWidget(String uid) {
+Widget addLoadCampaignWidget(String uid, BuildContext context) { //tried passing in context but run into a few issues
   return Scaffold(
     body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
@@ -56,7 +57,7 @@ Widget addLoadCampaignWidget(String uid) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CreateNewCampaign(userData: UserData)),
+            builder: (context) => CreateNewCampaign()),
         );
       },
       label: Text('Create New'),
