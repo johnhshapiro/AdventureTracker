@@ -1,10 +1,15 @@
 import 'package:FARTS/authwrapper.dart';
+import 'package:FARTS/campaignview/add_load_campaign_view.dart';
 import 'package:FARTS/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
+import 'package:FARTS/models/user_model.dart';
+import 'package:FARTS/services/stream.dart';
 
 class CreateNewCampaign extends StatefulWidget {
+  CreateNewCampaign({@required this.userData});
+  final UserData userData;
   @override
   _CreateNewCampaignState createState() => _CreateNewCampaignState();  
 }
@@ -47,7 +52,7 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
                         return null;
                       },
                       onChanged: (input) => _campaignName = input,
-                      decoration: InputDecoration(labelText: "Username"),
+                      decoration: InputDecoration(labelText: "Campaign Name"),
                     ),
                     Builder(
                       builder: (context) => MaterialButton(
@@ -56,7 +61,11 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
                         child: Text("Create Campaign"),
                         //should check if identical campaign name exists
                         onPressed:() {
-                          createCampaign(_campaignName);
+                          createCampaign(_campaignName, widget.userData.uid);
+                          Navigator.push(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => addLoadCampaignWidget(widget.userData.uid, context)));
                         },
                       ),
                     )
@@ -72,9 +81,8 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
     
   }
 
-  Future createCampaign(String name) async{
-    await databaseReference.collection("campaigns")
-    .document()
+  Future createCampaign(String name, String uid) async{
+    await campaignCollection.document(uid)
     .setData({
       //should auto fill to null
       'name': name,

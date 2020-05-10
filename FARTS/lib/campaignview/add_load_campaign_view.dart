@@ -35,7 +35,7 @@ class _GameMasterState extends State<GameMaster> {
   }
 }
 
-Widget addLoadCampaignWidget(String uid, BuildContext context) { //tried passing in context but run into a few issues
+Widget addLoadCampaignWidget(String uid, BuildContext context) { 
   return Scaffold(
     body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
