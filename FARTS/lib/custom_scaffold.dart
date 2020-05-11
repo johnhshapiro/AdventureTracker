@@ -41,9 +41,10 @@ class _CustomScaffoldState extends State<CustomScaffold> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    return MediaQuery.removePadding(
+    return MediaQuery.removeViewInsets(
       context: context,
       removeTop: true,
+      removeBottom: true,
       child: Scaffold(
         primary: true,
         resizeToAvoidBottomInset: false,
