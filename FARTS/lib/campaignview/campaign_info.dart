@@ -192,8 +192,8 @@ class CampaignHeader extends StatelessWidget {
                       fontStyle: FontStyle.italic))),
           Text("Map",
               style: TextStyle(fontSize: 16.0, color: Colors.grey[900])),
-          Container(
-            padding: EdgeInsets.all(14.0),
+          Expanded(
+            flex: 14,
             child: Text(_mapName,
                 style: TextStyle(
                     fontSize: 30.0,
