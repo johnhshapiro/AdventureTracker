@@ -163,10 +163,15 @@ class _BuildDrawerState extends State<BuildDrawer> {
                 setState(() {
                   Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => StreamProvider<UserData>.value(
-                              value: DatabaseService(uid: uid).userData,
-                              child: SelectModePage())));
+                      PageRouteBuilder(
+                        pageBuilder: (context, a1, a2) =>
+                            StreamProvider<UserData>.value(
+                                value: DatabaseService(uid: uid).userData,
+                                child: SelectModePage()),
+                        transitionsBuilder: (context, animation, a2, child) =>
+                            FadeTransition(opacity: animation, child: child),
+                        transitionDuration: Duration(milliseconds: 800),
+                      ));
                 });
               },
             ),
@@ -180,7 +185,12 @@ class _BuildDrawerState extends State<BuildDrawer> {
                   AuthenticationService().signOut();
                   Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => AuthWrapper()),
+                      PageRouteBuilder(
+                        pageBuilder: (context, a1, a2) => AuthWrapper(),
+                        transitionsBuilder: (context, animation, a2, child) =>
+                            FadeTransition(opacity: animation, child: child),
+                        transitionDuration: Duration(milliseconds: 800),
+                      ),
                       (r) => false);
                 });
               },
@@ -193,8 +203,15 @@ class _BuildDrawerState extends State<BuildDrawer> {
               onTap: () {
                 setState(() {
                   Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RollPage()));
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, a1, a2) => RollPage(),
+                      transitionsBuilder: (context, animation, a2, child) =>
+                          FadeTransition(opacity: animation, child: child),
+                      transitionDuration: Duration(milliseconds: 800),
+                    ),
+                  );
                 });
               },
             ),

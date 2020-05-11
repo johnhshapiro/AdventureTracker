@@ -34,8 +34,12 @@ class _SelectModePageState extends State<SelectModePage> {
                     Vibrate().bigRoll();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => GameMaster(userData: userData,),
+                      PageRouteBuilder(
+                        pageBuilder: (context, a1, a2) =>
+                            GameMaster(userData: userData),
+                        transitionsBuilder: (context, animation, a2, child) =>
+                            FadeTransition(opacity: animation, child: child),
+                        transitionDuration: Duration(milliseconds: 800),
                       ),
                     );
                   },
@@ -62,8 +66,14 @@ class _SelectModePageState extends State<SelectModePage> {
                             Vibrate().bigRoll();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => GameMaster(userData: userData,),
+                              PageRouteBuilder(
+                                pageBuilder: (context, a1, a2) =>
+                                    GameMaster(userData: userData),
+                                transitionsBuilder:
+                                    (context, animation, a2, child) =>
+                                        FadeTransition(
+                                            opacity: animation, child: child),
+                                transitionDuration: Duration(milliseconds: 800),
                               ),
                             );
                           },
@@ -85,9 +95,13 @@ class _SelectModePageState extends State<SelectModePage> {
                     Navigator.push(
                       context,
                       // TODO point this at the top level character view page (this is the tappable image, dont forget to do this for the button below also.)
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              CharacterSelect(userData: userData)),
+                      PageRouteBuilder(
+                        pageBuilder: (context, a1, a2) =>
+                            CharacterSelect(userData: userData),
+                        transitionsBuilder: (context, animation, a2, child) =>
+                            FadeTransition(opacity: animation, child: child),
+                        transitionDuration: Duration(milliseconds: 800),
+                      ),
                     );
                   },
                   child: Image(
@@ -114,9 +128,16 @@ class _SelectModePageState extends State<SelectModePage> {
                               Navigator.push(
                                 context,
                                 // TODO point this at the top level character view page (this is the actual button)
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        CharacterSelect(userData: userData)),
+                                PageRouteBuilder(
+                                  pageBuilder: (context, a1, a2) =>
+                                      CharacterSelect(userData: userData),
+                                  transitionsBuilder:
+                                      (context, animation, a2, child) =>
+                                          FadeTransition(
+                                              opacity: animation, child: child),
+                                  transitionDuration:
+                                      Duration(milliseconds: 800),
+                                ),
                               );
                             },
                           ),

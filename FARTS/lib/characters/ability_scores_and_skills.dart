@@ -14,28 +14,56 @@ StaggeredGridView abilityScoreCell(String name, int score) {
     primary: false,
     mainAxisSpacing: 0,
     crossAxisSpacing: 0,
-    padding: EdgeInsets.all(4.0),
+    padding: EdgeInsets.all(0),
     children: <Widget>[
-      Text(
-        name,
-        style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),
+      Card(
+        child: Center(
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    height: 1,
+                    fontSize: 16.0,
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic
+            ),
+          ),
+        ),
       ),
-      Text(score.toString(), style: TextStyle(fontSize: 25.0)),
-      Text(
-        calculateModifier(score).toString(),
-        style: TextStyle(fontSize: 20.0, color: Colors.grey[600]),
+      Card(
+        color: Colors.transparent,
+        child: Center(
+          child: Text(score.toString(),
+            style: TextStyle(
+              height: 1,
+              fontSize: 24.0,
+              )
+            ),
+        ),
+      ),
+      Card(
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            calculateModifier(score).toString(),
+            style: TextStyle(
+              height: 1,
+              fontSize: 16.0, 
+              color: Colors.white,  
+            ),
+          ),
+        ),
       ),
     ],
     staggeredTiles: <StaggeredTile>[
-      StaggeredTile.count(3, 2), // Ability name
-      StaggeredTile.count(2, 3), // Ability score
-      StaggeredTile.count(1, 3), // Ability modifier
+      StaggeredTile.count(3, 1), // Ability name
+      StaggeredTile.count(2, 2), // Ability score
+      StaggeredTile.count(1, 2), // Ability modifier
     ],
   );
 }
 
 StaggeredGridView skillCell(int modifier, String name) {
-  // Single Block for saving through or skill
+  // Single Block for saving throw or skill
   return StaggeredGridView.count(
     crossAxisCount: 4,
     primary: false,
@@ -44,10 +72,29 @@ StaggeredGridView skillCell(int modifier, String name) {
     crossAxisSpacing: 0,
     padding: EdgeInsets.all(0),
     children: <Widget>[
-      Text(modifier.toString(), style: TextStyle(fontSize: 20.0)),
-      Text(
-        name,
-        style: TextStyle(fontSize: 15.0, color: Colors.grey[600]),
+      Card(
+        color: Colors.transparent,
+        child: Center(
+          child: Text(
+            modifier.toString(),
+            style: TextStyle(
+              height: 1,
+              fontSize: 20.0,
+            )
+          ),
+        ),
+      ),
+      Card(
+        color: Colors.transparent,
+        child: Center(
+          child: Text(name,
+            style: TextStyle(
+              height: 1,
+              fontSize: 15.0, 
+              color: Colors.white, 
+            ),
+          ),
+        ),
       ),
     ],
     staggeredTiles: <StaggeredTile>[
@@ -101,66 +148,109 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
       ["Performance", "cha"],
       ["Persuasion", "cha"],
       ["Religion", "int"],
-      ["Sleigh of Hand", "dex"],
+      ["Sleight of Hand", "dex"],
       ["Stealth", "dex"],
       ["Survival", "wis"],
       ["Passive Perception", "wis"]
     ];
 
-    skillsAndSavingThrows = statFields + skillsAndSavingThrows;
+    // skillsAndSavingThrows = statFields + skillsAndSavingThrows;
 
     List<Widget> _gridChildContent = [];
     List<StaggeredTile> _gridTileShapes = [];
 
     int _statIndex;
     String _lookup, _statName, _skillName;
-    int charStats = 0;
-    if (char != null) {
-      charStats = char.stats[_lookup];
-    }
+    // int charStats = 0;
+    // if (char != null) {
+    //   charStats = char.stats[_lookup];
+    // }
 
     // Add page title row
     _gridChildContent.add(
-      Text("Ability Scores and Skills", style: TextStyle(fontSize: 30.0)),
+      Center(
+        child: Text(
+          "Ability Scores and Skills",
+          style: TextStyle(
+            height: 1,
+            fontSize: 30.0,
+            color: Colors.black,
+            fontStyle: FontStyle.italic
+            )
+          ),
+      ),
     );
     _gridTileShapes.add(
-      StaggeredTile.count(7, 2),
+      StaggeredTile.count(7, 1),
     );
 
     int skillLineCount = 0;
-    for (var i = 0; i < 36; i++) {
-      if (i % 6 == 0) {
+    for (var i = 0; i < 26; i++) {
+      if (i % 4 == 0 && i <= 16) {
         // The first and every sixth tile will be an ability score
-        _statIndex = (i / 6).floor();
+        _statIndex = (i ~/ 4);
         _lookup = statFields[_statIndex][1];
         _statName = statFields[_statIndex][0];
 
         _gridChildContent.add(
-          abilityScoreCell(_statName, charStats),
+          Card(
+            color: Colors.transparent,
+            child: abilityScoreCell(_statName, char.stats[_lookup])
+            ),
         );
         _gridTileShapes.add(
-          StaggeredTile.count(3, 5), // Strength ability score
+          StaggeredTile.count(3, 3), // Strength ability score
         );
+      } else if (i % 2 == 0 && i >= 20) {
+        _gridChildContent.add(
+            Text("", 
+              style: TextStyle(
+                height: 1,
+                fontSize: 20.0
+                )
+            )
+        );
+        _gridTileShapes.add(
+          StaggeredTile.count(3, 1),
+        );
+      
       } else {
         // All other tiles are skills or saving throws
 
         if (skillLineCount == 0) {
           _gridChildContent.add(
-            Text("Saving Throws", style: TextStyle(fontSize: 20.0)),
+            Card(
+              child: Center(
+                child: Text("Skills", 
+                  style: TextStyle(
+                    height: 1,
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontStyle: FontStyle.italic
+                    )
+                  ),
+              ),
+            ),
           );
-        } else if (skillLineCount == 7) {
-          _gridChildContent.add(
-            Text("Skills", style: TextStyle(fontSize: 20.0)),
-          );
-        } else if (skillLineCount < skillsAndSavingThrows.length - 2) {
+        } else if (skillLineCount < skillsAndSavingThrows.length) {
           _lookup = skillsAndSavingThrows[skillLineCount][1];
           _skillName = skillsAndSavingThrows[skillLineCount][0];
           _gridChildContent.add(
-            skillCell(calculateModifier(charStats), _skillName),
+            Card(
+              color: Colors.transparent,
+              child: skillCell(calculateModifier(char.stats[_lookup]), _skillName)
+            ),
           );
         } else {
           _gridChildContent.add(
-            Text("", style: TextStyle(fontSize: 20.0)),
+            Card(
+              child: Text("", 
+                style: TextStyle(
+                  height: 1,
+                  fontSize: 20.0
+                )
+              )
+            ),
           );
         }
 
@@ -172,16 +262,26 @@ class _AbilityScoresState extends State<AbilityScoresPage> {
     }
 
     return Scaffold(
-        body: Padding(
-            padding: EdgeInsets.only(top: 12.0),
-            child: StaggeredGridView.count(
-              primary: false,
-              crossAxisCount: 7,
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20.0,
-              padding: EdgeInsets.all(40.0),
-              children: _gridChildContent,
-              staggeredTiles: _gridTileShapes,
-            )));
+        body: Container(
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                Image(
+                  image: AssetImage('assets/realoldpaper.jpg'),
+                  fit: BoxFit.cover,
+                ),
+                StaggeredGridView.count(
+                  primary: false,
+                  crossAxisCount: 7,
+                  mainAxisSpacing: 0,
+                  crossAxisSpacing: 0,
+                  padding: EdgeInsets.only(top: 40.0),
+                  children: _gridChildContent,
+                  staggeredTiles: _gridTileShapes,
+                )
+              ]
+            )
+        )
+      );
   }
 }

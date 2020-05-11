@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 Widget selectModeWrappedWithProvider = StreamProvider<UserData>.value(
-      value: DatabaseService(uid: 'M8OTV0XlKcW6l4YhGyUCNY74Sfj1').userData,
-      child: SelectModePage());
+    value: DatabaseService(uid: 'M8OTV0XlKcW6l4YhGyUCNY74Sfj1').userData,
+    child: SelectModePage());
 main() {
   group('SELECT MODE PAGE widget tests', () {
     testWidgets('game master mode button is present + navigates correctly',
@@ -66,7 +66,7 @@ main() {
       verify(mockObserver.didPush(any, any));
       expect(find.byType(CharacterSelect), findsOneWidget);
     });
-        testWidgets('adventurer mode image is present',
+    testWidgets('adventurer mode image is present',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
       await tester.pumpWidget(

@@ -29,25 +29,26 @@ main() {
       await tester.pumpWidget(app);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
-      
+
     final instance = MockFirestoreInstance();
     testWidgets('addLoadCampaignStack builds correctly',
         (WidgetTester tester) async {
-
       // Building mock data with which to test
-      await instance.collection('campaigns').document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1').setData({
+      await instance
+          .collection('campaigns')
+          .document('M8OTV0XlKcW6l4YhGyUCNY74Sfj1')
+          .setData({
         'name': 'Shrek it up'
-        ''
+            ''
       });
       final mockObserver = MockNavigatorObserver();
-      final snapshotData = await instance.collection('campaigns').getDocuments();
+      final snapshotData =
+          await instance.collection('campaigns').getDocuments();
       MaterialApp app = MaterialApp(
         navigatorObservers: [mockObserver],
-        home: Builder(
-            builder:
-                (BuildContext context) {        
-              return addLoadCampaignStack(context, snapshotData);
-            }),
+        home: Builder(builder: (BuildContext context) {
+          return addLoadCampaignStack(context, snapshotData);
+        }),
       );
       await tester.pumpWidget(app);
       await tester.tap(find.text("Shrek it up"));
