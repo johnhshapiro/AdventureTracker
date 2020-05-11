@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
 
 class CreateNewCampaign extends StatefulWidget {
-  String userId; 
+  String userId; // should look at using @required but running into some issues
   CreateNewCampaign(String uid){
     this.userId = uid;
   }
@@ -89,14 +89,14 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
   }
 
   Future createCampaign(String name, String uid) async{
-    await campaignCollection.document()
-    .setData({
+    await campaignCollection.document() //document has random id
+    .setData({//some values hard coded as it is assumed they will be changed later
       'name': name,
       'notes': 'new campaign',
       'encounter_test': ["encounter 1", "encounter 2"],
       'party_test': ["Shrek","character 2"],
       'map_name': "Map",
-      'userId': uid 
+      'userId': uid //always store passed user id
     });
   }
 
