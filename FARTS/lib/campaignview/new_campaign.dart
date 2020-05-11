@@ -22,11 +22,11 @@ class _CreateNewCampaignState extends State<CreateNewCampaign> {
   @override
   Widget build(BuildContext context){
     return CustomScaffold(
-      body: _buildCampaign(context),
+      body: buildCampaignWidget(context),
       );
   }
 
-  Widget _buildCampaign(BuildContext context){
+  Widget buildCampaignWidget(BuildContext context){
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
