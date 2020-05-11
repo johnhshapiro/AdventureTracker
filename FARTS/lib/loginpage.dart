@@ -1,10 +1,7 @@
-import 'package:FARTS/selectmodepage.dart';
 import 'package:FARTS/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-// import './main.dart';
-// import './homepage.dart';
 import './createnewuserpage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -107,8 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                                   await _auth.signIn(_email, _password);
                                 }
                               },
-                              splashColor: Colors
-                                  .amber, //Creates the color splash when u press the button. By u do u mean me?
+                              splashColor: Colors.amber,
                             );
                             return materialButton;
                           },
@@ -119,8 +115,15 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (context) => CreateNewUser()),
+                              PageRouteBuilder(
+                                pageBuilder: (context, a1, a2) =>
+                                    CreateNewUser(),
+                                transitionsBuilder:
+                                    (context, animation, a2, child) =>
+                                        FadeTransition(
+                                            opacity: animation, child: child),
+                                transitionDuration: Duration(milliseconds: 800),
+                              ),
                             );
                           },
                           splashColor: Colors

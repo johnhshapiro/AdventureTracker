@@ -84,12 +84,16 @@ Widget addLoadCampaignStack(BuildContext context, QuerySnapshot snapshotData) {
                   print("Selected campaign: ${document.documentID}\n");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => StreamProvider<CampaignModel>.value(
+                    PageRouteBuilder(
+                      pageBuilder: (context, a1, a2) =>
+                          StreamProvider<CampaignModel>.value(
                         value:
                             CampaignModelStream().streamCampaignData(document),
                         child: CampaignView(),
                       ),
+                      transitionsBuilder: (context, animation, a2, child) =>
+                          FadeTransition(opacity: animation, child: child),
+                      transitionDuration: Duration(milliseconds: 800),
                     ),
                   );
                 },

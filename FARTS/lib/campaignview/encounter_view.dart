@@ -47,7 +47,19 @@ Widget encounterViewWidget(CampaignModel campaign) {
                   title: Text(encounters[index],
                       style: TextStyle(color: Colors.black)),
                   onTap:
-                      null, // TODO inflate or navigate to the corresponding encounter data.
+                      null, // TODO uncomment and navigate to the corresponding encounter data.
+                  // Navigator.push(
+                  //   context,
+                  //   PageRouteBuilder(
+                  //     pageBuilder: (context, a1, a2) =>
+                  //         RELEVANTENCOUNTERPAGE(),
+                  //     transitionsBuilder:
+                  //         (context, animation, a2, child) =>
+                  //             FadeTransition(
+                  //                 opacity: animation, child: child),
+                  //     transitionDuration: Duration(milliseconds: 800),
+                  //   ),
+                  // );
                 ),
               );
             }),

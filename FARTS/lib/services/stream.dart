@@ -7,7 +7,6 @@ class CampaignModelStream {
   final Firestore _db = Firestore.instance;
 
   Stream<CampaignModel> streamCampaignData(DocumentSnapshot document) {
-
     return _db
         .collection('campaigns')
         .document(document.documentID)
@@ -19,16 +18,19 @@ class CampaignModelStream {
 // Ensure streams have data in them before use
 Widget showCorrectWidget(dynamic stream, Widget widgetToLoad) {
   if (stream == null) {
-    return Center(child: CircularProgressIndicator(),);
+    return Center(
+      child: CircularProgressIndicator(),
+    );
   }
   return widgetToLoad;
 }
-Widget showCorrectWidgetFromSnapshot(AsyncSnapshot<QuerySnapshot> snapshot, Widget widgetToLoad) {
+
+Widget showCorrectWidgetFromSnapshot(
+    AsyncSnapshot<QuerySnapshot> snapshot, Widget widgetToLoad) {
   if (snapshot.hasError)
     return new Text('Campaign snapshot error ${snapshot.error}');
 
-  if (!snapshot.hasData)
-    return Center(child: CircularProgressIndicator());
+  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
 
   return widgetToLoad;
 }
