@@ -1,4 +1,3 @@
-import 'package:FARTS/campaignview/new_campagin.dart';
 import 'package:FARTS/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:provider/provider.dart';
 // Relevant pages.
 import 'package:FARTS/custom_scaffold.dart';
 import 'package:FARTS/campaignview/campaign_view.dart';
+import 'package:FARTS/campaignview/new_campaign.dart';
 import 'package:FARTS/models/campaign_model.dart';
 import 'package:FARTS/services/stream.dart';
 
@@ -31,11 +31,11 @@ class _GameMasterState extends State<GameMaster> {
       return Center(child: CircularProgressIndicator());
     }
     return showCorrectWidget(
-        widget.userData, addLoadCampaignWidget(widget.userData.uid));
+        widget.userData, addLoadCampaignWidget(widget.userData.uid, context));
   }
 }
 
-Widget addLoadCampaignWidget(String uid) {
+Widget addLoadCampaignWidget(String uid, BuildContext context) { 
   return Scaffold(
     body: StreamBuilder<QuerySnapshot>(
         stream: Firestore.instance
@@ -56,7 +56,7 @@ Widget addLoadCampaignWidget(String uid) {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CreateNewCampaign(userData: UserData)),
+            builder: (context) => CreateNewCampaign(uid)),
         );
       },
       label: Text('Create New'),
